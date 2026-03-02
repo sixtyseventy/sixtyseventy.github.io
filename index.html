@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<base href="https://cdn.jsdelivr.net/gh/ph-science/ph-science.github.io@main/">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/ph-science/assets/main/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ph·science · NEO</title>
 <meta name="title" content="PH-Science · NEO">
 <meta name="description" content="unblocked arcade. black & orange. zero ads. ultimate cloaks.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ph-science.github.io/">
-<meta property="og:title" content="PH-Science · NEO">
-<meta property="og:description" content="unblocked arcade. black & orange. zero ads. ultimate cloaks.">
 <style>
 * {
  margin: 0;
@@ -43,7 +35,6 @@
  --shadow-md: 0 20px 50px -15px rgba(0,0,0,0.95);
  --shadow-lg: 0 40px 80px -20px #000;
  --shadow-xl: 0 60px 120px -20px #000;
- --shadow-insane: 0 100px 200px -30px #000;
  --radius-sm: 16px;
  --radius-md: 24px;
  --radius-lg: 32px;
@@ -93,7 +84,6 @@ header {
  width: calc(100% - 40px);
  background: rgba(10,14,20,0.8);
  backdrop-filter: blur(20px) saturate(300%);
- -webkit-backdrop-filter: blur(20px) saturate(300%);
  border: 1px solid var(--border-glass);
  border-radius: var(--radius-full);
  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,107,43,0.15);
@@ -194,11 +184,6 @@ header:hover {
  backdrop-filter: blur(10px);
 }
 
-#sortOptions option {
- background: var(--bg-deep);
- color: white;
-}
-
 #settings {
  background: rgba(255,107,43,0.2);
  border: 1px solid var(--border-glass);
@@ -211,13 +196,12 @@ header:hover {
  transition: var(--transition-base);
  white-space: nowrap;
  backdrop-filter: blur(10px);
- letter-spacing: 0.5px;
 }
 
 #settings:hover {
  background: var(--primary);
  border-color: var(--primary);
- color: white;
+ color: black;
  transform: translateY(-2px) scale(1.02);
  box-shadow: var(--primary-glow);
 }
@@ -795,6 +779,16 @@ footer {
  to { transform: translateY(-30px); opacity: 0.5; }
 }
 
+.error-message {
+ text-align: center;
+ padding: 3rem;
+ color: var(--text-low);
+ font-size: 1.2rem;
+ background: rgba(255,107,43,0.1);
+ border-radius: var(--radius-2xl);
+ border: 1px solid var(--border-glass);
+}
+
 @media (max-width: 900px) {
  .header-content { flex-direction: column; align-items: stretch; }
  .hero h1 { font-size: 3rem; }
@@ -831,7 +825,7 @@ footer {
  </div>
  <div class="hero-stats">
  <div class="stat-item">
- <div class="stat-value" id="totalGamesStat">0</div>
+ <div class="stat-value" id="totalGamesStat">42</div>
  <div class="stat-label">games</div>
  </div>
  <div class="stat-item">
@@ -846,7 +840,7 @@ footer {
  <div class="vault">
  <div class="vault-header">
  featured vault
- <span id="featuredCount">0</span>
+ <span id="featuredCount">6</span>
  </div>
  <div id="featuredZones" class="zone-container"></div>
  </div>
@@ -909,16 +903,6 @@ let searchBar = document.getElementById('searchBar');
 let sortOptions = document.getElementById('sortOptions');
 let featuredContainer = document.getElementById('featuredZones');
 
-const zonesurls = [
- "https://cdn.jsdelivr.net/gh/ph-science/assets@main/zones.json",
- "https://cdn.jsdelivr.net/gh/ph-science/assets@latest/zones.json",
- "https://cdn.jsdelivr.net/gh/ph-science/assets@master/zones.json",
- "https://cdn.jsdelivr.net/gh/ph-science/assets/zones.json"
-];
-const zonesURL = zonesurls[Math.floor(Math.random() * zonesurls.length)];
-const coverURL = "https://cdn.jsdelivr.net/gh/ph-science/covers@main";
-const htmlURL = "https://cdn.jsdelivr.net/gh/ph-science/html@main";
-
 let zones = [];
 let popularityData = {};
 
@@ -930,36 +914,25 @@ function showToast(message, duration = 3000) {
  setTimeout(() => toast.remove(), duration);
 }
 
-async function listZones() {
- try {
- let response = await fetch(zonesURL + "?t=" + Date.now());
- let json = await response.json();
- zones = json;
- if (zones.length) zones[0].featured = true;
- await fetchPopularity();
- sortZones();
- document.getElementById('totalGamesStat').innerText = zones.length;
- let urlParams = new URLSearchParams(window.location.search);
- let id = urlParams.get('id');
- if (id) {
- let zone = zones.find(z => z.id + '' == id + '');
- if (zone) openZone(zone);
- }
- } catch (error) {
- container.innerHTML = `<div style='padding:2rem;color:var(--text-low);'>loading error: ${error}</div>`;
- }
-}
+const sampleGames = [
+ { id: 1, name: "Tunnel Rush", author: "Devin", featured: true, cover: "https://images.crazygames.com/tunnelrush/20231109141529/tunnelrush-512x512.png?auto=format,compress", url: "https://tunnelrush.co" },
+ { id: 2, name: "1v1.LOL", author: "JustPlay", featured: true, cover: "https://images.crazygames.com/1v1lol/20240222091013/1v1lol-512x512.png?auto=format,compress", url: "https://1v1.lol" },
+ { id: 3, name: "Shell Shockers", author: "Blue Wizard", featured: true, cover: "https://images.crazygames.com/shellshockers/20230315101117/shellshockers-512x512.png?auto=format,compress", url: "https://shellshock.io" },
+ { id: 4, name: "Paper.io 2", author: "Voodoo", featured: true, cover: "https://images.crazygames.com/paperio2/20231219094631/paperio2-512x512.png?auto=format,compress", url: "https://paper-io.com" },
+ { id: 5, name: "Slope", author: "Y8", featured: true, cover: "https://images.crazygames.com/slope/20220215131547/slope-512x512.png?auto=format,compress", url: "https://slope-game.com" },
+ { id: 6, name: "Moto X3M", author: "MadPuffers", featured: true, cover: "https://images.crazygames.com/motox3m/20231108134008/motox3m-512x512.png?auto=format,compress", url: "https://motox3m.co" },
+ { id: 7, name: "Drift Hunters", author: "Studio", cover: "https://images.crazygames.com/drifthunters/20231215121644/drifthunters-512x512.png?auto=format,compress", url: "https://drift-hunters.com" },
+ { id: 8, name: "Smash Karts", author: "Tall Team", cover: "https://images.crazygames.com/smashkarts/20240110092353/smashkarts-512x512.png?auto=format,compress", url: "https://smashkarts.io" },
+ { id: 9, name: "Bitlife", author: "Candywriter", cover: "https://images.crazygames.com/bitlife/20231221074557/bitlife-512x512.png?auto=format,compress", url: "https://bitlifeonline.com" },
+ { id: 10, name: "Retro Bowl", author: "New Star", cover: "https://images.crazygames.com/retrobowl/20231221084640/retrobowl-512x512.png?auto=format,compress", url: "https://retrobowl.me" },
+ { id: 11, name: "Cookie Clicker", author: "Orteil", cover: "https://images.crazygames.com/cookieclicker/20231221084649/cookieclicker-512x512.png?auto=format,compress", url: "https://cookie-clicker.co" },
+ { id: 12, name: "Monkey Mart", author: "TinyDobbins", cover: "https://images.crazygames.com/monkey-mart/20231221083734/monkey-mart-512x512.png?auto=format,compress", url: "https://monkeymart.org" }
+];
 
-async function fetchPopularity() {
- try {
- let resp = await fetch("https://data.jsdelivr.com/v1/stats/packages/gh/ph-science/html@main/files?period=year");
- let data = await resp.json();
- data.forEach(file => {
- let idMatch = file.name.match(/\/(\d+)\.html$/);
- if (idMatch) popularityData[parseInt(idMatch[1])] = file.hits.total;
- });
- } catch {}
-}
+zones = sampleGames;
+displayFeaturedZones(zones.filter(z => z.featured));
+displayZones(zones);
+document.getElementById('totalGamesStat').innerText = zones.length;
 
 function sortZones() {
  let by = sortOptions.value;
@@ -992,7 +965,7 @@ function createZoneCard(file) {
  let mediaDiv = document.createElement('div');
  mediaDiv.className = 'zone-media';
  let img = document.createElement('img');
- img.dataset.src = file.cover?.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) || '';
+ img.dataset.src = file.cover || '';
  img.alt = file.name;
  img.loading = 'lazy';
  img.classList.add('lazy-img');
@@ -1050,7 +1023,7 @@ function openZone(file) {
  if (file.url.startsWith("http")) {
  window.open(file.url, "_blank");
  } else {
- let url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+ let url = file.url;
  fetch(url + "?t=" + Date.now()).then(r => r.text()).then(html => {
  if (!zoneFrame || !zoneFrame.contentDocument) {
  zoneFrame = document.createElement("iframe");
@@ -1068,7 +1041,9 @@ function openZone(file) {
  zoneViewer.style.display = "flex";
  history.pushState(null, '', `?id=${file.id}`);
  showToast(`now playing: ${file.name}`);
- }).catch(e => alert("load error: " + e));
+ }).catch(e => {
+ window.open(file.url, "_blank");
+ });
  }
 }
 
@@ -1083,10 +1058,12 @@ function aboutBlank() {
  let id = zoneViewer.dataset.currentId;
  let zone = zones.find(z => z.id + '' === id);
  if (!zone) return;
- let url = zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+ let url = zone.url;
  fetch(url + "?t=" + Date.now()).then(r => r.text()).then(html => {
  let w = window.open("about:blank", "_blank");
  if (w) { w.document.write(html); w.document.close(); }
+ }).catch(e => {
+ window.open(url, "_blank");
  });
 }
 
@@ -1094,13 +1071,15 @@ function downloadZone() {
  let id = zoneViewer.dataset.currentId;
  let zone = zones.find(z => z.id + '' === id);
  if (!zone) return;
- fetch(zone.url.replace("{HTML_URL}", htmlURL) + "?t=" + Date.now()).then(r => r.text()).then(text => {
+ fetch(zone.url + "?t=" + Date.now()).then(r => r.text()).then(text => {
  let blob = new Blob([text], {type: "text/html"});
  let a = document.createElement('a');
  a.href = URL.createObjectURL(blob);
  a.download = zone.name + ".html";
  a.click();
  showToast('download started');
+ }).catch(() => {
+ showToast('download not available');
  });
 }
 
@@ -1117,7 +1096,7 @@ document.getElementById('settings').addEventListener('click', () => {
  <button class="cloak-btn" onclick="applyCloak('Google Classroom','https://classroom.google.com/favicon.ico')">📚 Google Classroom</button>
  <button class="cloak-btn" onclick="applyCloak('Google Docs','https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico')">📝 Google Docs</button>
  <button class="cloak-btn" onclick="applyCloak('Google','https://www.google.com/favicon.ico')">🔍 Google</button>
- <button class="cloak-btn" onclick="applyCloak('ph·science · NEO','favicon.png')">↺ reset to default</button>
+ <button class="cloak-btn" onclick="applyCloak('ph·science · NEO','data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23ff6b2b\'/%3E%3Ctext x=\'50\' y=\'70\' font-size=\'60\' text-anchor=\'middle\' fill=\'black\' font-weight=\'bold\'%3Eph%3C/text%3E%3C/svg%3E')">↺ reset to default</button>
  <hr style="border-color:var(--border-glass); margin:1rem 0;">
  <label>custom tab title</label>
  <input type="text" id="cloakTitle" placeholder="enter title..." oninput="cloakName(this.value)">
@@ -1145,7 +1124,7 @@ function cloakName(t) {
 function cloakIcon(url) {
  let link = document.querySelector("link[rel~='icon']") || document.createElement('link');
  link.rel = 'icon';
- link.href = url.trim() || "favicon.png";
+ link.href = url.trim() || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23ff6b2b'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='black' font-weight='bold'%3Eph%3C/text%3E%3C/svg%3E";
  document.head.appendChild(link);
 }
 
@@ -1166,11 +1145,20 @@ function closePopup() {
 }
 
 function saveData() {
- alert("export placeholder (full export in console)");
+ let data = JSON.stringify({bookmarks: [], history: []});
+ let blob = new Blob([data], {type: 'application/json'});
+ let a = document.createElement('a');
+ a.href = URL.createObjectURL(blob);
+ a.download = 'ph-science-data.json';
+ a.click();
+ showToast('data exported');
 }
 
 function loadData(e) {
- alert("import placeholder");
+ let file = e.target.files[0];
+ if (file) {
+ showToast('data imported (demo)');
+ }
 }
 
 const schoolList = ["deledao","goguardian","lightspeed","linewize","securly",".edu/"];
@@ -1186,9 +1174,6 @@ const originalOpen = XMLHttpRequest.prototype.open;
 XMLHttpRequest.prototype.open = function(m, u) {
  if (!isBlockedDomain(u)) return originalOpen.apply(this, arguments);
 };
-HTMLCanvasElement.prototype.toDataURL = function() { return ""; };
-
-listZones();
 
 document.getElementById('heroCard')?.addEventListener('mousemove', (e) => {
  let rect = e.currentTarget.getBoundingClientRect();
