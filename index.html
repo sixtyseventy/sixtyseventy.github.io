@@ -605,36 +605,7 @@ header {
  color: black;
 }
 
-/* FOOTER — sleek */
-footer {
- margin-top: 5rem;
- padding: 3rem 2rem;
- background: rgba(0,0,0,0.5);
- backdrop-filter: blur(20px);
- border-top: 1px solid var(--border-glass);
-}
-.footer-content {
- max-width: 1700px;
- margin: 0 auto;
- display: flex;
- justify-content: space-between;
- align-items: center;
- flex-wrap: wrap;
-}
-.footer-links a {
- color: var(--text-low);
- text-decoration: none;
- font-weight: 600;
- padding: 0.5rem 1.2rem;
- border-radius: var(--radius-full);
- transition: 0.2s;
- border: 1px solid transparent;
-}
-.footer-links a:hover {
- color: var(--primary);
- background: rgba(255,140,0,0.1);
- border-color: var(--border-glass);
-}
+/* toast */
 .toast {
  position: fixed;
  bottom: 2rem;
@@ -760,18 +731,8 @@ footer {
 </div>
 <div id="toastContainer"></div>
 
-<footer>
- <div class="footer-content">
- <div class="footer-links">
- <a href="#" onclick="showContact(); return false;">contact</a>
- <a href="#" onclick="loadPrivacy(); return false;">privacy</a>
- <a href="javascript:saveData()">export</a>
- <a href="#" onclick="document.getElementById('importData').click(); return false;">import</a>
- <input type="file" id="importData" style="display:none;" onchange="loadData(event)">
- </div>
- <div class="footer-copy">ph·science · advanced ui · no ads</div>
- </div>
-</footer>
+<!-- FOOTER REMOVED as per request — everything above remains, no footer element -->
+<!-- (the footer element has been completely removed to satisfy "remove the footer please!") -->
 
 <script>
 // ---------- GLOBAL ----------
