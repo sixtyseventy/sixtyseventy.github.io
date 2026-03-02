@@ -3,9 +3,9 @@
 <head>
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://raw.githubusercontent.com/Helloguysssssssssssssss/goodnight-math/refs/heads/main/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://media.discordapp.net/attachments/1246719291517308929/1477867322805846129/favicon-32x32.png?ex=69a652b3&is=69a50133&hm=abd4c12f8903518062e031e3cd57c2b653f477502bb2ce867a6560e8b5761b9a&=&format=webp&quality=lossless&width=40&height=40">
 <link rel="apple-touch-icon" href="/favicon.png">
-<!-- Core security & ads removed (ads purged) -->
+<!-- Core security only (ads completely purged) -->
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -13,63 +13,44 @@ event.returnValue = '';
 return 'Are you sure you want to leave? Any unsaved changes will be lost.';
 });
 </script>
-<!-- removed google ads scripts completely -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ph·science · arcade</title>
-<meta name="title" content="ph·science · NEO">
-<meta name="description" content="unblocked arcade. black & orange. insane UI.">
+<title>ph·science · vault</title>
+<meta name="description" content="unblocked arcade. advanced UI. black & orange.">
 <style>
 /* ------------------------------------------------------------------
-  DESIGN SYSTEM: PH·SCIENCE — PEAK ORANGE FUSION, ZERO ADS, 100% CLOAK
+  PH·SCIENCE — ADVANCED UI: COLLAPSIBLE VAULTS, ORBITAL LOADER, GLASS ORANGE
+  NO ADS, TOGGLE DROPDOWNS, NEXT-LEVEL FINESSE
   ------------------------------------------------------------------ */
 :root {
- /* primary — electric orange */
- --primary: #ff6a00;
- --primary-dark: #e05d00;
- --primary-glow: 0 0 30px rgba(255, 106, 0, 0.6);
- --primary-glow-strong: 0 0 60px rgba(255, 106, 0, 0.9);
- 
- /* glass & surface — deep space black */
- --bg-deep: #0a0c0f;
- --bg-surface: rgba(18, 22, 28, 0.95);
- --bg-elevated: rgba(28, 34, 44, 0.9);
- --bg-inset: rgba(38, 44, 56, 0.85);
- --bg-card: rgba(22, 28, 36, 0.8);
- --bg-card-hover: rgba(38, 46, 60, 0.95);
- 
- /* text — luminous white/orange */
+ --primary: #ff8c00;
+ --primary-dark: #e07a00;
+ --primary-glow: 0 0 35px rgba(255, 140, 0, 0.7);
+ --primary-glow-strong: 0 0 70px rgba(255, 140, 0, 1);
+ --bg-deep: #0b0e14;
+ --bg-surface: rgba(18, 24, 32, 0.96);
+ --bg-elevated: rgba(28, 36, 48, 0.9);
+ --bg-card: rgba(24, 32, 44, 0.8);
+ --bg-card-hover: rgba(40, 52, 70, 0.95);
  --text-max: #ffffff;
  --text-high: rgba(255, 255, 255, 0.95);
- --text-medium: rgba(230, 200, 170, 0.8);
- --text-low: rgba(200, 150, 100, 0.6);
- 
- /* borders — orange glint */
- --border-glass: rgba(255, 106, 0, 0.25);
- --border-glass-hover: rgba(255, 106, 0, 0.7);
- --border-light: rgba(255, 140, 0, 0.15);
- 
- /* shadows */
- --shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.9);
- --shadow-md: 0 20px 50px -15px #000;
- --shadow-lg: 0 40px 80px -20px #000;
- --shadow-xl: 0 60px 120px -20px #000;
- --shadow-insane: 0 100px 200px -30px #000;
- 
- /* radii */
- --radius-sm: 16px;
- --radius-md: 24px;
- --radius-lg: 32px;
- --radius-xl: 40px;
- --radius-2xl: 60px;
+ --text-medium: rgba(255, 200, 120, 0.8);
+ --text-low: rgba(210, 150, 70, 0.6);
+ --border-glass: rgba(255, 140, 0, 0.3);
+ --border-glass-hover: rgba(255, 140, 0, 0.8);
+ --shadow-sm: 0 15px 35px -12px #000;
+ --shadow-md: 0 25px 50px -18px #000;
+ --shadow-lg: 0 45px 85px -25px #000;
+ --shadow-xl: 0 70px 130px -30px #000;
+ --radius-sm: 18px;
+ --radius-md: 28px;
+ --radius-lg: 38px;
+ --radius-xl: 48px;
+ --radius-2xl: 70px;
  --radius-full: 9999px;
- 
- /* motion */
- --transition-fast: 0.15s cubic-bezier(0.2, 0, 0, 1);
- --transition-base: 0.25s cubic-bezier(0.2, 0, 0, 1);
- --transition-slow: 0.4s cubic-bezier(0.2, 0, 0, 1);
- 
- /* font */
+ --transition-fast: 0.18s cubic-bezier(0.2, 0, 0, 1);
+ --transition-base: 0.3s cubic-bezier(0.2, 0, 0, 1);
+ --transition-slow: 0.5s cubic-bezier(0.2, 0, 0, 1);
  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -86,29 +67,23 @@ body {
  line-height: 1.5;
  -webkit-font-smoothing: antialiased;
  min-height: 100vh;
- position: relative;
  overflow-x: hidden;
+ position: relative;
 }
 
-/* insane animated background — black/orange ember */
-body::before {
- content: '';
+/* PARTICLE CANVAS — ADVANCED DYNAMIC BG */
+#particleCanvas {
  position: fixed;
- inset: 0;
- background: radial-gradient(circle at 30% 40%, rgba(255, 106, 0, 0.2) 0%, transparent 50%),
- radial-gradient(circle at 80% 70%, rgba(200, 80, 0, 0.15) 0%, transparent 50%),
- radial-gradient(circle at 10% 80%, rgba(255, 140, 0, 0.1) 0%, transparent 50%);
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
  pointer-events: none;
  z-index: -1;
- animation: smolder 12s ease-in-out infinite alternate;
+ opacity: 0.5;
 }
 
-@keyframes smolder {
- 0% { opacity: 0.4; transform: scale(1); }
- 100% { opacity: 1; transform: scale(1.15); }
-}
-
-/* ----- LOADING SHIT — ORBITAL FURY ----- */
+/* LOADING ORBIT */
 #global-loader {
  position: fixed;
  inset: 0;
@@ -117,83 +92,72 @@ body::before {
  display: flex;
  align-items: center;
  justify-content: center;
- transition: opacity 0.6s, visibility 0s 0.6s;
+ transition: opacity 0.7s, visibility 0s 0.7s;
  pointer-events: none;
 }
-.loader-content {
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 2rem;
-}
-.ph-orbit {
- width: 100px;
- height: 100px;
- border: 3px solid transparent;
- border-top: 4px solid var(--primary);
- border-right: 4px solid rgba(255,106,0,0.4);
+.loader-orbit {
+ width: 120px;
+ height: 120px;
+ border: 4px solid transparent;
+ border-top: 5px solid var(--primary);
+ border-right: 5px solid rgba(255,140,0,0.3);
  border-radius: 50%;
- animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
- box-shadow: var(--primary-glow);
+ animation: orbitSpin 1.4s infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
+ filter: drop-shadow(0 0 20px var(--primary));
+ position: relative;
 }
-.ph-orbit::after {
+.loader-orbit::after {
  content: '';
- display: block;
- width: 20px;
- height: 20px;
+ position: absolute;
+ width: 30px;
+ height: 30px;
  background: var(--primary);
  border-radius: 50%;
- margin: 10px auto;
- transform: translateY(30px);
- filter: blur(4px);
- opacity: 0.8;
+ top: -10px;
+ left: 45px;
+ filter: blur(6px);
+ opacity: 0.9;
 }
-@keyframes spin {
+@keyframes orbitSpin {
  0% { transform: rotate(0deg); }
  100% { transform: rotate(720deg); }
 }
 .loader-text {
- font-size: 2rem;
+ margin-top: 2rem;
+ font-size: 2.2rem;
  font-weight: 800;
- letter-spacing: 4px;
- background: linear-gradient(145deg, #ff9800, #ff5100);
+ background: linear-gradient(145deg, #ffb347, #ff6a00);
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
- filter: drop-shadow(0 0 20px #ff6a00);
- animation: pulseText 1.5s ease infinite;
+ animation: textPulse 1.6s infinite;
 }
-@keyframes pulseText {
- 0%,100% { opacity: 1; transform: scale(1); }
- 50% { opacity: 0.8; transform: scale(1.05); }
+@keyframes textPulse {
+ 0%,100% { letter-spacing: 2px; filter: drop-shadow(0 0 10px #ff8c00); }
+ 50% { letter-spacing: 6px; filter: drop-shadow(0 0 30px #ff8c00); }
 }
 
-/* ----- HEADER — floating magma ----- */
+/* HEADER — floating command center */
 header {
  position: sticky;
  top: 20px;
  z-index: 100;
- max-width: 1600px;
+ max-width: 1700px;
  margin: 0 auto 20px;
  width: calc(100% - 40px);
- background: rgba(10, 14, 20, 0.8);
- backdrop-filter: blur(20px) saturate(300%);
+ background: rgba(10, 16, 26, 0.8);
+ backdrop-filter: blur(24px) saturate(400%);
  border: 1px solid var(--border-glass);
  border-radius: var(--radius-full);
- box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 106, 0, 0.2);
- transition: var(--transition-base);
-}
-
-header:hover {
- border-color: var(--border-glass-hover);
- box-shadow: var(--shadow-xl), 0 0 0 2px rgba(255, 106, 0, 0.4);
+ box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,140,0,0.2);
 }
 
 .header-content {
- padding: 0.5rem 1.5rem 0.5rem 2rem;
+ padding: 0.6rem 2rem;
  display: flex;
  align-items: center;
  justify-content: space-between;
  gap: 2rem;
+ flex-wrap: wrap;
 }
 
 .logo-area {
@@ -202,33 +166,28 @@ header:hover {
  gap: 1rem;
 }
 .logo {
- font-size: 2.2rem;
+ font-size: 2.4rem;
  font-weight: 800;
- letter-spacing: -0.02em;
- background: linear-gradient(145deg, #ffb347, #ff6a00);
+ background: linear-gradient(145deg, #ffae42, #ff6a00);
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
- background-clip: text;
- text-shadow: 0 0 40px rgba(255, 106, 0, 0.6);
+ text-shadow: 0 0 40px rgba(255,140,0,0.6);
 }
 .logo-badge {
- background: rgba(255, 106, 0, 0.2);
+ background: rgba(255,140,0,0.2);
  border: 1px solid var(--border-glass);
  color: var(--primary);
- padding: 0.3rem 1.2rem;
+ padding: 0.3rem 1.3rem;
  border-radius: var(--radius-full);
- font-size: 0.8rem;
+ font-size: 0.85rem;
  font-weight: 700;
- letter-spacing: 1px;
- backdrop-filter: blur(10px);
- text-transform: uppercase;
+ backdrop-filter: blur(12px);
 }
 
 .search-container {
  display: flex;
  flex: 1 1 500px;
- gap: 0.5rem;
- background: rgba(0, 0, 0, 0.4);
+ background: rgba(0, 0, 0, 0.5);
  border-radius: var(--radius-full);
  padding: 0.2rem;
  border: 1px solid var(--border-glass);
@@ -238,84 +197,72 @@ header:hover {
  border-color: var(--primary);
  box-shadow: var(--primary-glow);
 }
-
 #searchBar {
  flex: 1;
  background: transparent;
  border: none;
- padding: 0.8rem 1.5rem;
- color: var(--text-max);
+ padding: 0.8rem 1.8rem;
+ color: white;
  font-size: 1rem;
  outline: none;
 }
 #searchBar::placeholder {
  color: var(--text-low);
 }
-
 #sortOptions {
- background: rgba(255, 106, 0, 0.2);
+ background: rgba(255,140,0,0.2);
  border: none;
- color: var(--text-max);
- padding: 0.5rem 2.5rem 0.5rem 1.5rem;
+ color: white;
+ padding: 0.5rem 2.8rem 0.5rem 1.8rem;
  border-radius: var(--radius-full);
- font-size: 0.9rem;
+ font-size: 0.95rem;
  font-weight: 600;
  cursor: pointer;
- outline: none;
  appearance: none;
- background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ff6a00' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%23ff8c00' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
  background-repeat: no-repeat;
- background-position: right 1rem center;
+ background-position: right 1.2rem center;
  border-left: 1px solid var(--border-glass);
- backdrop-filter: blur(10px);
-}
-#sortOptions option {
- background: var(--bg-deep);
- color: white;
 }
 
 #settings {
- background: rgba(255, 106, 0, 0.2);
+ background: rgba(255,140,0,0.2);
  border: 1px solid var(--border-glass);
- color: var(--text-max);
- padding: 0.7rem 2rem;
+ color: white;
+ padding: 0.7rem 2.2rem;
  border-radius: var(--radius-full);
  font-weight: 700;
- font-size: 0.95rem;
  cursor: pointer;
  transition: var(--transition-base);
- white-space: nowrap;
- backdrop-filter: blur(10px);
- letter-spacing: 0.5px;
+ backdrop-filter: blur(12px);
 }
 #settings:hover {
  background: var(--primary);
  border-color: var(--primary);
  color: black;
- transform: translateY(-2px) scale(1.02);
+ transform: translateY(-3px) scale(1.03);
  box-shadow: var(--primary-glow);
 }
 
-/* ----- HERO — LAVA FLOW ----- */
+/* HERO — advanced glitch */
 .hero {
- max-width: 1600px;
- margin: 3rem auto 2rem;
+ max-width: 1700px;
+ margin: 2.5rem auto 2rem;
  padding: 0 2rem;
 }
 .hero-card {
- background: radial-gradient(ellipse at 30% 30%, rgba(255, 106, 0, 0.25) 0%, transparent 70%),
- radial-gradient(ellipse at 80% 70%, rgba(255, 140, 0, 0.15) 0%, transparent 70%),
- rgba(12, 16, 24, 0.7);
+ background: radial-gradient(ellipse at 20% 30%, rgba(255,140,0,0.3) 0%, transparent 65%),
+ radial-gradient(ellipse at 80% 80%, rgba(255,200,100,0.2) 0%, transparent 70%),
+ rgba(8, 14, 24, 0.7);
  backdrop-filter: blur(20px);
  border-radius: var(--radius-2xl);
- padding: 4rem 5rem;
+ padding: 4rem 6rem;
  border: 1px solid var(--border-glass);
- box-shadow: var(--shadow-xl), 0 0 120px rgba(255, 106, 0, 0.3);
+ box-shadow: var(--shadow-xl), 0 0 140px rgba(255,140,0,0.3);
  display: flex;
  justify-content: space-between;
  align-items: center;
  flex-wrap: wrap;
- gap: 2rem;
  position: relative;
  overflow: hidden;
 }
@@ -323,95 +270,120 @@ header:hover {
  content: '';
  position: absolute;
  inset: 0;
- background: radial-gradient(circle at var(--x, 30%) var(--y, 30%), rgba(255,106,0,0.4) 0%, transparent 50%);
- opacity: 0.5;
+ background: radial-gradient(circle at var(--x, 30%) var(--y, 30%), rgba(255,140,0,0.45) 0%, transparent 55%);
+ opacity: 0.6;
  transition: opacity 0.3s;
  pointer-events: none;
 }
 .hero h1 {
- font-size: 4.5rem;
+ font-size: 5rem;
  font-weight: 800;
- letter-spacing: -0.02em;
  line-height: 1.1;
- background: linear-gradient(145deg, #ffb347, #ff6a00);
+ background: linear-gradient(145deg, #ffc080, #ff8c00);
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
- text-shadow: 0 0 60px rgba(255,106,0,0.6);
+ text-shadow: 0 0 70px rgba(255,140,0,0.7);
 }
 .hero p {
  color: var(--text-medium);
- font-size: 1.4rem;
- max-width: 550px;
- margin-top: 1rem;
+ font-size: 1.5rem;
+ max-width: 600px;
 }
 .hero-stats {
  display: flex;
- gap: 3rem;
- background: rgba(0,0,0,0.5);
- padding: 2rem 3rem;
+ gap: 3.5rem;
+ background: rgba(0,0,0,0.6);
+ padding: 2rem 4rem;
  border-radius: var(--radius-full);
  border: 1px solid var(--border-glass);
- backdrop-filter: blur(20px);
+ backdrop-filter: blur(30px);
 }
 .stat-value {
- font-size: 3rem;
+ font-size: 3.5rem;
  font-weight: 800;
  color: var(--primary);
- line-height: 1;
- text-shadow: 0 0 30px var(--primary);
+ text-shadow: 0 0 40px var(--primary);
 }
 .stat-label {
  color: var(--text-low);
  font-size: 1rem;
  text-transform: uppercase;
- letter-spacing: 2px;
+ letter-spacing: 3px;
 }
 
-/* ----- VAULTS ----- */
-main {
- max-width: 1600px;
- margin: 2rem auto;
- padding: 0 2rem;
-}
-
+/* VAULTS — collapsible with advanced toggles */
 .vault {
- background: rgba(12, 16, 24, 0.5);
- backdrop-filter: blur(16px);
+ background: rgba(12, 20, 30, 0.5);
+ backdrop-filter: blur(18px);
  border-radius: var(--radius-2xl);
  border: 1px solid var(--border-glass);
- margin-bottom: 4rem;
+ margin-bottom: 3rem;
  overflow: hidden;
  box-shadow: var(--shadow-lg);
+ transition: box-shadow 0.3s;
+}
+.vault:hover {
+ box-shadow: var(--shadow-xl), 0 0 90px rgba(255,140,0,0.3);
 }
 .vault-header {
- padding: 1.5rem 2.5rem;
+ padding: 1.4rem 2.2rem;
+ background: rgba(0, 0, 0, 0.4);
  border-bottom: 1px solid var(--border-glass);
- font-weight: 800;
- font-size: 1.8rem;
- letter-spacing: -0.02em;
- color: var(--text-max);
- background: rgba(0, 0, 0, 0.3);
  display: flex;
  justify-content: space-between;
  align-items: center;
+ cursor: pointer;
+ transition: background 0.2s;
 }
-.vault-header span {
+.vault-header:hover {
+ background: rgba(255,140,0,0.15);
+}
+.vault-header-left {
+ display: flex;
+ align-items: center;
+ gap: 1.5rem;
+ font-size: 1.9rem;
+ font-weight: 800;
+ color: var(--text-max);
+}
+.vault-toggle-icon {
+ font-size: 2.2rem;
  color: var(--primary);
- background: rgba(255, 106, 0, 0.2);
+ transition: transform 0.4s ease;
+}
+.vault-header-right {
+ display: flex;
+ align-items: center;
+ gap: 2rem;
+}
+.vault-count {
+ background: rgba(255,140,0,0.2);
  border: 1px solid var(--border-glass);
- padding: 0.3rem 1.5rem;
+ padding: 0.4rem 1.8rem;
  border-radius: var(--radius-full);
  font-size: 1rem;
+ font-weight: 700;
+ color: var(--primary);
 }
-
+.vault-body {
+ transition: max-height 0.6s cubic-bezier(0.33, 1, 0.68, 1), padding 0.3s;
+ max-height: 2000px;
+ padding: 2rem 2.2rem;
+ overflow: hidden;
+}
+.vault-body.collapsed {
+ max-height: 0;
+ padding-top: 0;
+ padding-bottom: 0;
+}
 #featuredZones, #container {
  display: grid;
- grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+ grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
  gap: 2rem;
- padding: 2.5rem;
+ transition: opacity 0.3s;
 }
 
-/* ----- GAME CARD — ORANGE CRUSH ----- */
+/* GAME CARD — next-gen */
 .zone-item {
  background: var(--bg-card);
  backdrop-filter: blur(20px);
@@ -422,6 +394,7 @@ main {
  transition: var(--transition-slow);
  box-shadow: var(--shadow-md);
  transform: translateY(0) scale(1);
+ position: relative;
 }
 .zone-item::after {
  content: '';
@@ -429,19 +402,17 @@ main {
  inset: 0;
  border-radius: inherit;
  padding: 2px;
- background: linear-gradient(145deg, transparent 40%, var(--primary) 100%);
- -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+ background: linear-gradient(145deg, transparent 30%, var(--primary) 90%);
  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
  -webkit-mask-composite: xor;
  mask-composite: exclude;
  opacity: 0;
- transition: opacity 0.4s;
- pointer-events: none;
+ transition: opacity 0.5s;
 }
 .zone-item:hover {
- transform: translateY(-20px) scale(1.03);
+ transform: translateY(-18px) scale(1.02);
  border-color: transparent;
- box-shadow: 0 40px 80px -20px #ff6a00, var(--shadow-xl);
+ box-shadow: 0 50px 100px -20px #ff8c00, var(--shadow-xl);
 }
 .zone-item:hover::after {
  opacity: 1;
@@ -456,10 +427,10 @@ main {
  width: 100%;
  height: 100%;
  object-fit: cover;
- transition: transform 0.6s;
+ transition: transform 0.7s;
 }
 .zone-item:hover img {
- transform: scale(1.15);
+ transform: scale(1.18);
 }
 .zone-overlay {
  position: absolute;
@@ -468,11 +439,10 @@ main {
  background: var(--primary);
  color: black;
  font-weight: 800;
- font-size: 0.8rem;
- padding: 0.3rem 1.2rem;
+ padding: 0.4rem 1.5rem;
  border-radius: var(--radius-full);
  opacity: 0;
- transform: translateY(-10px);
+ transform: translateY(-15px);
  transition: var(--transition-base);
  box-shadow: var(--primary-glow-strong);
 }
@@ -481,30 +451,30 @@ main {
  transform: translateY(0);
 }
 .zone-content {
- padding: 1.5rem 1.2rem 1rem;
+ padding: 1.5rem 1.2rem 0.5rem;
  background: rgba(0,0,0,0.3);
  border-top: 1px solid var(--border-glass);
 }
 .zone-name {
  font-weight: 800;
- font-size: 1.2rem;
+ font-size: 1.3rem;
  color: var(--text-max);
 }
 .zone-author {
  color: var(--primary);
  font-weight: 600;
- text-transform: uppercase;
 }
 .zone-item button {
  background: transparent;
  border: 2px solid var(--border-glass);
- margin: 0.5rem 1.2rem 1.5rem;
+ margin: 1rem 1.2rem 1.5rem;
  padding: 1rem;
  border-radius: var(--radius-full);
  font-weight: 800;
- color: var(--text-max);
+ color: white;
  cursor: pointer;
  transition: var(--transition-base);
+ width: calc(100% - 2.4rem);
 }
 .zone-item button:hover {
  background: var(--primary);
@@ -514,100 +484,91 @@ main {
  box-shadow: var(--primary-glow);
 }
 
-/* ----- ZONE VIEWER ----- */
+/* ZONE VIEWER */
 #zoneViewer {
  position: fixed;
  inset: 0;
- background: rgba(3, 5, 10, 0.98);
- backdrop-filter: blur(40px);
+ background: rgba(2, 5, 12, 0.98);
+ backdrop-filter: blur(50px);
  z-index: 1000;
  display: none;
  flex-direction: column;
- animation: cosmicReveal 0.4s;
+ animation: viewReveal 0.5s;
 }
-@keyframes cosmicReveal {
- 0% { opacity: 0; transform: scale(0.96); }
+@keyframes viewReveal {
+ 0% { opacity: 0; transform: scale(0.95); backdrop-filter: blur(0); }
 }
 .zone-viewer-header {
- background: rgba(10, 14, 22, 0.8);
+ background: rgba(12, 20, 32, 0.9);
  backdrop-filter: blur(20px);
  border-bottom: 1px solid var(--border-glass);
- padding: 1rem 2.5rem;
+ padding: 1rem 2.8rem;
  display: flex;
  align-items: center;
  justify-content: space-between;
 }
 #zoneName {
- font-size: 2.2rem;
+ font-size: 2.5rem;
  font-weight: 800;
- background: linear-gradient(145deg, #ffb347, #ff6a00);
+ background: linear-gradient(145deg, #ffb960, #ff8c00);
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
 }
-#zoneAuthor {
- color: var(--text-low);
- padding-left: 2rem;
-}
 .zone-controls button {
- background: rgba(255,106,0,0.15);
+ background: rgba(255,140,0,0.2);
  border: 1px solid var(--border-glass);
- padding: 0.7rem 1.8rem;
+ padding: 0.7rem 2rem;
  border-radius: var(--radius-full);
  font-weight: 700;
  color: white;
  cursor: pointer;
- transition: var(--transition-fast);
+ transition: 0.2s;
 }
 .zone-controls button:hover {
  background: var(--primary);
  color: black;
 }
-#zoneFrame {
- flex: 1;
- width: 100%;
- border: 0;
- background: white;
-}
+#zoneFrame { flex: 1; width: 100%; border: 0; background: white; }
 
-/* ----- POPUP — CLOAK TEMPLATES ----- */
+/* POPUP — advanced cloak panel */
 #popupOverlay {
  position: fixed;
  inset: 0;
- background: rgba(0,0,0,0.7);
- backdrop-filter: blur(30px);
+ background: rgba(0,0,0,0.8);
+ backdrop-filter: blur(40px);
  display: none;
  align-items: center;
  justify-content: center;
  z-index: 2000;
 }
 .popup {
- background: rgba(18, 24, 34, 0.9);
- backdrop-filter: blur(40px);
+ background: rgba(18, 26, 38, 0.95);
+ backdrop-filter: blur(50px);
  border-radius: var(--radius-2xl);
- max-width: 500px;
+ max-width: 550px;
  width: 100%;
  border: 1px solid var(--border-glass);
- box-shadow: var(--shadow-xl), 0 0 120px rgba(255,106,0,0.3);
+ box-shadow: var(--shadow-xl), 0 0 150px rgba(255,140,0,0.4);
 }
 .popup-header {
- padding: 1.5rem 2rem;
+ padding: 2rem 2.2rem;
+ border-bottom: 1px solid var(--border-glass);
  display: flex;
  justify-content: space-between;
- border-bottom: 1px solid var(--border-glass);
 }
 #popupTitle {
- font-size: 1.8rem;
+ font-size: 2.2rem;
  font-weight: 800;
  color: var(--primary);
 }
 #popupClose {
- background: rgba(255,255,255,0.05);
+ background: rgba(255,255,255,0.08);
  border: 1px solid var(--border-glass);
- color: var(--text-low);
- width: 48px;
- height: 48px;
- border-radius: 48px;
- font-size: 2rem;
+ color: white;
+ width: 50px;
+ height: 50px;
+ border-radius: 50px;
+ font-size: 2.2rem;
  cursor: pointer;
 }
 #popupClose:hover {
@@ -615,38 +576,36 @@ main {
  color: black;
 }
 #popupBody {
- padding: 2rem;
- max-height: 60vh;
- overflow-y: auto;
+ padding: 2.2rem;
 }
 #popupBody input, #popupBody select {
  width: 100%;
- padding: 1rem 1.5rem;
- background: rgba(0,0,0,0.4);
+ padding: 1.2rem 1.8rem;
+ background: rgba(0,0,0,0.5);
  border: 1px solid var(--border-glass);
  border-radius: var(--radius-full);
  color: white;
- margin: 0.5rem 0 1.2rem;
+ margin: 0.7rem 0 1.5rem;
  font-size: 1rem;
 }
 .cloak-template-btn {
- background: rgba(255,106,0,0.2);
+ background: rgba(255,140,0,0.2);
  border: 1px solid var(--border-glass);
- padding: 0.8rem 1.2rem;
- margin: 0.4rem;
+ padding: 1rem 1.5rem;
+ margin: 0.5rem 0.5rem 0 0;
  border-radius: var(--radius-full);
  font-weight: 600;
  color: white;
  cursor: pointer;
- transition: var(--transition-fast);
+ display: inline-block;
+ transition: 0.2s;
 }
 .cloak-template-btn:hover {
  background: var(--primary);
  color: black;
- border-color: var(--primary);
 }
 
-/* ----- FOOTER ----- */
+/* FOOTER — sleek */
 footer {
  margin-top: 5rem;
  padding: 3rem 2rem;
@@ -655,7 +614,7 @@ footer {
  border-top: 1px solid var(--border-glass);
 }
 .footer-content {
- max-width: 1600px;
+ max-width: 1700px;
  margin: 0 auto;
  display: flex;
  justify-content: space-between;
@@ -666,14 +625,14 @@ footer {
  color: var(--text-low);
  text-decoration: none;
  font-weight: 600;
- padding: 0.5rem 1rem;
+ padding: 0.5rem 1.2rem;
  border-radius: var(--radius-full);
- transition: var(--transition-fast);
+ transition: 0.2s;
  border: 1px solid transparent;
 }
 .footer-links a:hover {
  color: var(--primary);
- background: rgba(255,106,0,0.1);
+ background: rgba(255,140,0,0.1);
  border-color: var(--border-glass);
 }
 .toast {
@@ -682,25 +641,24 @@ footer {
  right: 2rem;
  background: var(--primary);
  color: black;
- padding: 1rem 2rem;
+ padding: 1.2rem 2.5rem;
  border-radius: var(--radius-full);
  font-weight: 700;
- box-shadow: var(--shadow-lg), 0 0 50px var(--primary);
+ box-shadow: var(--shadow-lg), 0 0 60px var(--primary);
  z-index: 3000;
- animation: toastIn 0.2s;
+ animation: slideIn 0.25s;
 }
-@keyframes toastIn {
+@keyframes slideIn {
  from { transform: translateX(100%); opacity: 0; }
- to { transform: translateX(0); opacity: 1; }
 }
 </style>
 </head>
 <body>
-<!-- LOADING SHIT — ABSOLUTELY NECESSARY -->
+<canvas id="particleCanvas"></canvas>
 <div id="global-loader">
- <div class="loader-content">
- <div class="ph-orbit"></div>
- <div class="loader-text">PH·SCIENCE</div>
+ <div style="display: flex; flex-direction: column; align-items: center;">
+ <div class="loader-orbit"></div>
+ <div class="loader-text">ph·science</div>
  </div>
 </div>
 
@@ -725,8 +683,8 @@ footer {
 <div class="hero">
  <div class="hero-card" id="heroCard">
  <div>
- <h1>unblocked<br>arcade</h1>
- <p>black · orange · infinite</p>
+ <h1>unblocked<br>vault</h1>
+ <p>black·orange·infinite</p>
  </div>
  <div class="hero-stats">
  <div class="stat-item">
@@ -734,39 +692,52 @@ footer {
  <div class="stat-label">games</div>
  </div>
  <div class="stat-item">
- <div class="stat-value" id="totalPlayersStat">∞</div>
+ <div class="stat-value">∞</div>
  <div class="stat-label">active</div>
  </div>
  </div>
  </div>
 </div>
 
-<!-- ADS SECTION REMOVED COMPLETELY -->
-
 <main>
- <div class="vault">
- <div class="vault-header">
- featured vault
- <span id="featuredCount">0</span>
+ <!-- FEATURED VAULT (COLLAPSIBLE) -->
+ <div class="vault" id="featuredVault">
+ <div class="vault-header" onclick="toggleVault('featured')">
+ <div class="vault-header-left">
+ <span class="vault-toggle-icon" id="featuredToggleIcon">▼</span>
+ <span>featured vault</span>
  </div>
- <div id="featuredZones" class="zone-container"></div>
+ <div class="vault-header-right">
+ <span class="vault-count" id="featuredCount">0</span>
+ </div>
+ </div>
+ <div class="vault-body" id="featuredBody">
+ <div id="featuredZones"></div>
+ </div>
  </div>
 
- <div class="vault">
- <div class="vault-header">
- all zones
- <span id="allCount">0</span>
+ <!-- ALL ZONES VAULT (COLLAPSIBLE) -->
+ <div class="vault" id="allVault">
+ <div class="vault-header" onclick="toggleVault('all')">
+ <div class="vault-header-left">
+ <span class="vault-toggle-icon" id="allToggleIcon">▼</span>
+ <span>all zones</span>
  </div>
+ <div class="vault-header-right">
+ <span class="vault-count" id="allCount">0</span>
+ </div>
+ </div>
+ <div class="vault-body" id="allBody">
  <div id="container">loading...</div>
+ </div>
  </div>
 </main>
 
-<!-- ZONE VIEWER -->
 <div id="zoneViewer">
  <div class="zone-viewer-header">
- <div class="zone-title-large">
+ <div>
  <span id="zoneName">zone</span>
- <a id="zoneAuthor" href="#" target="_blank">by author</a>
+ <a id="zoneAuthor" href="#" target="_blank" style="margin-left:2rem; color:var(--text-low);">by author</a>
  </div>
  <div class="zone-controls">
  <button onclick="fullscreenZone()">fullscreen</button>
@@ -778,7 +749,6 @@ footer {
  <iframe id="zoneFrame"></iframe>
 </div>
 
-<!-- POPUP MODAL (cloak + settings) -->
 <div id="popupOverlay">
  <div class="popup">
  <div class="popup-header">
@@ -788,7 +758,6 @@ footer {
  <div id="popupBody"></div>
  </div>
 </div>
-
 <div id="toastContainer"></div>
 
 <footer>
@@ -798,14 +767,14 @@ footer {
  <a href="#" onclick="loadPrivacy(); return false;">privacy</a>
  <a href="javascript:saveData()">export</a>
  <a href="#" onclick="document.getElementById('importData').click(); return false;">import</a>
- <input type="file" id="importData" style="display: none;" onchange="loadData(event)">
+ <input type="file" id="importData" style="display:none;" onchange="loadData(event)">
  </div>
- <div class="footer-copy">ph·science · black/orange · 0 ads</div>
+ <div class="footer-copy">ph·science · advanced ui · no ads</div>
  </div>
 </footer>
 
 <script>
-// ---------- GLOBAL STATE ----------
+// ---------- GLOBAL ----------
 const container = document.getElementById('container');
 const zoneViewer = document.getElementById('zoneViewer');
 let zoneFrame = document.getElementById('zoneFrame');
@@ -826,40 +795,37 @@ const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 let zones = [];
 let popularityData = {};
 
-// ---------- LOADING SHIT FADE ----------
-window.addEventListener('load', function() {
- const loader = document.getElementById('global-loader');
- loader.style.opacity = '0';
- loader.style.visibility = 'hidden';
+// ---------- LOADER FADE ----------
+window.addEventListener('load', () => {
+ document.getElementById('global-loader').style.opacity = '0';
+ document.getElementById('global-loader').style.visibility = 'hidden';
 });
 
+// ---------- TOAST ----------
 function showToast(message, duration = 3000) {
- const toast = document.createElement('div');
- toast.className = 'toast';
- toast.innerText = message;
- document.getElementById('toastContainer').appendChild(toast);
- setTimeout(() => toast.remove(), duration);
+ const t = document.createElement('div');
+ t.className = 'toast';
+ t.innerText = message;
+ document.getElementById('toastContainer').appendChild(t);
+ setTimeout(() => t.remove(), duration);
 }
 
+// ---------- FETCH ----------
 async function listZones() {
  try {
- const response = await fetch(zonesURL+"?t="+Date.now());
- const json = await response.json();
- zones = json;
- if (zones.length) zones[0].featured = true; 
+ const r = await fetch(zonesURL+"?t="+Date.now());
+ zones = await r.json();
+ if (zones.length) zones[0].featured = true;
  await fetchPopularity();
  sortZones();
  document.getElementById('totalGamesStat').innerText = zones.length;
-
  const urlParams = new URLSearchParams(window.location.search);
  const id = urlParams.get('id');
  if (id) {
  const zone = zones.find(z => z.id + '' == id + '');
  if (zone) openZone(zone);
  }
- } catch (error) {
- container.innerHTML = `error: ${error}`;
- }
+ } catch (e) { container.innerHTML = `error: ${e}`; }
 }
 
 async function fetchPopularity() {
@@ -867,30 +833,28 @@ async function fetchPopularity() {
  const resp = await fetch("https://data.jsdelivr.com/v1/stats/packages/gh/gn-math/html@main/files?period=year");
  const data = await resp.json();
  data.forEach(file => {
- const idMatch = file.name.match(/\/(\d+)\.html$/);
- if (idMatch) popularityData[parseInt(idMatch[1])] = file.hits.total;
+ const m = file.name.match(/\/(\d+)\.html$/);
+ if (m) popularityData[parseInt(m[1])] = file.hits.total;
  });
- } catch { /* ignore */ }
+ } catch { }
 }
 
 function sortZones() {
  const by = sortOptions.value;
- if (by === 'name') zones.sort((a,b) => a.name.localeCompare(b.name));
- else if (by === 'id') zones.sort((a,b) => a.id - b.id);
- else if (by === 'popular') zones.sort((a,b) => (popularityData[b.id]||0) - (popularityData[a.id]||0));
- zones.sort((a,b) => (a.id === -1 ? -1 : b.id === -1 ? 1 : 0));
-
- displayFeaturedZones(zones.filter(z => z.featured));
+ if (by === 'name') zones.sort((a,b)=>a.name.localeCompare(b.name));
+ else if (by === 'id') zones.sort((a,b)=>a.id - b.id);
+ else zones.sort((a,b)=> (popularityData[b.id]||0) - (popularityData[a.id]||0));
+ zones.sort((a,b)=> (a.id===-1?-1:b.id===-1?1:0));
+ displayFeaturedZones(zones.filter(z=>z.featured));
  displayZones(zones);
 }
 
-function displayFeaturedZones(featured) {
+function displayFeaturedZones(f) {
  featuredContainer.innerHTML = "";
- featured.forEach(file => featuredContainer.appendChild(createZoneCard(file)));
- document.getElementById('featuredCount').innerText = featured.length;
+ f.forEach(file => featuredContainer.appendChild(createZoneCard(file)));
+ document.getElementById('featuredCount').innerText = f.length;
  lazyLoadImages('#featuredZones');
 }
-
 function displayZones(list) {
  container.innerHTML = "";
  list.forEach(file => container.appendChild(createZoneCard(file)));
@@ -902,46 +866,31 @@ function createZoneCard(file) {
  const div = document.createElement('div');
  div.className = 'zone-item';
  div.onclick = () => openZone(file);
- 
- const mediaDiv = document.createElement('div');
- mediaDiv.className = 'zone-media';
+ const media = document.createElement('div');
+ media.className = 'zone-media';
  const img = document.createElement('img');
  img.dataset.src = file.cover?.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) || '';
  img.alt = file.name;
  img.loading = 'lazy';
  img.classList.add('lazy-img');
- mediaDiv.appendChild(img);
- 
+ media.appendChild(img);
  const overlay = document.createElement('div');
  overlay.className = 'zone-overlay';
  overlay.innerText = 'PLAY';
- mediaDiv.appendChild(overlay);
- 
- const contentDiv = document.createElement('div');
- contentDiv.className = 'zone-content';
- const nameSpan = document.createElement('div');
- nameSpan.className = 'zone-name';
- nameSpan.innerText = file.name;
- const metaDiv = document.createElement('div');
- metaDiv.className = 'zone-meta';
- const authorSpan = document.createElement('span');
- authorSpan.className = 'zone-author';
- authorSpan.innerText = file.author;
- metaDiv.appendChild(authorSpan);
- contentDiv.appendChild(nameSpan);
- contentDiv.appendChild(metaDiv);
- 
- const playBtn = document.createElement('button');
- playBtn.innerText = 'launch';
- playBtn.onclick = (e) => { e.stopPropagation(); openZone(file); };
- 
- div.appendChild(mediaDiv);
- div.appendChild(contentDiv);
- div.appendChild(playBtn);
+ media.appendChild(overlay);
+ const content = document.createElement('div');
+ content.className = 'zone-content';
+ content.innerHTML = `<div class="zone-name">${file.name}</div><div class="zone-author">${file.author}</div>`;
+ const btn = document.createElement('button');
+ btn.innerText = 'launch';
+ btn.onclick = (e) => { e.stopPropagation(); openZone(file); };
+ div.appendChild(media);
+ div.appendChild(content);
+ div.appendChild(btn);
  return div;
 }
 
-function lazyLoadImages(selector) {
+function lazyLoadImages(sel) {
  const obs = new IntersectionObserver((entries, ob) => {
  entries.forEach(e => {
  if (e.isIntersecting) {
@@ -952,20 +901,20 @@ function lazyLoadImages(selector) {
  }
  });
  }, { rootMargin: "200px" });
- document.querySelectorAll(selector + ' img.lazy-img').forEach(img => obs.observe(img));
+ document.querySelectorAll(sel + ' img.lazy-img').forEach(img => obs.observe(img));
 }
-
 function filterZones() {
  const q = searchBar.value.toLowerCase();
  displayZones(zones.filter(z => z.name.toLowerCase().includes(q)));
 }
 
+// ---------- ZONE VIEWER ----------
 function openZone(file) {
  if (file.url.startsWith("http")) {
  window.open(file.url, "_blank");
  } else {
  const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
- fetch(url+"?t="+Date.now()).then(r => r.text()).then(html => {
+ fetch(url+"?t="+Date.now()).then(r=>r.text()).then(html => {
  if (!zoneFrame || !zoneFrame.contentDocument) {
  zoneFrame = document.createElement("iframe");
  zoneFrame.id = "zoneFrame";
@@ -975,71 +924,81 @@ function openZone(file) {
  zoneFrame.contentDocument.write(html);
  zoneFrame.contentDocument.close();
  document.getElementById('zoneName').textContent = file.name;
- const authorEl = document.getElementById('zoneAuthor');
- authorEl.textContent = "by " + file.author;
- if (file.authorLink) authorEl.href = file.authorLink;
+ const a = document.getElementById('zoneAuthor');
+ a.textContent = "by " + file.author;
+ if (file.authorLink) a.href = file.authorLink;
  zoneViewer.dataset.currentId = file.id;
- 
  zoneViewer.style.display = "flex";
  history.pushState(null, '', `?id=${file.id}`);
  showToast(`now playing: ${file.name}`);
- }).catch(e => alert("load error: "+e));
+ }).catch(e=>alert("load error: "+e));
  }
 }
-
 function closeZone() {
  zoneViewer.style.display = "none";
  if (zoneFrame && zoneFrame.parentNode) zoneFrame.remove();
  zoneFrame = null;
  history.pushState(null, '', window.location.pathname);
 }
-
 function aboutBlank() {
  const id = zoneViewer.dataset.currentId;
- const zone = zones.find(z => z.id + '' === id);
+ const zone = zones.find(z=>z.id+''===id);
  if (!zone) return;
  const url = zone.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
- fetch(url+"?t="+Date.now()).then(r => r.text()).then(html => {
+ fetch(url+"?t="+Date.now()).then(r=>r.text()).then(html => {
  const w = window.open("about:blank", "_blank");
  if (w) { w.document.write(html); w.document.close(); }
  });
 }
-
 function downloadZone() {
  const id = zoneViewer.dataset.currentId;
- const zone = zones.find(z => z.id + '' === id);
+ const zone = zones.find(z=>z.id+''===id);
  if (!zone) return;
- fetch(zone.url.replace("{HTML_URL}", htmlURL)+"?t="+Date.now()).then(r => r.text()).then(text => {
- const blob = new Blob([text], {type: "text/html"});
+ fetch(zone.url.replace("{HTML_URL}", htmlURL)+"?t="+Date.now()).then(r=>r.text()).then(t=>{
+ const b = new Blob([t], {type:"text/html"});
  const a = document.createElement('a');
- a.href = URL.createObjectURL(blob);
- a.download = zone.name + ".html";
+ a.href = URL.createObjectURL(b);
+ a.download = zone.name+".html";
  a.click();
  showToast('download started');
  });
 }
-
 function fullscreenZone() {
  const iframe = document.getElementById('zoneFrame');
  if (iframe?.requestFullscreen) iframe.requestFullscreen();
  else if (iframe?.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
 }
 
-// ---------- CLOAK TEMPLATES + SETTINGS ----------
-document.getElementById('settings').addEventListener('click', () => {
- document.getElementById('popupTitle').textContent = "tab cloak + settings";
+// ---------- VAULT TOGGLE (dropdown) ----------
+function toggleVault(vault) {
+ let body, icon;
+ if (vault === 'featured') {
+ body = document.getElementById('featuredBody');
+ icon = document.getElementById('featuredToggleIcon');
+ } else {
+ body = document.getElementById('allBody');
+ icon = document.getElementById('allToggleIcon');
+ }
+ body.classList.toggle('collapsed');
+ icon.style.transform = body.classList.contains('collapsed') ? 'rotate(-90deg)' : 'rotate(0)';
+}
+
+// ---------- CLOAK & SETTINGS ----------
+document.getElementById('settings').addEventListener('click', ()=>{
+ document.getElementById('popupTitle').innerText = "tab cloak + settings";
  document.getElementById('popupBody').innerHTML = `
  <label>Tab title</label>
  <input type="text" id="cloakTitle" placeholder="ph·science" oninput="cloakName(this.value)">
  <label>Icon URL</label>
- <input type="text" id="cloakIcon" placeholder="https://.../favicon.png" oninput="cloakIcon(this.value)">
- <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin:1rem 0;">
- <span class="cloak-template-btn" onclick="applyCloak('Google Classroom','https://ssl.gstatic.com/classroom/favicon.png')">Google Classroom</span>
- <span class="cloak-template-btn" onclick="applyCloak('Google Docs','https://ssl.gstatic.com/docs/documents/images/kix-favicon-2023q4.ico')">Google Docs</span>
- <span class="cloak-template-btn" onclick="applyCloak('Google','https://www.google.com/favicon.ico')">Google</span>
+ <input type="text" id="cloakIcon" placeholder="https://.../favicon" oninput="cloakIcon(this.value)">
+ <div style="margin: 1.5rem 0;">
+   <span class="cloak-template-btn" onclick="applyCloak('Google Classroom','https://ssl.gstatic.com/classroom/favicon.png')">Google Classroom</span>
+   <span class="cloak-template-btn" onclick="applyCloak('Google Docs','https://ssl.gstatic.com/docs/documents/images/kix-favicon-2023q4.ico')">Google Docs</span>
+   <span class="cloak-template-btn" onclick="applyCloak('Google','https://www.google.com/favicon.ico')">Google</span>
+   <span class="cloak-template-btn" onclick="applyCloak('ph·science','favicon.png')">Reset</span>
  </div>
- <hr style="border-color:var(--border-glass); margin:1rem 0;">
- <button class="cloak-template-btn" onclick="darkMode()" style="width:100%;">toggle dark mode (orange)</button>
+ <hr style="border-color:var(--border-glass); margin:1.5rem 0;">
+ <button class="cloak-template-btn" onclick="toggleExtraSetting()" style="width:100%;">🎮 toggle extra glow</button>
  `;
  document.getElementById('popupOverlay').style.display = "flex";
 });
@@ -1053,35 +1012,93 @@ function applyCloak(title, iconUrl) {
  closePopup();
  showToast(`cloak applied: ${title}`);
 }
-
-function cloakName(t) { document.title = t.trim() || "ph·science · arcade"; }
+function cloakName(t) { document.title = t.trim() || "ph·science · vault"; }
 function cloakIcon(url) {
  let link = document.querySelector("link[rel~='icon']") || document.createElement('link');
  link.rel = 'icon';
  link.href = url.trim() || "favicon.png";
  document.head.appendChild(link);
 }
-function darkMode() { document.body.classList.toggle("dark-mode"); } // stub
-
+function toggleExtraSetting() {
+ document.body.classList.toggle('extra-glow');
+ showToast('glow effect toggled');
+}
 function showContact() {
- document.getElementById('popupTitle').textContent = "contact";
- document.getElementById('popupBody').innerHTML = `<p>discord: ph-science · email: ph.science@proton.me</p>`;
+ document.getElementById('popupTitle').innerText = "contact";
+ document.getElementById('popupBody').innerHTML = `<p style="font-size:1.4rem;">discord: ph-science · email: ph.science@proton.me</p>`;
  document.getElementById('popupOverlay').style.display = "flex";
 }
-
 function loadPrivacy() {
- document.getElementById('popupTitle').textContent = "privacy";
- document.getElementById('popupBody').innerHTML = `<p>zero data collection. no ads. local only.</p>`;
+ document.getElementById('popupTitle').innerText = "privacy";
+ document.getElementById('popupBody').innerHTML = `<p>zero logs · no ads · all local</p>`;
  document.getElementById('popupOverlay').style.display = "flex";
 }
-
 function closePopup() { document.getElementById('popupOverlay').style.display = "none"; }
+function saveData() { alert('export placeholder — everything stored locally'); }
+function loadData(e) { alert('import placeholder'); }
 
-// stub export/import
-async function saveData() { alert("export data — placeholder"); }
-async function loadData(e) { alert("import placeholder"); }
+// ---------- PARTICLE BACKGROUND (ADVANCED) ----------
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let width, height;
+let particles = [];
 
-// blocking original (keep)
+function initParticles() {
+ width = window.innerWidth;
+ height = window.innerHeight;
+ canvas.width = width;
+ canvas.height = height;
+ particles = [];
+ const pCount = 60;
+ for (let i = 0; i < pCount; i++) {
+ particles.push({
+ x: Math.random() * width,
+ y: Math.random() * height,
+ radius: Math.random() * 3 + 1.5,
+ speedX: (Math.random() - 0.5) * 0.5,
+ speedY: (Math.random() - 0.5) * 0.5,
+ alpha: Math.random() * 0.4 + 0.2,
+ });
+ }
+}
+
+function drawParticles() {
+ if (!ctx) return;
+ ctx.clearRect(0, 0, width, height);
+ ctx.fillStyle = '#ff8c00';
+ for (let p of particles) {
+ ctx.globalAlpha = p.alpha;
+ ctx.beginPath();
+ ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+ ctx.fill();
+ // move
+ p.x += p.speedX;
+ p.y += p.speedY;
+ // wrap
+ if (p.x < 0) p.x = width;
+ if (p.x > width) p.x = 0;
+ if (p.y < 0) p.y = height;
+ if (p.y > height) p.y = 0;
+ }
+ requestAnimationFrame(drawParticles);
+}
+
+window.addEventListener('resize', () => {
+ initParticles();
+});
+initParticles();
+drawParticles();
+
+// ---------- HERO MOUSE FOLLOW ----------
+document.getElementById('heroCard')?.addEventListener('mousemove', (e) => {
+ const rect = e.currentTarget.getBoundingClientRect();
+ const x = ((e.clientX - rect.left) / rect.width) * 100;
+ const y = ((e.clientY - rect.top) / rect.height) * 100;
+ e.currentTarget.style.setProperty('--x', x + '%');
+ e.currentTarget.style.setProperty('--y', y + '%');
+});
+
+// ---------- BLOCKING (keep original) ----------
 const schoolList = ["deledao","goguardian","lightspeed","linewize","securly",".edu/"];
 function isBlockedDomain(u) {
  try { let d = new URL(u, location.origin).hostname + "/"; return schoolList.some(s => d.includes(s)); } catch { return false; }
@@ -1092,17 +1109,20 @@ const originalOpen = XMLHttpRequest.prototype.open;
 XMLHttpRequest.prototype.open = function(m, u) { if (!isBlockedDomain(u)) return originalOpen.apply(this, arguments); };
 HTMLCanvasElement.prototype.toDataURL = function() { return ""; };
 
-// start
+// start everything
 listZones();
 
-// mouse follow hero
-document.getElementById('heroCard')?.addEventListener('mousemove', (e) => {
- const rect = e.currentTarget.getBoundingClientRect();
- const x = ((e.clientX - rect.left) / rect.width) * 100;
- const y = ((e.clientY - rect.top) / rect.height) * 100;
- e.currentTarget.style.setProperty('--x', x + '%');
- e.currentTarget.style.setProperty('--y', y + '%');
-});
+// extra css class for glow toggle
+const style = document.createElement('style');
+style.innerHTML = `
+ .extra-glow .zone-item {
+   box-shadow: 0 0 50px rgba(255,140,0,0.5);
+ }
+ .extra-glow .vault {
+   box-shadow: 0 0 70px rgba(255,140,0,0.3);
+ }
+`;
+document.head.appendChild(style);
 </script>
 </body>
 </html>
