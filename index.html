@@ -4,15 +4,11 @@
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
-
 <title>PH - Science</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
 <meta name="description" content="700+ unblocked games, collapsible vaults, stacked notifications, premium experience">
-
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -23,17 +19,14 @@ return 'Any unsaved progress will be lost.';
 <script async src="https://fundingchoicesmessages.google.com/i/pub-5521219086088837?ers=1"></script>
 <script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
 <script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
-
 :root {
   --orange: #ff6b00;
   --orange-bright: #ff8c2e;
   --orange-deep: #cc5500;
   --orange-glow: 0 0 30px #ff6b00, 0 0 60px rgba(255,107,0,0.5);
-  
   --bg-primary: #030405;
   --bg-secondary: #0a0c0e;
   --bg-panel: #111517;
@@ -49,7 +42,6 @@ return 'Any unsaved progress will be lost.';
   --toast-bg: var(--orange);
   --toast-text: black;
   --toast-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  
   --radius-sm: 12px;
   --radius-md: 20px;
   --radius-lg: 32px;
@@ -58,7 +50,6 @@ return 'Any unsaved progress will be lost.';
   --transition: 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
   --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 body.light-theme {
   --bg-primary: #f8fafc;
   --bg-secondary: #f1f4f8;
@@ -73,9 +64,7 @@ body.light-theme {
   --hover-shadow: 0 35px 60px -15px #ff6b00;
   --toast-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-primary);
@@ -84,7 +73,6 @@ body {
   min-height: 100vh;
   transition: background-color 0.3s, color 0.3s;
 }
-
 body::before {
   content: '';
   position: fixed;
@@ -97,12 +85,10 @@ body::before {
   z-index: -1;
   animation: bgShift 20s infinite alternate ease-in-out;
 }
-
 @keyframes bgShift {
   0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
   100% { transform: scale(1.08) rotate(0.5deg); opacity: 1; }
 }
-
 header {
   position: sticky;
   top: 20px;
@@ -118,12 +104,10 @@ header {
   box-shadow: var(--card-shadow);
   transition: var(--transition);
 }
-
 header:hover {
   border-color: var(--border-glow);
   box-shadow: 0 0 30px rgba(255,107,0,0.2);
 }
-
 .header-content {
   padding: 0.8rem 2rem;
   display: flex;
@@ -132,7 +116,6 @@ header:hover {
   gap: 2rem;
   flex-wrap: wrap;
 }
-
 .logo {
   font-family: 'JetBrains Mono', monospace;
   font-size: 2.5rem;
@@ -144,12 +127,10 @@ header:hover {
   animation: logoShimmer 3s infinite linear;
   background-size: 200% auto;
 }
-
 @keyframes logoShimmer {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
-
 .logo-badge {
   background: rgba(255,107,0,0.2);
   border: 1px solid rgba(255,107,0,0.5);
@@ -162,7 +143,6 @@ header:hover {
   backdrop-filter: blur(10px);
   box-shadow: 0 0 20px rgba(255,107,0,0.2);
 }
-
 .search-container {
   display: flex;
   flex: 1 1 500px;
@@ -171,13 +151,11 @@ header:hover {
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
-
 .search-container:focus-within {
   border-color: var(--orange);
   box-shadow: 0 0 0 4px rgba(255,107,0,0.2), 0 0 20px rgba(255,107,0,0.3);
   transform: scale(1.02);
 }
-
 #searchBar {
   flex: 1;
   background: transparent;
@@ -188,17 +166,14 @@ header:hover {
   outline: none;
   font-family: 'JetBrains Mono', monospace;
 }
-
 #searchBar::placeholder {
   color: var(--text-muted);
   transition: opacity 0.3s;
 }
-
 #searchBar:focus::placeholder {
   opacity: 0.5;
   transform: translateX(10px);
 }
-
 #sortOptions {
   background: rgba(255,107,0,0.2);
   border: none;
@@ -216,12 +191,10 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.3s ease;
 }
-
 #sortOptions:hover {
   background-color: rgba(255,107,0,0.3);
   transform: translateY(-2px);
 }
-
 .account-btn {
   background: linear-gradient(135deg, var(--orange), var(--orange-bright));
   border: none;
@@ -238,7 +211,6 @@ header:hover {
   position: relative;
   overflow: hidden;
 }
-
 .account-btn::before {
   content: '';
   position: absolute;
@@ -249,16 +221,13 @@ header:hover {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: left 0.5s ease;
 }
-
 .account-btn:hover::before {
   left: 100%;
 }
-
 .account-btn:hover {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 10px 30px rgba(255,107,0,0.5);
 }
-
 .settings-icon {
   background: rgba(255,107,0,0.15);
   border: 1px solid var(--border-color);
@@ -273,13 +242,11 @@ header:hover {
   cursor: pointer;
   transition: var(--transition);
 }
-
 .settings-icon:hover {
   background: var(--orange);
   color: black;
   transform: rotate(180deg) scale(1.1);
 }
-
 .account-modal {
   position: fixed;
   inset: 0;
@@ -292,12 +259,10 @@ header:hover {
   opacity: 0;
   transition: opacity 0.3s;
 }
-
 .account-modal.active {
   display: flex;
   opacity: 1;
 }
-
 .modal-content {
   max-width: 500px;
   width: 90%;
@@ -312,7 +277,6 @@ header:hover {
   position: relative;
   overflow: hidden;
 }
-
 .modal-content::before {
   content: '';
   position: absolute;
@@ -320,11 +284,9 @@ header:hover {
   background: radial-gradient(circle at 30% 30%, rgba(255,107,0,0.2) 0%, transparent 70%);
   pointer-events: none;
 }
-
 .account-modal.active .modal-content {
   transform: scale(1);
 }
-
 .modal-content h2 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 3rem;
@@ -334,14 +296,12 @@ header:hover {
   -webkit-text-fill-color: transparent;
   position: relative;
 }
-
 .modal-content p {
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
   font-size: 1.1rem;
   position: relative;
 }
-
 .modal-buttons {
   display: flex;
   flex-direction: column;
@@ -349,7 +309,6 @@ header:hover {
   margin-bottom: 1.5rem;
   position: relative;
 }
-
 .modal-btn {
   padding: 1.2rem;
   border-radius: var(--radius-full);
@@ -362,7 +321,6 @@ header:hover {
   position: relative;
   overflow: hidden;
 }
-
 .modal-btn::before {
   content: '';
   position: absolute;
@@ -373,33 +331,27 @@ header:hover {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: left 0.5s ease;
 }
-
 .modal-btn:hover::before {
   left: 100%;
 }
-
 .modal-btn.primary {
   background: linear-gradient(135deg, var(--orange), var(--orange-bright));
   color: black;
   box-shadow: 0 4px 20px rgba(255,107,0,0.4);
 }
-
 .modal-btn.primary:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 10px 30px rgba(255,107,0,0.6);
 }
-
 .modal-btn.secondary {
   background: rgba(255,107,0,0.1);
   color: var(--text-primary);
   border: 1px solid var(--border-color);
 }
-
 .modal-btn.secondary:hover {
   background: rgba(255,107,0,0.2);
   transform: translateY(-2px);
 }
-
 .modal-divider {
   display: flex;
   align-items: center;
@@ -409,7 +361,6 @@ header:hover {
   font-size: 0.9rem;
   margin: 0.5rem 0;
 }
-
 .modal-divider::before,
 .modal-divider::after {
   content: '';
@@ -417,7 +368,6 @@ header:hover {
   height: 1px;
   background: var(--border-color);
 }
-
 .modal-link {
   color: var(--orange);
   text-decoration: none;
@@ -429,7 +379,6 @@ header:hover {
   position: relative;
   transition: all 0.3s ease;
 }
-
 .modal-link::after {
   content: '';
   position: absolute;
@@ -440,21 +389,17 @@ header:hover {
   background: var(--orange);
   transition: width 0.3s ease;
 }
-
 .modal-link:hover::after {
   width: 100%;
 }
-
 .modal-link:hover {
   transform: translateY(-2px);
 }
-
 .password-wrapper {
   position: relative;
   width: 100%;
   margin-bottom: 1rem;
 }
-
 .password-wrapper input {
   width: 100%;
   padding: 1.2rem;
@@ -466,13 +411,11 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.3s ease;
 }
-
 .password-wrapper input:focus {
   border-color: var(--orange);
   box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
   outline: none;
 }
-
 .password-toggle {
   position: absolute;
   right: 1.5rem;
@@ -489,12 +432,10 @@ header:hover {
   border-radius: var(--radius-sm);
   transition: 0.2s;
 }
-
 .password-toggle:hover {
   background: rgba(255,107,0,0.2);
   transform: translateY(-50%) scale(1.1);
 }
-
 .settings-panel {
   position: fixed;
   top: 0;
@@ -506,15 +447,13 @@ header:hover {
   border-left: 2px solid var(--border-glow);
   box-shadow: -30px 0 80px -20px black;
   z-index: 1000;
-  transition: right 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: right 0.5s cubic-bezier(0.34, 1.56, 64, 1);
   padding: 2.5rem;
   overflow-y: auto;
 }
-
 .settings-panel.active {
   right: 0;
 }
-
 .settings-header {
   display: flex;
   justify-content: space-between;
@@ -523,7 +462,6 @@ header:hover {
   padding-bottom: 1.5rem;
   border-bottom: 2px solid var(--border-color);
 }
-
 .settings-header h2 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 2.5rem;
@@ -531,7 +469,6 @@ header:hover {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 #closeSettings {
   background: none;
   border: none;
@@ -546,24 +483,20 @@ header:hover {
   border-radius: 50%;
   transition: 0.2s;
 }
-
 #closeSettings:hover {
   background: rgba(255,107,0,0.2);
   color: var(--orange);
   transform: rotate(90deg);
 }
-
 .settings-section {
   margin-bottom: 3rem;
 }
-
 .settings-section h3 {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
   color: var(--orange);
 }
-
 .setting-item {
   display: flex;
   justify-content: space-between;
@@ -575,18 +508,15 @@ header:hover {
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
-
 .setting-item:hover {
   background: rgba(255,107,0,0.1);
   transform: translateX(5px);
 }
-
 .setting-item label {
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   font-size: 1.1rem;
 }
-
 .toggle-switch {
   width: 70px;
   height: 34px;
@@ -597,7 +527,6 @@ header:hover {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .toggle-switch::after {
   content: '';
   position: absolute;
@@ -609,24 +538,20 @@ header:hover {
   left: 1px;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 .toggle-switch.active {
   background: var(--orange);
 }
-
 .toggle-switch.active::after {
   left: 37px;
   background: black;
   transform: rotate(360deg);
 }
-
 .cloak-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.8rem;
   margin-bottom: 1.5rem;
 }
-
 .cloak-btn {
   background: rgba(255,107,0,0.1);
   border: 1px solid var(--border-color);
@@ -641,7 +566,6 @@ header:hover {
   position: relative;
   overflow: hidden;
 }
-
 .cloak-btn::before {
   content: '';
   position: absolute;
@@ -652,11 +576,9 @@ header:hover {
   background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
   transition: left 0.5s ease;
 }
-
 .cloak-btn:hover::before {
   left: 100%;
 }
-
 .cloak-btn:hover {
   background: var(--orange);
   color: black;
@@ -664,12 +586,10 @@ header:hover {
   border-color: var(--orange);
   box-shadow: 0 5px 15px rgba(255,107,0,0.4);
 }
-
 .cloak-custom {
   display: flex;
   gap: 0.5rem;
 }
-
 .cloak-custom input {
   flex: 1;
   padding: 0.8rem 1.2rem;
@@ -680,19 +600,16 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.3s ease;
 }
-
 .cloak-custom input:focus {
   border-color: var(--orange);
   box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
   outline: none;
 }
-
 .hero {
   max-width: 1600px;
   margin: 2rem auto 3rem;
   padding: 0 2rem;
 }
-
 .hero-card {
   background: radial-gradient(ellipse at 20% 30%, rgba(255,107,0,0.3) 0%, transparent 70%),
               radial-gradient(ellipse at 90% 70%, rgba(255,140,0,0.15) 0%, transparent 70%),
@@ -711,12 +628,10 @@ header:hover {
   overflow: hidden;
   animation: heroPulse 4s infinite alternate ease-in-out;
 }
-
 @keyframes heroPulse {
   0% { box-shadow: var(--card-shadow); }
   100% { box-shadow: 0 60px 120px -20px black, 0 0 80px rgba(255,107,0,0.3); }
 }
-
 .hero-card::before {
   content: '';
   position: absolute;
@@ -726,11 +641,9 @@ header:hover {
   pointer-events: none;
   transition: opacity 0.3s;
 }
-
 .hero-card:hover::before {
   opacity: 0.8;
 }
-
 .hero h1 {
   font-size: 5.5rem;
   font-weight: 900;
@@ -742,12 +655,10 @@ header:hover {
   animation: titleShimmer 4s infinite linear;
   background-size: 200% auto;
 }
-
 @keyframes titleShimmer {
   0% { background-position: 0% center; }
   100% { background-position: 200% center; }
 }
-
 .hero p {
   color: var(--text-secondary);
   font-size: 1.5rem;
@@ -756,12 +667,10 @@ header:hover {
   padding-left: 2rem;
   transition: all 0.3s ease;
 }
-
 .hero-card:hover p {
   border-left-color: var(--orange-bright);
   transform: translateX(5px);
 }
-
 .hero-stats {
   display: flex;
   gap: 4rem;
@@ -772,12 +681,10 @@ header:hover {
   backdrop-filter: blur(25px);
   transition: all 0.3s ease;
 }
-
 .hero-card:hover .hero-stats {
   background: rgba(255,107,0,0.1);
   border-color: var(--orange);
 }
-
 .stat-value {
   font-size: 4rem;
   font-weight: 900;
@@ -787,26 +694,21 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   animation: statPulse 2s infinite alternate ease-in-out;
 }
-
 @keyframes statPulse {
   0% { text-shadow: 0 0 30px rgba(255,107,0,0.5); }
   100% { text-shadow: 0 0 50px rgba(255,107,0,0.8); }
 }
-
 .stat-label {
   color: var(--text-muted);
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
-
 main {
   max-width: 1600px;
   margin: 2rem auto;
   padding: 0 2rem;
 }
-
-/* FIXED: COLLAPSIBLE VAULTS WITH DYNAMIC HEIGHT */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -816,12 +718,10 @@ main {
   overflow: hidden;
   transition: all 0.3s ease;
 }
-
 .vault:hover {
   border-color: var(--orange);
   box-shadow: 0 0 40px rgba(255,107,0,0.15);
 }
-
 .vault-header {
   padding: 1.5rem 2rem;
   font-weight: 900;
@@ -836,16 +736,13 @@ main {
   transition: all 0.3s ease;
   border-bottom: 1px solid transparent;
 }
-
 .vault-header:hover {
   background: rgba(255,107,0,0.15);
   padding-left: 2.5rem;
 }
-
 .vault-header.active {
   border-bottom-color: var(--border-color);
 }
-
 .vault-header span {
   color: var(--orange);
   background: rgba(255,107,0,0.2);
@@ -855,43 +752,34 @@ main {
   font-size: 1.1rem;
   transition: all 0.3s ease;
 }
-
 .vault-header:hover span {
   background: rgba(255,107,0,0.3);
   transform: scale(1.05);
 }
-
 .vault-header .toggle-icon {
   color: var(--orange);
   font-size: 2rem;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   margin-left: 1rem;
 }
-
 .vault-header.active .toggle-icon {
   transform: rotate(180deg);
 }
-
-/* FIX: Use max-height with a much larger value to ensure all content shows */
 .vault-content {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(0,0,0,0.1);
 }
-
-/* Increased max-height to 10000px to accommodate all games */
 .vault-content.expanded {
   max-height: 1000000px;
 }
-
 .zone-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
 }
-
 .empty-favorites {
   grid-column: 1 / -1;
   text-align: center;
@@ -903,12 +791,10 @@ main {
   border-radius: var(--radius-lg);
   transition: all 0.3s ease;
 }
-
 .empty-favorites:hover {
   border-color: var(--orange);
   color: var(--text-secondary);
 }
-
 .zone-item {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -923,7 +809,6 @@ main {
   animation: cardAppear 0.5s ease-out;
   animation-fill-mode: both;
 }
-
 @keyframes cardAppear {
   from {
     opacity: 0;
@@ -934,30 +819,25 @@ main {
     transform: translateY(0);
   }
 }
-
 .zone-item:hover {
   transform: translateY(-15px) scale(1.03);
   box-shadow: var(--hover-shadow);
   border-color: var(--orange);
 }
-
 .zone-media {
   position: relative;
   aspect-ratio: 1/1;
   overflow: hidden;
 }
-
 .zone-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 .zone-item:hover img {
   transform: scale(1.15);
 }
-
 .favorite-star {
   position: absolute;
   top: 1rem;
@@ -969,24 +849,20 @@ main {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-shadow: 0 0 20px rgba(255,215,0,0.5);
 }
-
 .favorite-star:hover {
   transform: scale(1.2) rotate(5deg);
   color: rgba(255,215,0,0.8);
 }
-
 .favorite-star.active {
   color: gold;
   text-shadow: 0 0 30px gold;
   animation: starPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
 @keyframes starPulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.4) rotate(10deg); }
   100% { transform: scale(1) rotate(0); }
 }
-
 .zone-overlay {
   position: absolute;
   top: 1.2rem;
@@ -1003,23 +879,19 @@ main {
   font-family: 'JetBrains Mono', monospace;
   pointer-events: none;
 }
-
 .zone-item:hover .zone-overlay {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
-
 .zone-content {
   padding: 1.5rem 1.2rem 0.8rem;
   background: rgba(0,0,0,0.3);
   border-top: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }
-
 .zone-item:hover .zone-content {
   background: rgba(255,107,0,0.1);
 }
-
 .zone-name {
   font-weight: 900;
   font-size: 1.3rem;
@@ -1029,7 +901,6 @@ main {
   text-overflow: ellipsis;
   font-family: 'JetBrains Mono', monospace;
 }
-
 .zone-meta {
   display: flex;
   justify-content: space-between;
@@ -1038,7 +909,6 @@ main {
   font-size: 0.85rem;
   margin-top: 0.5rem;
 }
-
 .zone-author {
   color: var(--orange-bright);
   font-weight: 700;
@@ -1046,12 +916,10 @@ main {
   text-decoration: none;
   transition: all 0.3s ease;
 }
-
 .zone-author:hover {
   color: var(--orange);
   text-decoration: underline;
 }
-
 .zone-item button {
   background: transparent;
   border: 2px solid rgba(255,107,0,0.3);
@@ -1068,7 +936,6 @@ main {
   position: relative;
   overflow: hidden;
 }
-
 .zone-item button::before {
   content: '';
   position: absolute;
@@ -1079,11 +946,9 @@ main {
   background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
   transition: left 0.5s ease;
 }
-
 .zone-item button:hover::before {
   left: 100%;
 }
-
 .zone-item button:hover {
   background: var(--orange);
   border-color: var(--orange);
@@ -1091,7 +956,6 @@ main {
   transform: scale(1.05);
   box-shadow: 0 0 30px rgba(255,107,0,0.5);
 }
-
 #zoneViewer {
   position: fixed;
   inset: 0;
@@ -1102,7 +966,6 @@ main {
   flex-direction: column;
   animation: viewerAppear 0.3s ease-out;
 }
-
 @keyframes viewerAppear {
   from {
     opacity: 0;
@@ -1113,7 +976,6 @@ main {
     transform: scale(1);
   }
 }
-
 .zone-viewer-header {
   background: rgba(5,7,10,0.95);
   backdrop-filter: blur(30px);
@@ -1123,7 +985,6 @@ main {
   align-items: center;
   justify-content: space-between;
 }
-
 #zoneName {
   font-size: 3rem;
   font-weight: 900;
@@ -1132,7 +993,6 @@ main {
   -webkit-text-fill-color: transparent;
   font-family: 'JetBrains Mono', monospace;
 }
-
 #zoneAuthor {
   color: #a0a8b0;
   font-size: 1.4rem;
@@ -1142,11 +1002,9 @@ main {
   text-decoration: none;
   transition: all 0.3s ease;
 }
-
 #zoneAuthor:hover {
   color: var(--orange);
 }
-
 .zone-controls button {
   background: rgba(255,107,0,0.2);
   border: 1px solid rgba(255,107,0,0.4);
@@ -1160,7 +1018,6 @@ main {
   position: relative;
   overflow: hidden;
 }
-
 .zone-controls button::before {
   content: '';
   position: absolute;
@@ -1171,25 +1028,21 @@ main {
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: left 0.5s ease;
 }
-
 .zone-controls button:hover::before {
   left: 100%;
 }
-
 .zone-controls button:hover {
   background: var(--orange);
   color: black;
   transform: translateY(-3px) scale(1.05);
   box-shadow: 0 0 30px rgba(255,107,0,0.5);
 }
-
 #zoneFrame {
   flex: 1;
   width: 100%;
   border: 0;
   background: white;
 }
-
 .toast-container {
   position: fixed;
   top: 2rem;
@@ -1202,7 +1055,6 @@ main {
   max-width: 400px;
   width: calc(100% - 4rem);
 }
-
 .toast {
   background: var(--orange);
   padding: 1rem 1.5rem;
@@ -1220,7 +1072,6 @@ main {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
-
 .toast::after {
   content: '';
   position: absolute;
@@ -1232,12 +1083,10 @@ main {
   animation: toastProgress 3s linear forwards;
   transform-origin: left;
 }
-
 @keyframes toastProgress {
   0% { transform: scaleX(1); }
   100% { transform: scaleX(0); }
 }
-
 @keyframes toastSlideIn {
   0% { 
     transform: translateX(100%) scale(0.8);
@@ -1248,11 +1097,9 @@ main {
     opacity: 1;
   }
 }
-
 .toast.exit {
   animation: toastSlideOut 0.3s ease-in forwards;
 }
-
 @keyframes toastSlideOut {
   0% { 
     transform: translateX(0) scale(1);
@@ -1263,7 +1110,6 @@ main {
     opacity: 0;
   }
 }
-
 footer {
   margin-top: 7rem;
   padding: 4rem 2rem;
@@ -1271,7 +1117,6 @@ footer {
   backdrop-filter: blur(25px);
   border-top: 1px solid var(--border-color);
 }
-
 .footer-content {
   max-width: 1600px;
   margin: 0 auto;
@@ -1281,12 +1126,10 @@ footer {
   flex-wrap: wrap;
   gap: 2.5rem;
 }
-
 .footer-links {
   display: flex;
   gap: 3rem;
 }
-
 .footer-links a {
   color: var(--text-muted);
   text-decoration: none;
@@ -1299,7 +1142,6 @@ footer {
   position: relative;
   overflow: hidden;
 }
-
 .footer-links a::before {
   content: '';
   position: absolute;
@@ -1310,18 +1152,15 @@ footer {
   background: linear-gradient(90deg, transparent, rgba(255,107,0,0.2), transparent);
   transition: left 0.5s ease;
 }
-
 .footer-links a:hover::before {
   left: 100%;
 }
-
 .footer-links a:hover {
   color: var(--text-primary);
   background: rgba(255,107,0,0.2);
   border-color: var(--orange);
   transform: translateY(-3px);
 }
-
 @media (max-width: 900px) {
   .hero h1 { font-size: 3.5rem; }
   .hero-stats { padding: 1.5rem; gap: 2rem; }
@@ -1396,6 +1235,18 @@ footer {
       <button class="modal-btn primary" onclick="register()">create</button>
       <button class="modal-btn secondary" onclick="backToMain()">back</button>
     </div>
+  </div>
+</div>
+
+<!-- NEW USERS TAB -->
+<div class="account-modal" id="usersModal">
+  <div class="modal-content" style="max-width:700px;">
+    <h2>👥 signed up users</h2>
+    <p>real people, not guests</p>
+    <div id="usersList" style="max-height:400px; overflow-y:auto; margin:2rem 0; text-align:left; background:rgba(0,0,0,0.2); border-radius:var(--radius-lg); padding:1rem;">
+      loading users...
+    </div>
+    <button class="modal-btn secondary" onclick="document.getElementById('usersModal').classList.remove('active'); setTimeout(()=>document.getElementById('usersModal').style.display='none',300);">close</button>
   </div>
 </div>
 
@@ -1475,7 +1326,7 @@ footer {
         <div class="stat-label">titles</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value" id="totalPlayersStat">∞</div>
+        <div class="stat-value" id="totalPlayersStat">0</div>
         <div class="stat-label">active</div>
       </div>
     </div>
@@ -1528,6 +1379,20 @@ footer {
   </div>
 </main>
 
+<!-- Profile picture upload modal -->
+<div class="account-modal" id="profilePicModal">
+  <div class="modal-content">
+    <h2>🖼️ profile picture</h2>
+    <p>upload a square image (max 2MB)</p>
+    <img id="previewPic" src="" style="width:150px; height:150px; border-radius:50%; margin:1rem auto; border:3px solid var(--orange); object-fit:cover; display:none;">
+    <input type="file" id="picUpload" accept="image/*" style="margin:1rem 0; color:var(--text-primary);">
+    <div class="modal-buttons">
+      <button class="modal-btn primary" onclick="uploadProfilePic()">upload</button>
+      <button class="modal-btn secondary" onclick="document.getElementById('profilePicModal').classList.remove('active');setTimeout(()=>document.getElementById('profilePicModal').style.display='none',300);">close</button>
+    </div>
+  </div>
+</div>
+
 <div id="zoneViewer">
   <div class="zone-viewer-header">
     <div>
@@ -1548,6 +1413,7 @@ footer {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <script>
 const firebaseConfig = {
@@ -1563,21 +1429,21 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
+const storage = firebase.storage();
 
 let zones = [];
 let favorites = JSON.parse(localStorage.getItem('ph_favorites')) || [];
 let showFavOnly = false;
 let currentUser = null;
+let activeCountInterval = null;
 
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
-// COLLAPSIBLE VAULT FUNCTIONS
 window.toggleVault = function(vaultId) {
   const content = document.getElementById(vaultId + 'Content');
   const icon = document.getElementById(vaultId + 'Icon');
   const header = document.querySelector(`#${vaultId} .vault-header`);
-  
   if (content.classList.contains('expanded')) {
     content.classList.remove('expanded');
     icon.style.transform = 'rotate(0deg)';
@@ -1606,13 +1472,10 @@ function showToast(message, duration = 3000) {
   toast.className = 'toast';
   toast.textContent = message;
   container.appendChild(toast);
-  
   setTimeout(() => {
     toast.classList.add('exit');
     setTimeout(() => {
-      if (toast.parentNode) {
-        toast.remove();
-      }
+      if (toast.parentNode) toast.remove();
     }, 300);
   }, duration);
 }
@@ -1662,27 +1525,83 @@ window.closeAllModals = function() {
   });
 };
 
+window.showUsersTab = function() {
+  document.getElementById('usersModal').style.display = 'flex';
+  setTimeout(() => document.getElementById('usersModal').classList.add('active'), 10);
+  loadUserList();
+};
+
+function loadUserList() {
+  const listDiv = document.getElementById('usersList');
+  database.ref('users').once('value').then(snapshot => {
+    const users = snapshot.val();
+    if (!users) {
+      listDiv.innerHTML = '<p style="text-align:center;">no signed up users yet</p>';
+      return;
+    }
+    let html = '';
+    const userList = Object.entries(users).filter(([uid, data]) => !data.isGuest);
+    userList.forEach(([uid, data]) => {
+      const name = data.displayName || 'anonymous';
+      const pic = data.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+      html += `<div style="display:flex; align-items:center; gap:1rem; padding:0.8rem; border-bottom:1px solid var(--border-color);">
+        <img src="${pic}" style="width:40px; height:40px; border-radius:50%; border:2px solid var(--orange); object-fit:cover;">
+        <span style="font-family:'JetBrains Mono';">${name}</span>
+      </div>`;
+    });
+    listDiv.innerHTML = html || '<p style="text-align:center;">no signed up users yet</p>';
+  }).catch(() => {
+    listDiv.innerHTML = '<p style="text-align:center;">failed to load users</p>';
+  });
+}
+
+function updateActiveCounter() {
+  const connectedRef = database.ref('.info/connected');
+  connectedRef.on('value', (snap) => {
+    if (snap.val() === true) {
+      if (auth.currentUser) {
+        const statusRef = database.ref('status/' + auth.currentUser.uid);
+        statusRef.onDisconnect().remove();
+        statusRef.set({ online: true, timestamp: firebase.database.ServerValue.TIMESTAMP });
+      }
+    }
+  });
+  database.ref('status').on('value', (snapshot) => {
+    const statuses = snapshot.val();
+    if (!statuses) {
+      document.getElementById('totalPlayersStat').innerText = '0';
+      return;
+    }
+    const now = Date.now();
+    let active = 0;
+    Object.values(statuses).forEach(s => {
+      if (s && s.online === true) active++;
+    });
+    document.getElementById('totalPlayersStat').innerText = active;
+  });
+}
+
 window.register = function() {
   const username = document.getElementById('signupUsername').value.trim();
   const password = document.getElementById('signupPassword').value.trim();
-  
   if (!username || !password) {
     showToast('❌ enter username and password');
     return;
   }
-  
   if (password.length < 6) {
     showToast('❌ password must be at least 6 characters');
     return;
   }
-  
   const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
-  
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      return user.updateProfile({
-        displayName: username
+      return user.updateProfile({ displayName: username }).then(() => {
+        return database.ref('users/' + user.uid).set({
+          displayName: username,
+          photoURL: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+          isGuest: false
+        });
       }).then(() => {
         return database.ref('users/' + user.uid + '/favorites').set([]);
       });
@@ -1692,34 +1611,43 @@ window.register = function() {
       closeAllModals();
     })
     .catch((error) => {
-      if (error.code === 'auth/email-already-in-use') {
-        showToast('❌ username already exists');
-      } else if (error.code === 'auth/weak-password') {
-        showToast('❌ password too weak');
-      } else {
-        showToast('❌ signup failed');
-      }
+      if (error.code === 'auth/email-already-in-use') showToast('❌ username already exists');
+      else if (error.code === 'auth/weak-password') showToast('❌ password too weak');
+      else showToast('❌ signup failed');
     });
 };
 
 window.login = function() {
   const username = document.getElementById('loginUsername').value.trim();
   const password = document.getElementById('loginPassword').value.trim();
-  
   if (!username || !password) {
     showToast('❌ enter username and password');
     return;
   }
-  
   const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
-  
   auth.signInWithEmailAndPassword(email, password)
     .then(() => {
       showToast(`👋 welcome back, ${username}`);
       closeAllModals();
     })
-    .catch((error) => {
+    .catch(() => {
       showToast('❌ invalid username or password');
+    });
+};
+
+window.continueAsGuest = function() {
+  auth.signInAnonymously()
+    .then((cred) => {
+      database.ref('users/' + cred.user.uid).set({
+        displayName: 'Guest',
+        photoURL: 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+        isGuest: true
+      });
+      showToast('👤 continuing as guest');
+      closeAllModals();
+    })
+    .catch(() => {
+      showToast('❌ guest login failed');
     });
 };
 
@@ -1736,37 +1664,29 @@ window.logout = function() {
   });
 };
 
-window.continueAsGuest = function() {
-  auth.signInAnonymously()
-    .then(() => {
-      showToast('👤 continuing as guest');
-      closeAllModals();
-    })
-    .catch((error) => {
-      showToast('❌ guest login failed');
-    });
-};
-
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   if (user && !user.isAnonymous) {
+    database.ref('users/' + user.uid).update({
+      displayName: user.displayName,
+      photoURL: user.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y',
+      lastSeen: firebase.database.ServerValue.TIMESTAMP
+    });
     currentUser = user.displayName || user.email.split('@')[0];
     accountBtn.innerHTML = `👤 ${currentUser}`;
-    
-    database.ref('users/' + user.uid + '/favorites').once('value')
-      .then((snapshot) => {
-        const favs = snapshot.val();
-        if (favs) {
-          favorites = favs;
-        } else {
-          favorites = [];
-        }
-        localStorage.setItem('ph_favorites', JSON.stringify(favorites));
-        if (typeof displayZones === 'function') {
-          displayZones(zones);
-          displayFavorites();
-        }
-      });
+    database.ref('users/' + user.uid + '/favorites').once('value').then((snapshot) => {
+      const favs = snapshot.val();
+      if (favs) {
+        favorites = favs;
+      } else {
+        favorites = [];
+      }
+      localStorage.setItem('ph_favorites', JSON.stringify(favorites));
+      if (typeof displayZones === 'function') {
+        displayZones(zones);
+        displayFavorites();
+      }
+    });
   } else if (user && user.isAnonymous) {
     accountBtn.innerHTML = '👤 guest';
     currentUser = 'guest';
@@ -1778,7 +1698,6 @@ auth.onAuthStateChanged((user) => {
 
 window.toggleFavorite = function(gameId, event) {
   event.stopPropagation();
-  
   const index = favorites.indexOf(gameId);
   if (index === -1) {
     favorites.push(gameId);
@@ -1787,33 +1706,57 @@ window.toggleFavorite = function(gameId, event) {
     favorites.splice(index, 1);
     showToast('☆ removed from favorites');
   }
-  
   localStorage.setItem('ph_favorites', JSON.stringify(favorites));
-  
   const user = auth.currentUser;
   if (user && !user.isAnonymous) {
     database.ref('users/' + user.uid + '/favorites').set(favorites);
   }
-  
   const star = event.target;
   star.classList.toggle('active');
   if (index === -1) {
     star.style.animation = 'starPulse 0.5s';
     setTimeout(() => star.style.animation = '', 500);
   }
-  
   displayZones(zones);
   displayFavorites();
-  
   if (showFavOnly) filterFavorites();
+};
+
+window.uploadProfilePic = function() {
+  const user = auth.currentUser;
+  if (!user || user.isAnonymous) {
+    showToast('❌ only signed-up users can upload');
+    return;
+  }
+  const file = document.getElementById('picUpload').files[0];
+  if (!file) {
+    showToast('❌ select an image');
+    return;
+  }
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('❌ image too large (max 2MB)');
+    return;
+  }
+  const storageRef = storage.ref('profile_pics/' + user.uid);
+  storageRef.put(file).then(() => {
+    return storageRef.getDownloadURL();
+  }).then((url) => {
+    return user.updateProfile({ photoURL: url }).then(() => {
+      return database.ref('users/' + user.uid).update({ photoURL: url });
+    }).then(() => {
+      document.getElementById('profilePicModal').classList.remove('active');
+      setTimeout(() => document.getElementById('profilePicModal').style.display = 'none', 300);
+      showToast('✅ profile picture updated');
+    });
+  }).catch(() => {
+    showToast('❌ upload failed');
+  });
 };
 
 function displayFavorites() {
   const container = document.getElementById('favoritesZones');
   const favoriteGames = zones.filter(z => favorites.includes(z.id));
-  
   document.getElementById('favoritesCount').innerText = favoriteGames.length;
-  
   if (favoriteGames.length === 0) {
     container.innerHTML = '<div class="empty-favorites">✨ star games to see them here</div>';
   } else {
@@ -1848,10 +1791,8 @@ window.sortZones = function() {
   const by = document.getElementById('sortOptions').value;
   if (by === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
   else if (by === 'id') zones.sort((a, b) => a.id - b.id);
-  
   displayFeaturedZones(zones.filter(z => z.featured));
   displayFavorites();
-  
   if (showFavOnly) {
     const favGames = zones.filter(z => favorites.includes(z.id));
     displayZones(favGames);
@@ -1878,50 +1819,39 @@ function createZoneCard(file) {
   const div = document.createElement('div');
   div.className = 'zone-item';
   div.onclick = () => openZone(file);
-  
   const mediaDiv = document.createElement('div');
   mediaDiv.className = 'zone-media';
-  
   const img = document.createElement('img');
   let coverSrc = file.cover?.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) || coverURL + "/default.png";
   img.src = coverSrc;
   img.alt = file.name;
   img.loading = 'lazy';
   mediaDiv.appendChild(img);
-  
   const star = document.createElement('span');
   star.className = 'favorite-star' + (favorites.includes(file.id) ? ' active' : '');
   star.innerHTML = '★';
   star.onclick = (e) => toggleFavorite(file.id, e);
   mediaDiv.appendChild(star);
-  
   const overlay = document.createElement('div');
   overlay.className = 'zone-overlay';
   overlay.innerText = 'PLAY';
   mediaDiv.appendChild(overlay);
-  
   const contentDiv = document.createElement('div');
   contentDiv.className = 'zone-content';
-  
   const nameSpan = document.createElement('div');
   nameSpan.className = 'zone-name';
   nameSpan.innerText = file.name;
-  
   const metaDiv = document.createElement('div');
   metaDiv.className = 'zone-meta';
-  
   const authorSpan = document.createElement('span');
   authorSpan.className = 'zone-author';
   authorSpan.innerText = file.author || 'unknown';
   metaDiv.appendChild(authorSpan);
-  
   contentDiv.appendChild(nameSpan);
   contentDiv.appendChild(metaDiv);
-  
   const playBtn = document.createElement('button');
   playBtn.innerText = 'launch';
   playBtn.onclick = (e) => { e.stopPropagation(); openZone(file); };
-  
   div.appendChild(mediaDiv);
   div.appendChild(contentDiv);
   div.appendChild(playBtn);
@@ -2075,8 +2005,57 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// Add Users tab to account button dropdown
+setTimeout(() => {
+  const accountBtn = document.getElementById('accountBtn');
+  const originalClick = accountBtn.onclick;
+  accountBtn.onclick = (e) => {
+    if (auth.currentUser && !auth.currentUser.isAnonymous) {
+      // Show a small dropdown or just open profile options
+      showToast('click ⚙️ for profile');
+    } else {
+      showAccountModal();
+    }
+  };
+  // Add a profile button next to settings
+  const headerDiv = document.querySelector('.header-content > div:last-child');
+  const usersBtn = document.createElement('div');
+  usersBtn.className = 'settings-icon';
+  usersBtn.innerHTML = '👥';
+  usersBtn.title = 'show users';
+  usersBtn.onclick = showUsersTab;
+  headerDiv.insertBefore(usersBtn, document.getElementById('settingsBtn'));
+  
+  // Add profile pic upload option
+  if (auth.currentUser && !auth.currentUser.isAnonymous) {
+    const profileBtn = document.createElement('div');
+    profileBtn.className = 'settings-icon';
+    profileBtn.innerHTML = '🖼️';
+    profileBtn.title = 'change profile picture';
+    profileBtn.onclick = () => {
+      document.getElementById('profilePicModal').style.display = 'flex';
+      setTimeout(() => document.getElementById('profilePicModal').classList.add('active'), 10);
+    };
+    headerDiv.insertBefore(profileBtn, usersBtn);
+  }
+}, 1000);
+
 listZones();
+updateActiveCounter();
 console.log('loaded.');
 </script>
+<footer>
+  <div class="footer-content">
+    <div class="logo" style="font-size:2rem;">PH·SCIENCE</div>
+    <div class="footer-links">
+      <a onclick="showContact()">contact</a>
+      <a onclick="showPrivacy()">privacy</a>
+      <a onclick="exportData()">export</a>
+      <input type="file" id="importFile" accept=".json" style="display:none;" onchange="importData(event)">
+      <a onclick="document.getElementById('importFile').click()">import</a>
+      <a onclick="logout()">logout</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
