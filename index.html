@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PH·SCIENCE — 719 games</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
-<meta name="description" content="719 unblocked games, favorites, password toggle, dark/light mode">
+<meta name="description" content="719 unblocked games, favorites, stacked notifications, password toggle">
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
 
@@ -19,7 +18,6 @@
   --orange-deep: #cc5500;
   --orange-glow: 0 0 30px #ff6b00, 0 0 60px rgba(255,107,0,0.5);
   
-  /* Dark theme (default) */
   --bg-primary: #030405;
   --bg-secondary: #0a0c0e;
   --bg-panel: #111517;
@@ -34,6 +32,7 @@
   --hover-shadow: 0 45px 80px -15px #ff6b00;
   --toast-bg: var(--orange);
   --toast-text: black;
+  --toast-shadow: 0 10px 30px rgba(0,0,0,0.3);
   
   --radius-sm: 12px;
   --radius-md: 20px;
@@ -44,7 +43,6 @@
   --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* LIGHT THEME */
 body.light-theme {
   --bg-primary: #f8fafc;
   --bg-secondary: #f1f4f8;
@@ -57,8 +55,7 @@ body.light-theme {
   --border-color: rgba(255,107,0,0.2);
   --card-shadow: 0 20px 40px -15px rgba(0,0,0,0.1);
   --hover-shadow: 0 35px 60px -15px #ff6b00;
-  --toast-bg: var(--orange);
-  --toast-text: black;
+  --toast-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -72,7 +69,6 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Animated background */
 body::before {
   content: '';
   position: fixed;
@@ -91,7 +87,6 @@ body::before {
   100% { transform: scale(1.1); opacity: 1; }
 }
 
-/* HEADER - GLASS MASTER */
 header {
   position: sticky;
   top: 20px;
@@ -180,7 +175,6 @@ header {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* ACCOUNT BUTTON - PREMIUM */
 .account-btn {
   background: linear-gradient(135deg, var(--orange), var(--orange-bright));
   border: none;
@@ -222,7 +216,6 @@ header {
   transform: rotate(90deg);
 }
 
-/* ACCOUNT MODAL - CINEMATIC */
 .account-modal {
   position: fixed;
   inset: 0;
@@ -327,7 +320,6 @@ header {
   text-decoration: underline;
 }
 
-/* Password input with toggle */
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -366,7 +358,6 @@ header {
   background: rgba(255,107,0,0.2);
 }
 
-/* SETTINGS PANEL - SLEEK COLLAPSIBLE */
 .settings-panel {
   position: fixed;
   top: 0;
@@ -453,7 +444,6 @@ header {
   font-size: 1.1rem;
 }
 
-/* Toggle switch */
 .toggle-switch {
   width: 70px;
   height: 34px;
@@ -485,7 +475,6 @@ header {
   background: black;
 }
 
-/* Cloak buttons grid */
 .cloak-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -528,7 +517,6 @@ header {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* HERO */
 .hero {
   max-width: 1600px;
   margin: 2rem auto 3rem;
@@ -606,7 +594,6 @@ header {
   letter-spacing: 3px;
 }
 
-/* GAME VAULTS */
 main {
   max-width: 1600px;
   margin: 2rem auto;
@@ -650,7 +637,6 @@ main {
   padding: 3rem;
 }
 
-/* Empty state */
 .empty-favorites {
   grid-column: 1 / -1;
   text-align: center;
@@ -662,7 +648,6 @@ main {
   border-radius: var(--radius-lg);
 }
 
-/* GAME CARDS */
 .zone-item {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -797,7 +782,6 @@ main {
   transform: scale(1.05);
 }
 
-/* ZONE VIEWER */
 #zoneViewer {
   position: fixed;
   inset: 0;
@@ -860,48 +844,80 @@ main {
   background: white;
 }
 
-/* TOAST NOTIFICATIONS - FIXED BLUR ISSUE */
 .toast-container {
   position: fixed;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  z-index: 9999;
+  top: 2rem;
+  right: 2rem;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
   pointer-events: none;
+  max-width: 400px;
+  width: calc(100% - 4rem);
 }
 
 .toast {
   background: var(--orange);
-  padding: 1.2rem 3rem;
+  padding: 1rem 1.5rem;
   border-radius: var(--radius-full);
   color: black;
-  font-weight: 800;
-  box-shadow: 0 0 50px var(--orange);
+  font-weight: 700;
+  box-shadow: var(--toast-shadow), 0 0 20px rgba(255,107,0,0.5);
   font-family: 'JetBrains Mono', monospace;
-  animation: slideInRight 0.3s ease-out;
+  animation: toastSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: auto;
-  border: 2px solid rgba(255,255,255,0.3);
-  backdrop-filter: none; /* Fixed: no blur on toast */
+  border: 1px solid rgba(255,255,255,0.3);
+  transform-origin: right;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  transform: translateZ(0); /* Force GPU rendering */
-  opacity: 1;
-  will-change: transform;
 }
 
-@keyframes slideInRight {
-  from { 
-    transform: translateX(100%) translateZ(0);
+.toast::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: rgba(0,0,0,0.2);
+  animation: toastProgress 3s linear forwards;
+  transform-origin: left;
+}
+
+@keyframes toastProgress {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+
+@keyframes toastSlideIn {
+  0% { 
+    transform: translateX(100%) scale(0.8);
     opacity: 0;
   }
-  to { 
-    transform: translateX(0) translateZ(0);
+  100% { 
+    transform: translateX(0) scale(1);
     opacity: 1;
   }
 }
 
-/* FOOTER */
+.toast.exit {
+  animation: toastSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes toastSlideOut {
+  0% { 
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+}
+
 footer {
   margin-top: 7rem;
   padding: 4rem 2rem;
@@ -948,20 +964,16 @@ footer {
   .stat-value { font-size: 2.5rem; }
   .settings-panel { width: 100%; right: -100%; }
   .toast-container { 
-    bottom: 1rem; 
+    top: 1rem; 
     right: 1rem; 
     left: 1rem;
-  }
-  .toast { 
-    padding: 1rem 2rem; 
-    font-size: 0.9rem;
+    width: auto;
   }
 }
 </style>
 </head>
 <body>
 
-<!-- ACCOUNT MODAL - STUNNING ENTRANCE -->
 <div class="account-modal" id="accountModal">
   <div class="modal-content">
     <h2>PH·SCIENCE</h2>
@@ -974,7 +986,6 @@ footer {
   </div>
 </div>
 
-<!-- LOGIN MODAL -->
 <div class="account-modal" id="loginModal">
   <div class="modal-content">
     <h2>welcome back</h2>
@@ -993,7 +1004,6 @@ footer {
   </div>
 </div>
 
-<!-- SIGNUP MODAL -->
 <div class="account-modal" id="signupModal">
   <div class="modal-content">
     <h2>create account</h2>
@@ -1012,7 +1022,6 @@ footer {
   </div>
 </div>
 
-<!-- SETTINGS PANEL -->
 <div class="settings-panel" id="settingsPanel">
   <div class="settings-header">
     <h2>settings</h2>
@@ -1097,7 +1106,6 @@ footer {
 </div>
 
 <main>
-  <!-- NEW: Favorites Vault -->
   <div class="vault" id="favoritesVault">
     <div class="vault-header">
       ⭐ your favorites <span id="favoritesCount">0</span>
@@ -1118,7 +1126,6 @@ footer {
   </div>
 </main>
 
-<!-- ZONE VIEWER -->
 <div id="zoneViewer">
   <div class="zone-viewer-header">
     <div>
@@ -1135,7 +1142,6 @@ footer {
   <iframe id="zoneFrame"></iframe>
 </div>
 
-<!-- TOAST CONTAINER - FIXED BLUR ISSUE -->
 <div class="toast-container" id="toastContainer"></div>
 
 <footer>
@@ -1147,17 +1153,15 @@ footer {
       <a href="#" onclick="document.getElementById('importFile').click(); return false;">import</a>
       <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
     </div>
-    <div class="footer-copy">PH·SCIENCE — 719 games · password toggle · favorites vault</div>
+    <div class="footer-copy">PH·SCIENCE — 719 games · stacked notifications · password toggle</div>
   </div>
 </footer>
 
-<!-- FIREBASE (COMPAT) -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <script>
-// =============== FIREBASE CONFIG ===============
 const firebaseConfig = {
   apiKey: "AIzaSyA-68XKNt_PD0I1TJbNcyotT4qMbgHh-tI",
   authDomain: "ph-science.firebaseapp.com",
@@ -1168,12 +1172,10 @@ const firebaseConfig = {
   measurementId: "G-54XJK643G2"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
-// =============== GLOBAL VARIABLES ===============
 let zones = [];
 let favorites = JSON.parse(localStorage.getItem('ph_favorites')) || [];
 let showFavOnly = false;
@@ -1182,7 +1184,8 @@ let currentUser = null;
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
-// =============== PASSWORD TOGGLE FUNCTION ===============
+let activeToasts = 0;
+
 window.togglePassword = function(inputId, button) {
   const input = document.getElementById(inputId);
   if (input.type === 'password') {
@@ -1194,27 +1197,26 @@ window.togglePassword = function(inputId, button) {
   }
 };
 
-// =============== TOAST FUNCTION - FIXED BLUR ISSUE ===============
 function showToast(message, duration = 3000) {
   const container = document.getElementById('toastContainer');
   const toast = document.createElement('div');
   toast.className = 'toast';
   toast.textContent = message;
-  toast.style.willChange = 'transform';
   container.appendChild(toast);
   
-  // Force GPU acceleration
-  toast.style.transform = 'translateZ(0)';
+  activeToasts++;
   
   setTimeout(() => {
-    toast.style.animation = 'slideInRight 0.3s reverse';
+    toast.classList.add('exit');
     setTimeout(() => {
-      if (toast.parentNode) toast.remove();
+      if (toast.parentNode) {
+        toast.remove();
+        activeToasts--;
+      }
     }, 300);
   }, duration);
 }
 
-// =============== MODAL FUNCTIONS ===============
 window.showAccountModal = function() {
   const modal = document.getElementById('accountModal');
   modal.style.display = 'flex';
@@ -1260,18 +1262,17 @@ window.closeAllModals = function() {
   });
 };
 
-// =============== AUTH FUNCTIONS ===============
 window.register = function() {
   const username = document.getElementById('signupUsername').value.trim();
   const password = document.getElementById('signupPassword').value.trim();
   
   if (!username || !password) {
-    showToast('Enter username and password');
+    showToast('❌ enter username and password');
     return;
   }
   
   if (password.length < 6) {
-    showToast('Password must be at least 6 characters');
+    showToast('❌ password must be at least 6 characters');
     return;
   }
   
@@ -1287,15 +1288,17 @@ window.register = function() {
       });
     })
     .then(() => {
-      showToast(`✨ Welcome, ${username}!`);
+      showToast(`✅ account created! welcome, ${username}`);
       closeAllModals();
     })
     .catch((error) => {
-      let message = 'Signup failed';
-      if (error.code === 'auth/email-already-in-use') message = 'Username already exists';
-      else if (error.code === 'auth/weak-password') message = 'Password too weak';
-      else message = error.message;
-      showToast(message);
+      if (error.code === 'auth/email-already-in-use') {
+        showToast('❌ username already exists');
+      } else if (error.code === 'auth/weak-password') {
+        showToast('❌ password too weak');
+      } else {
+        showToast('❌ signup failed');
+      }
     });
 };
 
@@ -1304,7 +1307,7 @@ window.login = function() {
   const password = document.getElementById('loginPassword').value.trim();
   
   if (!username || !password) {
-    showToast('Enter username and password');
+    showToast('❌ enter username and password');
     return;
   }
   
@@ -1312,17 +1315,17 @@ window.login = function() {
   
   auth.signInWithEmailAndPassword(email, password)
     .then(() => {
-      showToast('👋 Welcome back!');
+      showToast(`👋 welcome back, ${username}`);
       closeAllModals();
     })
     .catch((error) => {
-      showToast('Invalid username or password');
+      showToast('❌ invalid username or password');
     });
 };
 
 window.logout = function() {
   auth.signOut().then(() => {
-    showToast('👋 Logged out');
+    showToast('👋 logged out');
     document.getElementById('accountBtn').innerHTML = '✨ sign in';
     favorites = [];
     localStorage.setItem('ph_favorites', '[]');
@@ -1336,15 +1339,14 @@ window.logout = function() {
 window.continueAsGuest = function() {
   auth.signInAnonymously()
     .then(() => {
-      showToast('👤 Continuing as guest');
+      showToast('👤 continuing as guest');
       closeAllModals();
     })
     .catch((error) => {
-      showToast('Guest login failed');
+      showToast('❌ guest login failed');
     });
 };
 
-// Track auth state
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   if (user && !user.isAnonymous) {
@@ -1374,17 +1376,16 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// =============== FAVORITES ===============
 window.toggleFavorite = function(gameId, event) {
   event.stopPropagation();
   
   const index = favorites.indexOf(gameId);
   if (index === -1) {
     favorites.push(gameId);
-    showToast('⭐ Added to favorites');
+    showToast('⭐ added to favorites');
   } else {
     favorites.splice(index, 1);
-    showToast('☆ Removed from favorites');
+    showToast('☆ removed from favorites');
   }
   
   localStorage.setItem('ph_favorites', JSON.stringify(favorites));
@@ -1401,14 +1402,12 @@ window.toggleFavorite = function(gameId, event) {
     setTimeout(() => star.style.animation = '', 500);
   }
   
-  // Update all displays
   displayZones(zones);
   displayFavorites();
   
   if (showFavOnly) filterFavorites();
 };
 
-// NEW: Display favorites vault
 function displayFavorites() {
   const container = document.getElementById('favoritesZones');
   const favoriteGames = zones.filter(z => favorites.includes(z.id));
@@ -1433,7 +1432,6 @@ window.filterFavorites = function() {
   }
 };
 
-// =============== GAME FUNCTIONS ===============
 async function listZones() {
   try {
     const response = await fetch("https://cdn.jsdelivr.net/gh/gn-math/assets/zones.json?t=" + Date.now());
@@ -1442,7 +1440,7 @@ async function listZones() {
     document.getElementById('totalGamesStat').innerText = zones.length;
     sortZones();
   } catch (error) {
-    document.getElementById('container').innerHTML = `Error loading games: ${error}`;
+    document.getElementById('container').innerHTML = `error loading games`;
   }
 }
 
@@ -1552,7 +1550,7 @@ window.openZone = function(file) {
       document.getElementById('zoneAuthor').textContent = "by " + (file.author || 'unknown');
       if (file.authorLink) document.getElementById('zoneAuthor').href = file.authorLink;
       document.getElementById('zoneViewer').style.display = "flex";
-    }).catch(e => showToast('Error loading game'));
+    }).catch(e => showToast('error loading game'));
   }
 };
 
@@ -1581,7 +1579,6 @@ window.downloadZone = function() {
   a.click();
 };
 
-// =============== SETTINGS ===============
 document.getElementById('settingsBtn').addEventListener('click', () => {
   document.getElementById('settingsPanel').classList.add('active');
 });
@@ -1597,20 +1594,18 @@ window.toggleTheme = function() {
   localStorage.setItem('ph_theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
 };
 
-// Load saved theme
 if (localStorage.getItem('ph_theme') === 'light') {
   document.body.classList.add('light-theme');
   document.getElementById('themeToggle').classList.add('active');
 }
 
-// =============== TAB CLOAK ===============
 window.cloakPreset = function(title, iconUrl) {
   document.title = title;
   let link = document.querySelector("link[rel~='icon']") || document.createElement('link');
   link.rel = 'icon';
   link.href = iconUrl;
   document.head.appendChild(link);
-  showToast(`Cloaked as ${title}`);
+  showToast(`cloaked as ${title}`);
   document.getElementById('settingsPanel').classList.remove('active');
 };
 
@@ -1624,17 +1619,16 @@ window.applyCustomCloak = function() {
     link.href = icon;
     document.head.appendChild(link);
   }
-  showToast('Custom cloak applied');
+  showToast('custom cloak applied');
   document.getElementById('settingsPanel').classList.remove('active');
 };
 
-// =============== UTILITIES ===============
 window.showContact = function() {
-  showToast('Discord: ph-lab · Email: lab@ph.science');
+  showToast('discord: ph-lab · email: lab@ph.science');
 };
 
 window.showPrivacy = function() {
-  showToast('No personal data collected. Ads by Google.');
+  showToast('no personal data collected. ads by google.');
 };
 
 window.exportData = function() {
@@ -1644,7 +1638,7 @@ window.exportData = function() {
   a.href = URL.createObjectURL(blob);
   a.download = 'ph_science_favorites.json';
   a.click();
-  showToast('Favorites exported');
+  showToast('favorites exported');
 };
 
 window.importData = function(event) {
@@ -1657,11 +1651,11 @@ window.importData = function(event) {
       if (data.favorites) {
         favorites = data.favorites;
         localStorage.setItem('ph_favorites', JSON.stringify(favorites));
-        showToast('Favorites imported');
+        showToast('favorites imported');
         displayZones(zones);
         displayFavorites();
       }
-    } catch { showToast('Invalid file'); }
+    } catch { showToast('invalid file'); }
   };
   reader.readAsText(file);
 };
