@@ -5,14 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1246719291517308929/1478551741980213483/SCIENCE.png?ex=69a8d01d&is=69a77e9d&hm=a583100c7a771cc122ae87ef77f9d85a3f66368824f8949d7e05e4d4a2675e74">
-<link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1246719291517308929/1478551741980213483/SCIENCE.png?ex=69a8d01d&is=69a77e9d&hm=a583100c7a771cc122ae87ef77f9d85a3f66368824f8949d7e05e4d4a2675e74">
-
-<title>PH·SCIENCE — 719 games</title>
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478559909779083264/favicon.png?ex=69a8d7b8&is=69a78638&hm=997ceab27b75fe6d9458c7dfd1522db7bff1e4f45fd756b7f7d918d413b40501&=&format=webp&quality=lossless&width=150&height=150">
+<link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478559909779083264/favicon.png?ex=69a8d7b8&is=69a78638&hm=997ceab27b75fe6d9458c7dfd1522db7bff1e4f45fd756b7f7d918d413b40501&=&format=webp&quality=lossless&width=150&height=150">
+<title>PH - Science</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
-<meta name="description" content="719 unblocked games, collapsible vaults, stacked notifications, password toggle">
+<meta name="description" content="719 unblocked games, Google sign-in, collapsible vaults, stacked notifications">
 
-<!-- Core security & ads (preserved) -->
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -33,6 +31,10 @@ return 'Any unsaved progress will be lost.';
   --orange-bright: #ff8c2e;
   --orange-deep: #cc5500;
   --orange-glow: 0 0 30px #ff6b00, 0 0 60px rgba(255,107,0,0.5);
+  --google-blue: #4285f4;
+  --google-green: #34a853;
+  --google-yellow: #fbbc05;
+  --google-red: #ea4335;
   
   --bg-primary: #030405;
   --bg-secondary: #0a0c0e;
@@ -85,22 +87,25 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
+/* Animated background enhancement */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: 
-    radial-gradient(circle at 30% 40%, rgba(255,107,0,0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255,140,0,0.08) 0%, transparent 40%),
-    repeating-linear-gradient(45deg, rgba(255,107,0,0.02) 0px, rgba(255,107,0,0.02) 1px, transparent 1px, transparent 20px);
+    radial-gradient(circle at 20% 30%, rgba(255,107,0,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(255,140,0,0.1) 0%, transparent 40%),
+    radial-gradient(circle at 40% 80%, rgba(66,133,244,0.05) 0%, transparent 50%),
+    repeating-linear-gradient(45deg, rgba(255,107,0,0.02) 0px, rgba(255,107,0,0.02) 1px, transparent 1px, transparent 30px);
   pointer-events: none;
   z-index: -1;
-  animation: bgShift 20s infinite alternate;
+  animation: bgShift 25s infinite alternate ease-in-out;
 }
 
 @keyframes bgShift {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(1.1); opacity: 1; }
+  0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+  50% { transform: scale(1.05) rotate(1deg); opacity: 0.8; }
+  100% { transform: scale(1.1) rotate(-1deg); opacity: 1; }
 }
 
 header {
@@ -119,6 +124,11 @@ header {
   transition: var(--transition);
 }
 
+header:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 30px rgba(255,107,0,0.2);
+}
+
 .header-content {
   padding: 0.8rem 2rem;
   display: flex;
@@ -132,10 +142,17 @@ header {
   font-family: 'JetBrains Mono', monospace;
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
+  animation: logoShimmer 4s infinite linear;
+  background-size: 200% auto;
+}
+
+@keyframes logoShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 .logo-badge {
@@ -147,6 +164,8 @@ header {
   font-weight: 800;
   font-family: 'JetBrains Mono', monospace;
   font-size: 1rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(255,107,0,0.2);
 }
 
 .search-container {
@@ -155,12 +174,13 @@ header {
   background: rgba(0,0,0,0.3);
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
-  transition: 0.2s;
+  transition: all 0.3s ease;
 }
 
 .search-container:focus-within {
   border-color: var(--orange);
-  box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.2), 0 0 20px rgba(255,107,0,0.3);
+  transform: scale(1.02);
 }
 
 #searchBar {
@@ -172,6 +192,16 @@ header {
   font-size: 1rem;
   outline: none;
   font-family: 'JetBrains Mono', monospace;
+}
+
+#searchBar::placeholder {
+  color: var(--text-muted);
+  transition: opacity 0.3s;
+}
+
+#searchBar:focus::placeholder {
+  opacity: 0.5;
+  transform: translateX(10px);
 }
 
 #sortOptions {
@@ -189,6 +219,12 @@ header {
   background-position: right 1.5rem center;
   border-left: 1px solid var(--border-color);
   font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+#sortOptions:hover {
+  background-color: rgba(255,107,0,0.3);
+  transform: translateY(-2px);
 }
 
 .account-btn {
@@ -204,6 +240,23 @@ header {
   transition: var(--transition-bounce);
   box-shadow: 0 4px 15px rgba(255,107,0,0.3);
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.account-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.account-btn:hover::before {
+  left: 100%;
 }
 
 .account-btn:hover {
@@ -229,7 +282,7 @@ header {
 .settings-icon:hover {
   background: var(--orange);
   color: black;
-  transform: rotate(90deg);
+  transform: rotate(180deg) scale(1.1);
 }
 
 .account-modal {
@@ -261,6 +314,16 @@ header {
   transform: scale(0.9);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,107,0,0.2) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .account-modal.active .modal-content {
@@ -271,15 +334,17 @@ header {
   font-family: 'JetBrains Mono', monospace;
   font-size: 3rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative;
 }
 
 .modal-content p {
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
   font-size: 1.1rem;
+  position: relative;
 }
 
 .modal-buttons {
@@ -287,6 +352,7 @@ header {
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
+  position: relative;
 }
 
 .modal-btn {
@@ -298,6 +364,23 @@ header {
   cursor: pointer;
   transition: var(--transition-bounce);
   border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.modal-btn:hover::before {
+  left: 100%;
 }
 
 .modal-btn.primary {
@@ -322,6 +405,71 @@ header {
   transform: translateY(-2px);
 }
 
+/* Google Sign-In Button */
+.google-btn {
+  background: white;
+  color: #757575;
+  border: 1px solid #dadce0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  border-radius: var(--radius-full);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.google-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  transition: left 0.5s ease;
+}
+
+.google-btn:hover::before {
+  left: 100%;
+}
+
+.google-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.google-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.modal-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+
+.modal-divider::before,
+.modal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-color);
+}
+
 .modal-link {
   color: var(--orange);
   text-decoration: none;
@@ -330,10 +478,27 @@ header {
   cursor: pointer;
   margin-top: 1rem;
   display: inline-block;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.modal-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.modal-link:hover::after {
+  width: 100%;
 }
 
 .modal-link:hover {
-  text-decoration: underline;
+  transform: translateY(-2px);
 }
 
 .password-wrapper {
@@ -351,6 +516,13 @@ header {
   border-radius: var(--radius-full);
   color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.password-wrapper input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+  outline: none;
 }
 
 .password-toggle {
@@ -372,6 +544,7 @@ header {
 
 .password-toggle:hover {
   background: rgba(255,107,0,0.2);
+  transform: translateY(-50%) scale(1.1);
 }
 
 .settings-panel {
@@ -452,6 +625,12 @@ header {
   border-radius: var(--radius-full);
   margin-bottom: 1rem;
   border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.setting-item:hover {
+  background: rgba(255,107,0,0.1);
+  transform: translateX(5px);
 }
 
 .setting-item label {
@@ -468,6 +647,7 @@ header {
   border: 1px solid var(--border-color);
   position: relative;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .toggle-switch::after {
@@ -479,7 +659,7 @@ header {
   border-radius: 50%;
   top: 1px;
   left: 1px;
-  transition: 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .toggle-switch.active {
@@ -489,6 +669,7 @@ header {
 .toggle-switch.active::after {
   left: 37px;
   background: black;
+  transform: rotate(360deg);
 }
 
 .cloak-grid {
@@ -508,14 +689,32 @@ header {
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cloak-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.cloak-btn:hover::before {
+  left: 100%;
 }
 
 .cloak-btn:hover {
   background: var(--orange);
   color: black;
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
   border-color: var(--orange);
+  box-shadow: 0 5px 15px rgba(255,107,0,0.4);
 }
 
 .cloak-custom {
@@ -531,6 +730,13 @@ header {
   border-radius: var(--radius-full);
   color: var(--text-primary);
   font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+.cloak-custom input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+  outline: none;
 }
 
 .hero {
@@ -542,6 +748,7 @@ header {
 .hero-card {
   background: radial-gradient(ellipse at 20% 30%, rgba(255,107,0,0.3) 0%, transparent 70%),
               radial-gradient(ellipse at 90% 70%, rgba(255,140,0,0.15) 0%, transparent 70%),
+              radial-gradient(ellipse at 40% 50%, rgba(66,133,244,0.1) 0%, transparent 60%),
               var(--bg-secondary);
   backdrop-filter: blur(15px);
   border-radius: var(--radius-xl);
@@ -555,6 +762,12 @@ header {
   gap: 3rem;
   position: relative;
   overflow: hidden;
+  animation: heroPulse 4s infinite alternate ease-in-out;
+}
+
+@keyframes heroPulse {
+  0% { box-shadow: var(--card-shadow); }
+  100% { box-shadow: 0 60px 120px -20px black, 0 0 80px rgba(255,107,0,0.3); }
 }
 
 .hero-card::before {
@@ -564,16 +777,28 @@ header {
   background: radial-gradient(circle at var(--x, 30%) var(--y, 30%), rgba(255,107,0,0.4) 0%, transparent 60%);
   opacity: 0.5;
   pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.hero-card:hover::before {
+  opacity: 0.8;
 }
 
 .hero h1 {
   font-size: 5.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e, #ff6b00);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'JetBrains Mono', monospace;
   line-height: 1;
+  animation: titleShimmer 6s infinite linear;
+  background-size: 300% auto;
+}
+
+@keyframes titleShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
 }
 
 .hero p {
@@ -582,6 +807,12 @@ header {
   margin-top: 1rem;
   border-left: 4px solid var(--orange);
   padding-left: 2rem;
+  transition: all 0.3s ease;
+}
+
+.hero-card:hover p {
+  border-left-color: var(--orange-bright);
+  transform: translateX(5px);
 }
 
 .hero-stats {
@@ -592,6 +823,12 @@ header {
   border-radius: var(--radius-full);
   border: 1px solid var(--border-color);
   backdrop-filter: blur(25px);
+  transition: all 0.3s ease;
+}
+
+.hero-card:hover .hero-stats {
+  background: rgba(255,107,0,0.1);
+  border-color: var(--orange);
 }
 
 .stat-value {
@@ -601,6 +838,12 @@ header {
   line-height: 1;
   text-shadow: 0 0 30px currentColor;
   font-family: 'JetBrains Mono', monospace;
+  animation: statPulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes statPulse {
+  0% { text-shadow: 0 0 30px rgba(255,107,0,0.5); }
+  100% { text-shadow: 0 0 50px rgba(255,107,0,0.8); }
 }
 
 .stat-label {
@@ -616,7 +859,7 @@ main {
   padding: 0 2rem;
 }
 
-/* =============== COLLAPSIBLE VAULTS =============== */
+/* COLLAPSIBLE VAULTS ENHANCED */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -624,7 +867,12 @@ main {
   border: 1px solid var(--border-color);
   margin-bottom: 2rem;
   overflow: hidden;
-  transition: var(--transition);
+  transition: all 0.3s ease;
+}
+
+.vault:hover {
+  border-color: var(--orange);
+  box-shadow: 0 0 40px rgba(255,107,0,0.15);
 }
 
 .vault-header {
@@ -638,12 +886,13 @@ main {
   font-family: 'JetBrains Mono', monospace;
   cursor: pointer;
   user-select: none;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   border-bottom: 1px solid transparent;
 }
 
 .vault-header:hover {
-  background: rgba(255,107,0,0.1);
+  background: rgba(255,107,0,0.15);
+  padding-left: 2.5rem;
 }
 
 .vault-header.active {
@@ -657,12 +906,18 @@ main {
   padding: 0.2rem 1.5rem;
   border-radius: var(--radius-full);
   font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.vault-header:hover span {
+  background: rgba(255,107,0,0.3);
+  transform: scale(1.05);
 }
 
 .vault-header .toggle-icon {
   color: var(--orange);
   font-size: 2rem;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   margin-left: 1rem;
 }
 
@@ -673,7 +928,7 @@ main {
 .vault-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(0,0,0,0.1);
 }
 
@@ -697,6 +952,12 @@ main {
   font-size: 1.2rem;
   border: 2px dashed var(--border-color);
   border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+}
+
+.empty-favorites:hover {
+  border-color: var(--orange);
+  color: var(--text-secondary);
 }
 
 .zone-item {
@@ -705,15 +966,28 @@ main {
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
-  transition: var(--transition-bounce);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   flex-direction: column;
   position: relative;
   box-shadow: var(--card-shadow);
+  animation: cardAppear 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .zone-item:hover {
-  transform: translateY(-12px) scale(1.02);
+  transform: translateY(-15px) scale(1.03);
   box-shadow: var(--hover-shadow);
   border-color: var(--orange);
 }
@@ -728,11 +1002,11 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .zone-item:hover img {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .favorite-star {
@@ -743,20 +1017,25 @@ main {
   color: rgba(255,215,0,0.5);
   cursor: pointer;
   z-index: 10;
-  transition: 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-shadow: 0 0 20px rgba(255,215,0,0.5);
+}
+
+.favorite-star:hover {
+  transform: scale(1.2) rotate(5deg);
+  color: rgba(255,215,0,0.8);
 }
 
 .favorite-star.active {
   color: gold;
   text-shadow: 0 0 30px gold;
-  animation: starPulse 0.5s;
+  animation: starPulse 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes starPulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
+  50% { transform: scale(1.4) rotate(10deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 
 .zone-overlay {
@@ -769,21 +1048,27 @@ main {
   padding: 0.4rem 1.8rem;
   border-radius: var(--radius-full);
   opacity: 0;
-  transform: translateY(-10px);
-  transition: 0.3s;
+  transform: translateY(-10px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 0 30px var(--orange);
   font-family: 'JetBrains Mono', monospace;
+  pointer-events: none;
 }
 
 .zone-item:hover .zone-overlay {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .zone-content {
   padding: 1.5rem 1.2rem 0.8rem;
   background: rgba(0,0,0,0.3);
   border-top: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.zone-item:hover .zone-content {
+  background: rgba(255,107,0,0.1);
 }
 
 .zone-name {
@@ -809,6 +1094,13 @@ main {
   color: var(--orange-bright);
   font-weight: 700;
   font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.zone-author:hover {
+  color: var(--orange);
+  text-decoration: underline;
 }
 
 .zone-item button {
@@ -821,9 +1113,26 @@ main {
   font-size: 1rem;
   color: var(--text-primary);
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-transform: uppercase;
   font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.zone-item button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.zone-item button:hover::before {
+  left: 100%;
 }
 
 .zone-item button:hover {
@@ -831,6 +1140,7 @@ main {
   border-color: var(--orange);
   color: black;
   transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255,107,0,0.5);
 }
 
 #zoneViewer {
@@ -841,6 +1151,18 @@ main {
   z-index: 1000;
   display: none;
   flex-direction: column;
+  animation: viewerAppear 0.3s ease-out;
+}
+
+@keyframes viewerAppear {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .zone-viewer-header {
@@ -868,6 +1190,12 @@ main {
   border-left: 2px solid var(--orange);
   padding-left: 2.5rem;
   font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+#zoneAuthor:hover {
+  color: var(--orange);
 }
 
 .zone-controls button {
@@ -879,13 +1207,31 @@ main {
   color: white;
   cursor: pointer;
   font-family: 'JetBrains Mono', monospace;
-  transition: 0.2s;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.zone-controls button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.zone-controls button:hover::before {
+  left: 100%;
 }
 
 .zone-controls button:hover {
   background: var(--orange);
   color: black;
-  transform: translateY(-2px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 30px rgba(255,107,0,0.5);
 }
 
 #zoneFrame {
@@ -1000,13 +1346,31 @@ footer {
   border-radius: var(--radius-full);
   border: 1px solid transparent;
   font-family: 'JetBrains Mono', monospace;
-  transition: 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-links a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.footer-links a:hover::before {
+  left: 100%;
 }
 
 .footer-links a:hover {
   color: var(--text-primary);
   background: rgba(255,107,0,0.2);
   border-color: var(--orange);
+  transform: translateY(-3px);
 }
 
 @media (max-width: 900px) {
@@ -1024,6 +1388,13 @@ footer {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     padding: 1.5rem;
   }
+  .zone-viewer-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  #zoneName { font-size: 2rem; }
+  .zone-controls { flex-wrap: wrap; justify-content: center; }
 }
 </style>
 </head>
@@ -1034,6 +1405,21 @@ footer {
     <h2>PH·SCIENCE</h2>
     <p>join the vault · 719 games</p>
     <div class="modal-buttons">
+      <!-- Google Sign-In Button -->
+      <button class="google-btn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+          <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+            <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
+            <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
+            <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
+            <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
+          </g>
+        </svg>
+        Continue with Google
+      </button>
+      
+      <div class="modal-divider">or</div>
+      
       <button class="modal-btn primary" onclick="showSignup()">create account</button>
       <button class="modal-btn secondary" onclick="continueAsGuest()">continue as guest</button>
     </div>
@@ -1045,6 +1431,22 @@ footer {
   <div class="modal-content">
     <h2>welcome back</h2>
     <p>sign in to your account</p>
+    
+    <!-- Google Sign-In Button (Login Modal) -->
+    <button class="google-btn" onclick="signInWithGoogle()" style="margin-bottom: 1.5rem;">
+      <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+          <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
+          <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
+          <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
+          <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
+        </g>
+      </svg>
+      Continue with Google
+    </button>
+    
+    <div class="modal-divider">or</div>
+    
     <input type="text" id="loginUsername" placeholder="username" style="width:100%; padding:1.2rem; margin-bottom:1rem; background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:var(--radius-full); color:var(--text-primary); font-family:'JetBrains Mono',monospace;">
     
     <div class="password-wrapper">
@@ -1063,6 +1465,22 @@ footer {
   <div class="modal-content">
     <h2>create account</h2>
     <p>start saving your favorites</p>
+    
+    <!-- Google Sign-In Button (Signup Modal) -->
+    <button class="google-btn" onclick="signInWithGoogle()" style="margin-bottom: 1.5rem;">
+      <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+          <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
+          <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
+          <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
+          <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
+        </g>
+      </svg>
+      Continue with Google
+    </button>
+    
+    <div class="modal-divider">or</div>
+    
     <input type="text" id="signupUsername" placeholder="username" style="width:100%; padding:1.2rem; margin-bottom:1rem; background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:var(--radius-full); color:var(--text-primary); font-family:'JetBrains Mono',monospace;">
     
     <div class="password-wrapper">
@@ -1233,7 +1651,7 @@ footer {
       <a href="#" onclick="document.getElementById('importFile').click(); return false;">import</a>
       <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
     </div>
-    <div class="footer-copy">PH·SCIENCE — 719 games · collapsible vaults · password toggle</div>
+    <div class="footer-copy">PH·SCIENCE — 719 games · Google Sign-In · collapsible vaults</div>
   </div>
 </footer>
 
@@ -1256,6 +1674,9 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
+// Enable Google Sign-In
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
 let zones = [];
 let favorites = JSON.parse(localStorage.getItem('ph_favorites')) || [];
 let showFavOnly = false;
@@ -1266,7 +1687,7 @@ const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
 let activeToasts = 0;
 
-// =============== COLLAPSIBLE VAULT FUNCTIONS ===============
+// COLLAPSIBLE VAULT FUNCTIONS
 window.toggleVault = function(vaultId) {
   const content = document.getElementById(vaultId + 'Content');
   const icon = document.getElementById(vaultId + 'Icon');
@@ -1313,6 +1734,43 @@ function showToast(message, duration = 3000) {
     }, 300);
   }, duration);
 }
+
+// GOOGLE SIGN-IN FUNCTION
+window.signInWithGoogle = function() {
+  auth.signInWithPopup(googleProvider)
+    .then((result) => {
+      const user = result.user;
+      showToast(`✅ welcome, ${user.displayName || 'Google user'}!`);
+      closeAllModals();
+      
+      // Check if user exists in database, if not create entry
+      database.ref('users/' + user.uid).once('value')
+        .then((snapshot) => {
+          if (!snapshot.exists()) {
+            return database.ref('users/' + user.uid + '/favorites').set([]);
+          }
+        })
+        .then(() => {
+          // Load favorites
+          return database.ref('users/' + user.uid + '/favorites').once('value');
+        })
+        .then((snapshot) => {
+          const favs = snapshot.val();
+          if (favs) {
+            favorites = favs;
+            localStorage.setItem('ph_favorites', JSON.stringify(favorites));
+            if (typeof displayZones === 'function') {
+              displayZones(zones);
+              displayFavorites();
+            }
+          }
+        });
+    })
+    .catch((error) => {
+      console.error('Google Sign-In Error:', error);
+      showToast('❌ Google sign-in failed');
+    });
+};
 
 window.showAccountModal = function() {
   const modal = document.getElementById('accountModal');
