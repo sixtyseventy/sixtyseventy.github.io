@@ -4,14 +4,11 @@
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
-
 <title>PH - Science</title>
 <meta name="title" content="PH Science | Learn Biology the Easy Way">
 <meta name="description" content="Access 700+ science worksheets designed to help you master biology quickly and easily.">
-
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -22,7 +19,6 @@ return 'Any unsaved progress will be lost.';
 <script async src="https://fundingchoicesmessages.google.com/i/pub-5521219086088837?ers=1"></script>
 <script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
 <script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
@@ -297,6 +293,54 @@ header:hover {
   transform: translateY(-2px);
 }
 
+.chat-icon {
+  background: rgba(255,107,0,0.15);
+  border: 1px solid var(--border-color);
+  color: var(--orange);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.chat-icon:hover {
+  background: var(--orange);
+  color: black;
+  transform: scale(1.1);
+}
+
+.chat-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4444;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 800;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid var(--bg-primary);
+  font-family: 'JetBrains Mono', monospace;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
 .account-btn {
   background: linear-gradient(135deg, var(--orange), var(--orange-bright));
   border: none;
@@ -355,7 +399,6 @@ header:hover {
   transform: rotate(180deg) scale(1.1);
 }
 
-/* ACCOUNT MODAL - context-aware */
 .account-modal {
   position: fixed;
   inset: 0;
@@ -775,6 +818,390 @@ header:hover {
   outline: none;
 }
 
+.chat-panel {
+  position: fixed;
+  top: 0;
+  right: -800px;
+  width: 600px;
+  height: 100vh;
+  background: var(--bg-panel);
+  backdrop-filter: blur(40px);
+  border-left: 2px solid var(--border-glow);
+  box-shadow: -30px 0 80px -20px black;
+  z-index: 2000;
+  transition: right 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-panel.active {
+  right: 0;
+}
+
+.chat-header {
+  padding: 1.5rem 2rem;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#closeChat {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 3rem;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+#closeChat:hover {
+  background: rgba(255,107,0,0.2);
+  color: var(--orange);
+  transform: rotate(90deg);
+}
+
+.chat-tabs {
+  display: flex;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chat-tab {
+  background: rgba(255,107,0,0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.8rem 2rem;
+  border-radius: var(--radius-full);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chat-tab.active {
+  background: var(--orange);
+  color: black;
+}
+
+.chat-tab .badge {
+  position: absolute;
+  top: -5px;
+  right: 10px;
+  background: #ff4444;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.chat-search {
+  padding: 1rem 2rem;
+}
+
+#userSearch {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+#userSearch:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+  outline: none;
+}
+
+.chat-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 2rem;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-item {
+  background: rgba(255,107,0,0.05);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.user-item:hover {
+  background: rgba(255,107,0,0.15);
+  border-color: var(--orange);
+}
+
+.user-item.unread {
+  border-left: 4px solid var(--orange);
+  background: rgba(255,107,0,0.1);
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-bright));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: black;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--orange-bright);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.user-status {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.online-dot {
+  width: 10px;
+  height: 10px;
+  background: #00ff88;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+.offline-dot {
+  width: 10px;
+  height: 10px;
+  background: #888;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.unread-badge {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--orange);
+  color: black;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+.message.sent {
+  align-self: flex-end;
+}
+
+.message.received {
+  align-self: flex-start;
+}
+
+.message-bubble {
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg);
+  font-family: 'Inter', sans-serif;
+  word-wrap: break-word;
+}
+
+.message.sent .message-bubble {
+  background: var(--orange);
+  color: black;
+  border-bottom-right-radius: 4px;
+}
+
+.message.received .message-bubble {
+  background: rgba(255,107,0,0.15);
+  color: var(--text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.message-time {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  padding: 0 0.5rem;
+}
+
+.message.sent .message-time {
+  text-align: right;
+}
+
+.chat-input-area {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 1rem;
+  background: rgba(0,0,0,0.2);
+}
+
+#chatMessageInput {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s ease;
+}
+
+#chatMessageInput:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.2);
+  outline: none;
+}
+
+#sendMessageBtn {
+  background: var(--orange);
+  border: none;
+  color: black;
+  font-weight: 800;
+  padding: 0 2rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.3s ease;
+}
+
+#sendMessageBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,107,0,0.5);
+}
+
+.back-btn {
+  background: rgba(255,107,0,0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255,107,0,0.2);
+  transform: translateX(-5px);
+}
+
+.notification-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 350px;
+  width: calc(100% - 4rem);
+  pointer-events: none;
+}
+
+.notification {
+  background: var(--orange);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg);
+  color: black;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 20px rgba(255,107,0,0.5);
+  font-family: 'JetBrains Mono', monospace;
+  animation: notificationSlide 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255,255,255,0.3);
+  cursor: pointer;
+  pointer-events: auto;
+  transform-origin: right;
+}
+
+@keyframes notificationSlide {
+  from {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.notification.exit {
+  animation: notificationExit 0.3s forwards;
+}
+
+@keyframes notificationExit {
+  to {
+    transform: translateX(100%) scale(0.8);
+    opacity: 0;
+  }
+}
+
 .hero {
   max-width: 1600px;
   margin: 2rem auto 3rem;
@@ -898,7 +1325,6 @@ main {
   padding: 0 2rem;
 }
 
-/* Lock filter toggle */
 .lock-filter {
   display: flex;
   justify-content: center;
@@ -1104,7 +1530,6 @@ main {
   transform: translateY(0) scale(1);
 }
 
-/* LOCKED OVERLAY - enhanced */
 .locked-overlay {
   position: absolute;
   inset: 0;
@@ -1646,11 +2071,17 @@ footer {
   .hero-stats { padding: 1.5rem; gap: 2rem; }
   .stat-value { font-size: 2.5rem; }
   .settings-panel { width: 100%; right: -100%; }
+  .chat-panel { width: 100%; right: -100%; }
   .toast-container { 
     top: 1rem; 
     right: 1rem; 
     left: 1rem;
     width: auto;
+  }
+  .notification-container {
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
   }
   .zone-container {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1789,6 +2220,38 @@ footer {
   </div>
 </div>
 
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <h2>💬 social hub</h2>
+    <button id="closeChat">✕</button>
+  </div>
+  <div class="chat-tabs">
+    <button class="chat-tab active" id="usersTab" onclick="switchChatTab('users')">users <span class="badge" id="onlineCount">0</span></button>
+    <button class="chat-tab" id="messagesTab" onclick="switchChatTab('messages')">messages <span class="badge" id="unreadTotal">0</span></button>
+  </div>
+  <div class="chat-search">
+    <input type="text" id="userSearch" placeholder="search users..." oninput="searchUsers()">
+  </div>
+  <div class="chat-content" id="chatContent">
+    <div id="usersView" class="users-list"></div>
+    <div id="messagesView" style="display: none; height: 100%; flex-direction: column;">
+      <div id="chatHeader" style="display: none;">
+        <button class="back-btn" onclick="backToUsers()">← back to users</button>
+        <h3 id="currentChatUser" style="margin-top: 1rem;"></h3>
+      </div>
+      <div id="chatMessages" class="chat-messages" style="flex: 1;"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chatMessageInput" placeholder="type a message...">
+        <button id="sendMessageBtn" onclick="sendMessage()">send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICATION CONTAINER (bottom right) -->
+<div class="notification-container" id="notificationContainer"></div>
+
 <header>
   <div class="header-content">
     <div style="display:flex; align-items:center; gap:1.2rem;">
@@ -1804,6 +2267,10 @@ footer {
       </select>
     </div>
     <div style="display:flex; gap:1rem;">
+      <div class="chat-icon" id="chatBtn">
+        💬
+        <span class="chat-badge" id="chatNotificationBadge" style="display: none;">0</span>
+      </div>
       <button class="account-btn" id="accountBtn" onclick="showSmartAccountModal()">✨ sign in</button>
       <div class="settings-icon" id="settingsBtn">⚙️</div>
     </div>
@@ -1924,15 +2391,52 @@ let recentlyPlayed = [];
 let showFavOnly = false;
 let currentUser = null;
 let isGuest = false;
-let unlockedGames = []; // for guest mode (50% random)
-let lockFilter = 'unlocked'; // 'unlocked' or 'locked' (for guests)
+let unlockedGames = [];
+let lockFilter = 'unlocked';
+
+// Chat variables
+let allUsers = [];
+let selectedUserId = null;
+let messageListener = null;
+let usersListener = null;
+let unreadMessages = {};
+let activeChats = {};
+let onlineCount = 0;
 
 const bannedIds = [-1, 596];
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
 //===================================================
-// SMART ACCOUNT MODAL (context-aware)
+// NOTIFICATION SYSTEM (bottom right)
+//===================================================
+function showNotification(message, onClick = null) {
+  const container = document.getElementById('notificationContainer');
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+  
+  if (onClick) {
+    notification.onclick = () => {
+      onClick();
+      notification.remove();
+    };
+  } else {
+    notification.onclick = () => notification.remove();
+  }
+  
+  container.appendChild(notification);
+  
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.classList.add('exit');
+      setTimeout(() => notification.remove(), 300);
+    }
+  }, 5000);
+}
+
+//===================================================
+// SMART ACCOUNT MODAL
 //===================================================
 window.showSmartAccountModal = function() {
   const modal = document.getElementById('accountModal');
@@ -1940,7 +2444,6 @@ window.showSmartAccountModal = function() {
   const user = auth.currentUser;
   
   if (user && !user.isAnonymous) {
-    // Signed-in user (non-guest)
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <div class="user-greeting">👋 ${user.displayName || 'player'}</div>
@@ -1950,7 +2453,6 @@ window.showSmartAccountModal = function() {
       </div>
     `;
   } else if (user && user.isAnonymous) {
-    // Guest
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <div class="user-greeting">👤 guest mode · 50% unlocked</div>
@@ -1959,7 +2461,6 @@ window.showSmartAccountModal = function() {
       </div>
     `;
   } else {
-    // Not logged in
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <p>join the vault · 700+ games</p>
@@ -1983,6 +2484,11 @@ window.switchAccounts = function() {
 };
 
 window.logout = function() {
+  const userId = auth.currentUser?.uid;
+  if (userId && !auth.currentUser?.isAnonymous) {
+    database.ref('users/' + userId).update({ online: false, lastSeen: Date.now() });
+  }
+  
   auth.signOut().then(() => {
     showToast('👋 logged out');
     closeAllModals();
@@ -1990,12 +2496,244 @@ window.logout = function() {
     favorites = [];
     recentlyPlayed = [];
     isGuest = false;
+    allUsers = [];
+    unreadMessages = {};
+    updateUnreadBadges();
     updateLockFilterVisibility();
     displayZones(zones);
     displayFavorites();
     displayRecentlyPlayed();
     updateViewerButtons();
+    if (usersListener) {
+      usersListener.off();
+      usersListener = null;
+    }
+    displayUsers();
   });
+};
+
+//===================================================
+// CHAT FUNCTIONS
+//===================================================
+function setupMessageListeners(userId) {
+  database.ref('chats').on('value', (snapshot) => {
+    const chats = snapshot.val() || {};
+    unreadMessages = {};
+    let totalUnread = 0;
+    
+    Object.keys(chats).forEach(chatId => {
+      if (chatId.includes(userId)) {
+        const otherId = chatId.replace(userId, '').replace('_', '');
+        const messages = Object.values(chats[chatId] || {});
+        const lastMessage = messages[messages.length - 1];
+        
+        if (lastMessage && lastMessage.senderId !== userId) {
+          const lastSeen = activeChats[otherId] || 0;
+          const unread = messages.filter(m => m.senderId !== userId && m.timestamp > lastSeen).length;
+          
+          if (unread > 0) {
+            unreadMessages[otherId] = unread;
+            totalUnread += unread;
+          }
+        }
+      }
+    });
+    
+    document.getElementById('unreadTotal').textContent = totalUnread;
+    document.getElementById('chatNotificationBadge').style.display = totalUnread > 0 ? 'flex' : 'none';
+    document.getElementById('chatNotificationBadge').textContent = totalUnread > 9 ? '9+' : totalUnread;
+    
+    displayUsers();
+    
+    if (selectedUserId && document.getElementById('messagesView').style.display !== 'none') {
+      markMessagesRead(selectedUserId);
+    }
+  });
+}
+
+function markMessagesRead(otherId) {
+  const userId = auth.currentUser?.uid;
+  if (!userId) return;
+  
+  activeChats[otherId] = Date.now();
+  
+  if (unreadMessages[otherId]) {
+    delete unreadMessages[otherId];
+    const totalUnread = Object.values(unreadMessages).reduce((a, b) => a + b, 0);
+    document.getElementById('unreadTotal').textContent = totalUnread;
+    document.getElementById('chatNotificationBadge').style.display = totalUnread > 0 ? 'flex' : 'none';
+    document.getElementById('chatNotificationBadge').textContent = totalUnread > 9 ? '9+' : totalUnread;
+    displayUsers();
+  }
+}
+
+window.switchChatTab = function(tab) {
+  const usersView = document.getElementById('usersView');
+  const messagesView = document.getElementById('messagesView');
+  const usersTab = document.getElementById('usersTab');
+  const messagesTab = document.getElementById('messagesTab');
+  
+  if (tab === 'users') {
+    usersView.style.display = 'flex';
+    messagesView.style.display = 'none';
+    usersTab.classList.add('active');
+    messagesTab.classList.remove('active');
+    document.getElementById('chatHeader').style.display = 'none';
+    selectedUserId = null;
+  } else {
+    if (!selectedUserId) {
+      showToast('👤 select a user first');
+      return;
+    }
+    usersView.style.display = 'none';
+    messagesView.style.display = 'flex';
+    messagesTab.classList.add('active');
+    usersTab.classList.remove('active');
+    document.getElementById('chatHeader').style.display = 'block';
+    markMessagesRead(selectedUserId);
+  }
+};
+
+window.searchUsers = debounce(function() {
+  displayUsers();
+}, 200);
+
+function displayUsers() {
+  const container = document.getElementById('usersView');
+  const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+  const userId = auth.currentUser?.uid;
+  
+  let filtered = allUsers;
+  if (searchTerm) {
+    filtered = allUsers.filter(u => u.username.toLowerCase().includes(searchTerm));
+  }
+  
+  filtered.sort((a, b) => {
+    if (a.online && !b.online) return -1;
+    if (!a.online && b.online) return 1;
+    return a.username.localeCompare(b.username);
+  });
+  
+  container.innerHTML = '';
+  
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-muted);">no users found</div>';
+    return;
+  }
+  
+  filtered.forEach(user => {
+    const userDiv = document.createElement('div');
+    userDiv.className = 'user-item' + (unreadMessages[user.id] ? ' unread' : '');
+    userDiv.onclick = () => selectUser(user);
+    
+    const avatar = document.createElement('div');
+    avatar.className = 'user-avatar';
+    avatar.textContent = user.username.charAt(0).toUpperCase();
+    
+    const info = document.createElement('div');
+    info.className = 'user-info';
+    
+    const name = document.createElement('div');
+    name.className = 'user-name';
+    name.innerHTML = `<span class="${user.online ? 'online-dot' : 'offline-dot'}"></span>${user.username}`;
+    if (user.online) name.innerHTML += ' <span style="color:#00ff88; font-size:0.7rem;">● online</span>';
+    
+    const status = document.createElement('div');
+    status.className = 'user-status';
+    status.textContent = user.online ? 'active now' : `last seen ${user.lastSeen ? new Date(user.lastSeen).toLocaleTimeString() : 'unknown'}`;
+    
+    info.appendChild(name);
+    info.appendChild(status);
+    
+    userDiv.appendChild(avatar);
+    userDiv.appendChild(info);
+    
+    if (unreadMessages[user.id]) {
+      const badge = document.createElement('div');
+      badge.className = 'unread-badge';
+      badge.textContent = unreadMessages[user.id];
+      userDiv.appendChild(badge);
+    }
+    
+    container.appendChild(userDiv);
+  });
+}
+
+function selectUser(user) {
+  selectedUserId = user.id;
+  document.getElementById('currentChatUser').innerHTML = `<span class="${user.online ? 'online-dot' : 'offline-dot'}"></span>${user.username}`;
+  switchChatTab('messages');
+  
+  const userId = auth.currentUser.uid;
+  const chatId = userId < selectedUserId ? `${userId}_${selectedUserId}` : `${selectedUserId}_${userId}`;
+  const messagesDiv = document.getElementById('chatMessages');
+  messagesDiv.innerHTML = '';
+  
+  if (messageListener) {
+    messageListener.off();
+  }
+  
+  messageListener = database.ref('chats/' + chatId).orderByChild('timestamp').on('value', (snapshot) => {
+    const messages = snapshot.val();
+    messagesDiv.innerHTML = '';
+    
+    if (!messages) return;
+    
+    const messageList = Object.values(messages).sort((a, b) => a.timestamp - b.timestamp);
+    messageList.forEach(msg => {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${msg.senderId === userId ? 'sent' : 'received'}`;
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'message-bubble';
+      bubble.textContent = msg.text;
+      
+      const time = document.createElement('div');
+      time.className = 'message-time';
+      time.textContent = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      messageDiv.appendChild(bubble);
+      messageDiv.appendChild(time);
+      messagesDiv.appendChild(messageDiv);
+    });
+    
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    
+    // Show notification for new messages
+    const lastMsg = messageList[messageList.length - 1];
+    if (lastMsg && lastMsg.senderId !== userId && lastMsg.senderId === selectedUserId) {
+      showNotification(`📩 ${user.username}: ${lastMsg.text.substring(0, 30)}${lastMsg.text.length > 30 ? '...' : ''}`, () => {
+        document.getElementById('chatPanel').classList.add('active');
+        selectUser(user);
+      });
+    }
+    
+    markMessagesRead(selectedUserId);
+  });
+}
+
+window.sendMessage = function() {
+  const input = document.getElementById('chatMessageInput');
+  const text = input.value.trim();
+  if (!text || !selectedUserId || !auth.currentUser) return;
+  
+  const userId = auth.currentUser.uid;
+  const chatId = userId < selectedUserId ? `${userId}_${selectedUserId}` : `${selectedUserId}_${userId}`;
+  
+  const message = {
+    senderId: userId,
+    text: text,
+    timestamp: Date.now()
+  };
+  
+  database.ref('chats/' + chatId).push(message).then(() => {
+    input.value = '';
+    activeChats[selectedUserId] = Date.now();
+  });
+};
+
+window.backToUsers = function() {
+  switchChatTab('users');
 };
 
 //===================================================
@@ -2005,12 +2743,9 @@ function updateLockFilterVisibility() {
   const container = document.getElementById('lockFilterContainer');
   const user = auth.currentUser;
   
+  container.style.display = (user && user.isAnonymous) ? 'flex' : 'none';
   if (user && user.isAnonymous) {
-    container.style.display = 'flex'; // guest sees filter
-    // Reset to unlocked view by default
     setLockFilter('unlocked');
-  } else {
-    container.style.display = 'none'; // signed-in or logged-out don't see filter
   }
 }
 
@@ -2018,7 +2753,7 @@ window.setLockFilter = function(filter) {
   lockFilter = filter;
   document.getElementById('showUnlockedBtn').classList.toggle('active', filter === 'unlocked');
   document.getElementById('showLockedBtn').classList.toggle('active', filter === 'locked');
-  displayZones(zones); // re-render with filter
+  displayZones(zones);
 };
 
 //===================================================
@@ -2149,10 +2884,17 @@ window.register = function() {
     .then((userCredential) => {
       const user = userCredential.user;
       return user.updateProfile({ displayName: username }).then(() => {
-        return Promise.all([
-          database.ref('users/' + user.uid + '/favorites').set([]),
-          database.ref('users/' + user.uid + '/recent').set([])
-        ]);
+        return database.ref('users/' + user.uid).set({
+          username: username,
+          online: true,
+          lastSeen: Date.now(),
+          createdAt: Date.now()
+        }).then(() => {
+          return Promise.all([
+            database.ref('users/' + user.uid + '/favorites').set([]),
+            database.ref('users/' + user.uid + '/recent').set([])
+          ]);
+        });
       });
     })
     .then(() => {
@@ -2175,7 +2917,8 @@ window.login = function() {
   const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
   
   auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
+    .then((userCredential) => {
+      database.ref('users/' + userCredential.user.uid).update({ online: true, lastSeen: Date.now() });
       showToast(`👋 welcome back, ${username}`);
       closeAllModals();
     })
@@ -2241,6 +2984,9 @@ window.handleDownload = function() {
   a.click();
 };
 
+//===================================================
+// AUTH STATE HANDLER
+//===================================================
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   const favoritesContainer = document.getElementById('favoritesZones');
@@ -2252,27 +2998,39 @@ auth.onAuthStateChanged((user) => {
       currentUser = user.displayName || user.email.split('@')[0];
       accountBtn.innerHTML = `👤 ${currentUser}`;
       isGuest = false;
+      
+      database.ref('users/' + userId).update({ online: true, lastSeen: Date.now() });
+      
+      if (usersListener) usersListener.off();
+      usersListener = database.ref('users').on('value', (snapshot) => {
+        const users = snapshot.val() || {};
+        allUsers = Object.keys(users).map(key => ({ id: key, ...users[key] }))
+          .filter(u => u.id !== userId && u.username);
+        onlineCount = allUsers.filter(u => u.online).length;
+        document.getElementById('onlineCount').textContent = onlineCount;
+        displayUsers();
+      });
+      
+      database.ref('users/' + userId + '/favorites').on('value', (snapshot) => {
+        favorites = snapshot.val() || [];
+        displayZones(zones);
+        displayFavorites();
+      });
+      
+      database.ref('users/' + userId + '/recent').on('value', (snapshot) => {
+        recentlyPlayed = snapshot.val() || [];
+        displayRecentlyPlayed();
+      });
+      
+      setupMessageListeners(userId);
+      
     } else {
       accountBtn.innerHTML = '👤 guest';
       currentUser = 'guest';
       isGuest = true;
+      allUsers = [];
+      displayUsers();
     }
-    
-    database.ref('users/' + userId + '/favorites').on('value', (snapshot) => {
-      const favs = snapshot.val();
-      favorites = favs ? favs : [];
-      if (!favs) database.ref('users/' + userId + '/favorites').set([]);
-      displayZones(zones);
-      displayFavorites();
-      displayRecentlyPlayed();
-    });
-    
-    database.ref('users/' + userId + '/recent').on('value', (snapshot) => {
-      const recent = snapshot.val();
-      recentlyPlayed = recent ? recent : [];
-      if (!recent) database.ref('users/' + userId + '/recent').set([]);
-      displayRecentlyPlayed();
-    });
     
     if (favoritesContainer) {
       const emptyDiv = favoritesContainer.querySelector('.empty-favorites');
@@ -2285,14 +3043,25 @@ auth.onAuthStateChanged((user) => {
     isGuest = false;
     favorites = [];
     recentlyPlayed = [];
+    allUsers = [];
+    onlineCount = 0;
+    document.getElementById('onlineCount').textContent = '0';
+    unreadMessages = {};
+    updateUnreadBadges();
     
     displayZones(zones);
     displayFavorites();
     displayRecentlyPlayed();
+    displayUsers();
     
     if (favoritesContainer) {
       const emptyDiv = favoritesContainer.querySelector('.empty-favorites');
       if (emptyDiv) emptyDiv.innerHTML = '✨ sign in to star games and see them here';
+    }
+    
+    if (usersListener) {
+      usersListener.off();
+      usersListener = null;
     }
   }
   
@@ -2301,11 +3070,28 @@ auth.onAuthStateChanged((user) => {
   if (zones.length > 0) displayZones(zones);
 });
 
+// Update online status on page unload
+window.addEventListener('beforeunload', () => {
+  const user = auth.currentUser;
+  if (user && !user.isAnonymous) {
+    database.ref('users/' + user.uid).update({ online: false, lastSeen: Date.now() });
+  }
+});
+
+function updateUnreadBadges() {
+  const totalUnread = Object.values(unreadMessages).reduce((a, b) => a + b, 0);
+  document.getElementById('unreadTotal').textContent = totalUnread;
+  document.getElementById('chatNotificationBadge').style.display = totalUnread > 0 ? 'flex' : 'none';
+  document.getElementById('chatNotificationBadge').textContent = totalUnread > 9 ? '9+' : totalUnread;
+}
+
+//===================================================
+// GAME FUNCTIONS
+//===================================================
 function addToRecentlyPlayed(gameId) {
   if (!auth.currentUser) return;
   const userId = auth.currentUser.uid;
-  const updatedRecent = recentlyPlayed.filter(id => id !== gameId);
-  updatedRecent.unshift(gameId);
+  const updatedRecent = [gameId, ...recentlyPlayed.filter(id => id !== gameId)];
   const maxRecent = parseInt(document.getElementById('maxRecent')?.value || '10');
   if (updatedRecent.length > maxRecent) updatedRecent.length = maxRecent;
   database.ref('users/' + userId + '/recent').set(updatedRecent);
@@ -2347,22 +3133,16 @@ window.toggleFavorite = function(gameId, event) {
     return;
   }
   
-  const index = favorites.indexOf(gameId);
-  let newFavorites;
-  
-  if (index === -1) {
-    newFavorites = [...favorites, gameId];
-    showToast('⭐ added to favorites');
-  } else {
-    newFavorites = favorites.filter(id => id !== gameId);
-    showToast('☆ removed from favorites');
-  }
+  const newFavorites = favorites.includes(gameId) 
+    ? favorites.filter(id => id !== gameId) 
+    : [...favorites, gameId];
   
   database.ref('users/' + auth.currentUser.uid + '/favorites').set(newFavorites)
     .then(() => {
+      showToast(newFavorites.includes(gameId) ? '⭐ added to favorites' : '☆ removed from favorites');
       const star = event.target;
       star.classList.toggle('active', newFavorites.includes(gameId));
-      if (index === -1) {
+      if (newFavorites.includes(gameId)) {
         star.style.animation = 'starPulse 0.5s';
         setTimeout(() => star.style.animation = '', 500);
       }
@@ -2400,7 +3180,6 @@ async function listZones() {
     const json = await response.json();
     zones = json.filter(game => !bannedIds.includes(game.id));
     
-    // Randomly select 50% for unlocked in guest mode
     const shuffled = [...zones].sort(() => 0.5 - Math.random());
     unlockedGames = shuffled.slice(0, Math.floor(zones.length / 2)).map(g => g.id);
     
@@ -2430,15 +3209,12 @@ function displayZones(list) {
   const container = document.getElementById('container');
   container.innerHTML = "";
   
-  // Apply lock filtering based on user state
   let displayList = list;
   const user = auth.currentUser;
   
   if (!user) {
-    // Not signed in: all locked
     displayList = list.map(game => ({ ...game, forcedLock: true }));
   } else if (user.isAnonymous) {
-    // Guest: filter based on lockFilter
     displayList = list.filter(game => {
       const isUnlocked = unlockedGames.includes(game.id);
       return lockFilter === 'unlocked' ? isUnlocked : !isUnlocked;
@@ -2447,7 +3223,6 @@ function displayZones(list) {
       forcedLock: lockFilter === 'locked' ? true : (unlockedGames.includes(game.id) ? false : true)
     }));
   } else {
-    // Signed in: all unlocked
     displayList = list.map(game => ({ ...game, forcedLock: false }));
   }
   
@@ -2462,7 +3237,6 @@ function createZoneCard(file) {
   const user = auth.currentUser;
   const isSignedIn = user && !user.isAnonymous;
   
-  // Determine if game is locked
   let isLocked = false;
   let lockMessage = '';
   
@@ -2619,12 +3393,39 @@ window.aboutBlank = function() {
   if (w) { w.document.write(frame.srcdoc); w.document.close(); }
 };
 
+//===================================================
+// EVENT LISTENERS
+//===================================================
 document.getElementById('settingsBtn').addEventListener('click', () => {
   document.getElementById('settingsPanel').classList.add('active');
 });
 
 document.getElementById('closeSettings').addEventListener('click', () => {
   document.getElementById('settingsPanel').classList.remove('active');
+});
+
+document.getElementById('chatBtn').addEventListener('click', () => {
+  if (!auth.currentUser || auth.currentUser.isAnonymous) {
+    showToast('🔒 Sign in to use chat');
+    showSmartAccountModal();
+    return;
+  }
+  document.getElementById('chatPanel').classList.add('active');
+  switchChatTab('users');
+  
+  // Mark all as read when opening chat
+  const userId = auth.currentUser.uid;
+  Object.keys(unreadMessages).forEach(otherId => {
+    markMessagesRead(otherId);
+  });
+});
+
+document.getElementById('closeChat').addEventListener('click', () => {
+  document.getElementById('chatPanel').classList.remove('active');
+  if (messageListener) {
+    messageListener.off();
+    messageListener = null;
+  }
 });
 
 window.toggleTheme = function() {
@@ -2678,8 +3479,11 @@ window.addEventListener('click', (e) => {
   }
 });
 
+//===================================================
+// INITIALIZE
+//===================================================
 listZones();
-console.log('loaded: lock system with guest filter');
+console.log('loaded: complete with social features, user list, and bottom-right notifications');
 </script>
 </body>
 </html>
