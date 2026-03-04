@@ -2,13 +2,28 @@
 <html lang="en">
 <head>
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
-<link rel="icon" type="image/png" href="SCIENCE.png">
-<link rel="apple-touch-icon" href="SCIENCE.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PH - Science</title>
+
+<link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1246719291517308929/1478551741980213483/SCIENCE.png?ex=69a8d01d&is=69a77e9d&hm=a583100c7a771cc122ae87ef77f9d85a3f66368824f8949d7e05e4d4a2675e74">
+<link rel="apple-touch-icon" href="https://cdn.discordapp.com/attachments/1246719291517308929/1478551741980213483/SCIENCE.png?ex=69a8d01d&is=69a77e9d&hm=a583100c7a771cc122ae87ef77f9d85a3f66368824f8949d7e05e4d4a2675e74">
+
+<title>PH·SCIENCE — 719 games</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
-<meta name="description" content="719 unblocked games, favorites, stacked notifications, password toggle">
+<meta name="description" content="719 unblocked games, collapsible vaults, stacked notifications, password toggle">
+
+<!-- Core security & ads (preserved) -->
+<script>
+window.addEventListener('beforeunload', function (event) {
+event.preventDefault();
+event.returnValue = '';
+return 'Any unsaved progress will be lost.';
+});
+</script>
+<script async src="https://fundingchoicesmessages.google.com/i/pub-5521219086088837?ers=1"></script>
+<script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
+<script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap');
@@ -601,41 +616,76 @@ main {
   padding: 0 2rem;
 }
 
+/* =============== COLLAPSIBLE VAULTS =============== */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
   overflow: hidden;
+  transition: var(--transition);
 }
 
 .vault-header {
-  padding: 2rem 3rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem 2rem;
   font-weight: 900;
-  font-size: 2.5rem;
+  font-size: 2rem;
   background: rgba(0,0,0,0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'JetBrains Mono', monospace;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+  border-bottom: 1px solid transparent;
+}
+
+.vault-header:hover {
+  background: rgba(255,107,0,0.1);
+}
+
+.vault-header.active {
+  border-bottom-color: var(--border-color);
 }
 
 .vault-header span {
   color: var(--orange);
   background: rgba(255,107,0,0.2);
   border: 1px solid rgba(255,107,0,0.4);
-  padding: 0.3rem 2rem;
+  padding: 0.2rem 1.5rem;
   border-radius: var(--radius-full);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
-#featuredZones, #favoritesZones, #container {
+.vault-header .toggle-icon {
+  color: var(--orange);
+  font-size: 2rem;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  margin-left: 1rem;
+}
+
+.vault-header.active .toggle-icon {
+  transform: rotate(180deg);
+}
+
+.vault-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(0,0,0,0.1);
+}
+
+.vault-content.expanded {
+  max-height: 5000px;
+}
+
+.zone-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2.5rem;
-  padding: 3rem;
+  gap: 2rem;
+  padding: 2rem;
 }
 
 .empty-favorites {
@@ -731,14 +781,14 @@ main {
 }
 
 .zone-content {
-  padding: 1.8rem 1.5rem 1rem;
+  padding: 1.5rem 1.2rem 0.8rem;
   background: rgba(0,0,0,0.3);
   border-top: 1px solid var(--border-color);
 }
 
 .zone-name {
   font-weight: 900;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
@@ -751,8 +801,8 @@ main {
   justify-content: space-between;
   align-items: center;
   color: var(--text-muted);
-  font-size: 0.9rem;
-  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
 }
 
 .zone-author {
@@ -764,11 +814,11 @@ main {
 .zone-item button {
   background: transparent;
   border: 2px solid rgba(255,107,0,0.3);
-  margin: 0.5rem 1.5rem 1.8rem;
-  padding: 1rem;
+  margin: 0.5rem 1.2rem 1.5rem;
+  padding: 0.9rem;
   border-radius: var(--radius-full);
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-primary);
   cursor: pointer;
   transition: 0.2s;
@@ -970,6 +1020,10 @@ footer {
     left: 1rem;
     width: auto;
   }
+  .zone-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 1.5rem;
+  }
 }
 </style>
 </head>
@@ -1107,23 +1161,48 @@ footer {
 </div>
 
 <main>
+  <!-- FAVORITES VAULT (COLLAPSIBLE) -->
   <div class="vault" id="favoritesVault">
-    <div class="vault-header">
-      ⭐ your favorites <span id="favoritesCount">0</span>
+    <div class="vault-header" onclick="toggleVault('favoritesVault')">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span>⭐ your favorites</span>
+        <span id="favoritesCount">0</span>
+      </div>
+      <span class="toggle-icon" id="favoritesVaultIcon">▼</span>
     </div>
-    <div id="favoritesZones" class="zone-container">
-      <div class="empty-favorites">✨ star games to see them here</div>
+    <div class="vault-content expanded" id="favoritesVaultContent">
+      <div id="favoritesZones" class="zone-container">
+        <div class="empty-favorites">✨ star games to see them here</div>
+      </div>
     </div>
   </div>
 
-  <div class="vault">
-    <div class="vault-header">featured vault <span id="featuredCount">0</span></div>
-    <div id="featuredZones" class="zone-container"></div>
+  <!-- FEATURED VAULT (COLLAPSIBLE) -->
+  <div class="vault" id="featuredVault">
+    <div class="vault-header" onclick="toggleVault('featuredVault')">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span>🔥 featured vault</span>
+        <span id="featuredCount">0</span>
+      </div>
+      <span class="toggle-icon" id="featuredVaultIcon">▼</span>
+    </div>
+    <div class="vault-content expanded" id="featuredVaultContent">
+      <div id="featuredZones" class="zone-container"></div>
+    </div>
   </div>
   
-  <div class="vault">
-    <div class="vault-header">all zones · 719 games <span id="allCount">0</span></div>
-    <div id="container">loading...</div>
+  <!-- ALL ZONES VAULT (COLLAPSIBLE) -->
+  <div class="vault" id="allZonesVault">
+    <div class="vault-header" onclick="toggleVault('allZonesVault')">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span>📦 all zones · 719 games</span>
+        <span id="allCount">0</span>
+      </div>
+      <span class="toggle-icon" id="allZonesVaultIcon">▼</span>
+    </div>
+    <div class="vault-content expanded" id="allZonesVaultContent">
+      <div id="container" class="zone-container">loading...</div>
+    </div>
   </div>
 </main>
 
@@ -1154,7 +1233,7 @@ footer {
       <a href="#" onclick="document.getElementById('importFile').click(); return false;">import</a>
       <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
     </div>
-    <div class="footer-copy">PH·SCIENCE — 719 games · stacked notifications · password toggle</div>
+    <div class="footer-copy">PH·SCIENCE — 719 games · collapsible vaults · password toggle</div>
   </div>
 </footer>
 
@@ -1186,6 +1265,23 @@ const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
 let activeToasts = 0;
+
+// =============== COLLAPSIBLE VAULT FUNCTIONS ===============
+window.toggleVault = function(vaultId) {
+  const content = document.getElementById(vaultId + 'Content');
+  const icon = document.getElementById(vaultId + 'Icon');
+  const header = document.querySelector(`#${vaultId} .vault-header`);
+  
+  if (content.classList.contains('expanded')) {
+    content.classList.remove('expanded');
+    icon.style.transform = 'rotate(0deg)';
+    header.classList.remove('active');
+  } else {
+    content.classList.add('expanded');
+    icon.style.transform = 'rotate(180deg)';
+    header.classList.add('active');
+  }
+};
 
 window.togglePassword = function(inputId, button) {
   const input = document.getElementById(inputId);
