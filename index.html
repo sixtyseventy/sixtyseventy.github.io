@@ -805,7 +805,7 @@ main {
   padding: 0 2rem;
 }
 
-/* FIXED: COLLAPSIBLE VAULTS WITH DYNAMIC HEIGHT */
+/* COLLAPSIBLE VAULTS */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -871,7 +871,6 @@ main {
   transform: rotate(180deg);
 }
 
-/* FIX: Use max-height with a much larger value to ensure all content shows */
 .vault-content {
   max-height: 0;
   overflow: hidden;
@@ -879,7 +878,6 @@ main {
   background: rgba(0,0,0,0.1);
 }
 
-/* Increased max-height to 10000px to accommodate all games */
 .vault-content.expanded {
   max-height: 1000000px;
 }
@@ -891,7 +889,7 @@ main {
   padding: 2rem;
 }
 
-.empty-favorites {
+.empty-favorites, .empty-recent {
   grid-column: 1 / -1;
   text-align: center;
   padding: 4rem;
@@ -903,7 +901,7 @@ main {
   transition: all 0.3s ease;
 }
 
-.empty-favorites:hover {
+.empty-favorites:hover, .empty-recent:hover {
   border-color: var(--orange);
   color: var(--text-secondary);
 }
@@ -990,7 +988,7 @@ main {
   background: rgba(255,107,0,0.1);
 }
 
-/* NEW: Improved title container with star */
+/* Title container with star */
 .zone-title-container {
   display: flex;
   align-items: center;
@@ -998,7 +996,7 @@ main {
   width: 100%;
 }
 
-/* NEW: Better star positioning - now beside the title */
+/* Star positioning */
 .favorite-star {
   font-size: 1.8rem;
   color: rgba(255,215,0,0.5);
@@ -1012,7 +1010,7 @@ main {
   z-index: 5;
 }
 
-/* NEW: Guest tooltip styling */
+/* Guest tooltip styling */
 .favorite-star.guest-disabled {
   cursor: not-allowed;
   opacity: 0.5;
@@ -1104,7 +1102,7 @@ main {
   color: var(--text-muted);
   font-size: 0.85rem;
   margin-top: 0.5rem;
-  padding-left: 2.3rem; /* Offset to align with title after star */
+  padding-left: 2.3rem;
 }
 
 .zone-author {
@@ -1413,7 +1411,7 @@ footer {
   #zoneName { font-size: 2rem; }
   .zone-controls { flex-wrap: wrap; justify-content: center; }
   .zone-meta {
-    padding-left: 0; /* Remove offset on mobile */
+    padding-left: 0;
   }
   .favorite-star.guest-disabled:hover::after {
     font-size: 0.8rem;
@@ -1499,6 +1497,23 @@ footer {
   </div>
 
   <div class="settings-section">
+    <h3>recently played</h3>
+    <div class="setting-item">
+      <label>clear history</label>
+      <button class="cloak-btn" onclick="clearRecentHistory()" style="padding:0.4rem 1rem;">clear</button>
+    </div>
+    <div class="setting-item">
+      <label>max recent games</label>
+      <select id="maxRecent" onchange="updateMaxRecent()" style="background:rgba(255,107,0,0.2); border:1px solid var(--border-color); color:var(--text-primary); padding:0.4rem 1rem; border-radius:var(--radius-full);">
+        <option value="5">5 games</option>
+        <option value="10" selected>10 games</option>
+        <option value="20">20 games</option>
+        <option value="50">50 games</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="settings-section">
     <h3>tab cloak</h3>
     <div class="cloak-grid">
       <button class="cloak-btn" onclick="cloakPreset('Google Docs', 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico')">Docs</button>
@@ -1506,8 +1521,8 @@ footer {
       <button class="cloak-btn" onclick="cloakPreset('Google Slides', 'https://ssl.gstatic.com/docs/presentations/images/favicon5.ico')">Slides</button>
       <button class="cloak-btn" onclick="cloakPreset('Google', 'https://www.google.com/favicon.ico')">Google</button>
       <button class="cloak-btn" onclick="cloakPreset('GMetrix', 'https://www.gmetrix.com/favicon.ico')">GMetrix</button>
-      <button class="cloak-btn" onclick="cloakPreset('Clever', 'https://resources.finalsite.net/images/f_auto,q_auto/v1689877141/mooreschoolscom/emadd6nvplrnh1vsswjf/Clever-Logo.jpg')">Clever</button>
-      <button class="cloak-btn" onclick="cloakPreset('Summit K12', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu07VZdcMduNDyHmixayDcjG77pE6EPRXHiA&s')">Summit</button>
+      <button class="cloak-btn" onclick="cloakPreset('Clever', 'https://clever.com/favicon.ico')">Clever</button>
+      <button class="cloak-btn" onclick="cloakPreset('Summit K12', 'https://www.summitk12.com/favicon.ico')">Summit</button>
       <button class="cloak-btn" onclick="cloakPreset('Khan Academy', 'https://cdn.kastatic.org/images/favicon.ico')">Khan</button>
       <button class="cloak-btn" onclick="cloakPreset('Canvas', 'https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico')">Canvas</button>
     </div>
@@ -1560,7 +1575,7 @@ footer {
 </div>
 
 <main>
-  <!-- FAVORITES VAULT (COLLAPSIBLE) -->
+  <!-- FAVORITES VAULT -->
   <div class="vault" id="favoritesVault">
     <div class="vault-header" onclick="toggleVault('favoritesVault')">
       <div style="display: flex; align-items: center; gap: 1rem;">
@@ -1576,21 +1591,23 @@ footer {
     </div>
   </div>
 
-  <!-- FEATURED VAULT (COLLAPSIBLE) -->
-  <div class="vault" id="featuredVault">
-    <div class="vault-header" onclick="toggleVault('featuredVault')">
+  <!-- RECENTLY PLAYED VAULT (REPLACED FEATURED) -->
+  <div class="vault" id="recentVault">
+    <div class="vault-header" onclick="toggleVault('recentVault')">
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <span>🔥 featured vault</span>
-        <span id="featuredCount">0</span>
+        <span>🕒 recently played</span>
+        <span id="recentCount">0</span>
       </div>
-      <span class="toggle-icon" id="featuredVaultIcon">▼</span>
+      <span class="toggle-icon" id="recentVaultIcon">▼</span>
     </div>
-    <div class="vault-content expanded" id="featuredVaultContent">
-      <div id="featuredZones" class="zone-container"></div>
+    <div class="vault-content expanded" id="recentVaultContent">
+      <div id="recentZones" class="zone-container">
+        <div class="empty-recent">🎮 play some games to see them here</div>
+      </div>
     </div>
   </div>
   
-  <!-- ALL ZONES VAULT (COLLAPSIBLE) -->
+  <!-- ALL ZONES VAULT -->
   <div class="vault" id="allZonesVault">
     <div class="vault-header" onclick="toggleVault('allZonesVault')">
       <div style="display: flex; align-items: center; gap: 1rem;">
@@ -1642,7 +1659,8 @@ const auth = firebase.auth();
 const database = firebase.database();
 
 let zones = [];
-let favorites = []; // NO LONGER loaded from localStorage initially
+let favorites = [];
+let recentlyPlayed = JSON.parse(localStorage.getItem('ph_recently_played')) || []; // Local for now, could be moved to Firebase
 let showFavOnly = false;
 let currentUser = null;
 let isGuest = false;
@@ -1762,7 +1780,6 @@ window.register = function() {
       return user.updateProfile({
         displayName: username
       }).then(() => {
-        // Initialize empty favorites for new user
         return database.ref('users/' + user.uid + '/favorites').set([]);
       });
     })
@@ -1808,10 +1825,10 @@ window.logout = function() {
     document.getElementById('accountBtn').innerHTML = '✨ sign in';
     favorites = [];
     isGuest = false;
-    // Update the UI to show guest stars
     if (typeof displayZones === 'function') {
       displayZones(zones);
       displayFavorites();
+      displayRecentlyPlayed();
     }
   });
 };
@@ -1827,37 +1844,33 @@ window.continueAsGuest = function() {
     });
 };
 
-// MODIFIED: Auth state listener with cross-device sync
+// Auth state listener
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   const favoritesContainer = document.getElementById('favoritesZones');
   
   if (user && !user.isAnonymous) {
-    // Signed in user
     currentUser = user.displayName || user.email.split('@')[0];
     accountBtn.innerHTML = `👤 ${currentUser}`;
     isGuest = false;
     
-    // Set up real-time listener for favorites (SYNC ACROSS DEVICES!)
     database.ref('users/' + user.uid + '/favorites').on('value', (snapshot) => {
       const favs = snapshot.val();
       if (favs) {
         favorites = favs;
       } else {
         favorites = [];
-        // Initialize if empty
         database.ref('users/' + user.uid + '/favorites').set([]);
       }
       
-      // Update UI with new favorites
       localStorage.setItem('ph_favorites_' + user.uid, JSON.stringify(favorites));
       if (typeof displayZones === 'function') {
         displayZones(zones);
         displayFavorites();
+        displayRecentlyPlayed();
       }
     });
     
-    // Update favorites vault message
     if (favoritesContainer) {
       const emptyDiv = favoritesContainer.querySelector('.empty-favorites');
       if (emptyDiv) {
@@ -1866,19 +1879,17 @@ auth.onAuthStateChanged((user) => {
     }
     
   } else if (user && user.isAnonymous) {
-    // Guest user
     accountBtn.innerHTML = '👤 guest';
     currentUser = 'guest';
     isGuest = true;
-    favorites = []; // Guests have no favorites
+    favorites = [];
     
-    // Update UI
     if (typeof displayZones === 'function') {
       displayZones(zones);
       displayFavorites();
+      displayRecentlyPlayed();
     }
     
-    // Update favorites vault message
     if (favoritesContainer) {
       const emptyDiv = favoritesContainer.querySelector('.empty-favorites');
       if (emptyDiv) {
@@ -1887,19 +1898,17 @@ auth.onAuthStateChanged((user) => {
     }
     
   } else {
-    // No user
     accountBtn.innerHTML = '✨ sign in';
     currentUser = null;
     isGuest = false;
     favorites = [];
     
-    // Update UI
     if (typeof displayZones === 'function') {
       displayZones(zones);
       displayFavorites();
+      displayRecentlyPlayed();
     }
     
-    // Update favorites vault message
     if (favoritesContainer) {
       const emptyDiv = favoritesContainer.querySelector('.empty-favorites');
       if (emptyDiv) {
@@ -1909,22 +1918,73 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
+// RECENTLY PLAYED FUNCTIONS
+function addToRecentlyPlayed(gameId) {
+  // Remove if already exists (to move it to front)
+  recentlyPlayed = recentlyPlayed.filter(id => id !== gameId);
+  
+  // Add to beginning
+  recentlyPlayed.unshift(gameId);
+  
+  // Limit to max setting
+  const maxRecent = parseInt(document.getElementById('maxRecent')?.value || '10');
+  if (recentlyPlayed.length > maxRecent) {
+    recentlyPlayed = recentlyPlayed.slice(0, maxRecent);
+  }
+  
+  // Save to localStorage
+  localStorage.setItem('ph_recently_played', JSON.stringify(recentlyPlayed));
+  
+  // Update display
+  displayRecentlyPlayed();
+}
+
+window.clearRecentHistory = function() {
+  recentlyPlayed = [];
+  localStorage.setItem('ph_recently_played', JSON.stringify(recentlyPlayed));
+  displayRecentlyPlayed();
+  showToast('🕒 recent history cleared');
+};
+
+window.updateMaxRecent = function() {
+  const maxRecent = parseInt(document.getElementById('maxRecent').value);
+  if (recentlyPlayed.length > maxRecent) {
+    recentlyPlayed = recentlyPlayed.slice(0, maxRecent);
+    localStorage.setItem('ph_recently_played', JSON.stringify(recentlyPlayed));
+    displayRecentlyPlayed();
+  }
+  showToast(`🕒 showing last ${maxRecent} games`);
+};
+
+function displayRecentlyPlayed() {
+  const container = document.getElementById('recentZones');
+  const recentGames = recentlyPlayed
+    .map(id => zones.find(z => z.id === id))
+    .filter(game => game !== undefined); // Remove any games that might not exist anymore
+  
+  document.getElementById('recentCount').innerText = recentGames.length;
+  
+  if (recentGames.length === 0) {
+    container.innerHTML = '<div class="empty-recent">🎮 play some games to see them here</div>';
+  } else {
+    container.innerHTML = '';
+    recentGames.forEach(file => container.appendChild(createZoneCard(file)));
+  }
+}
+
 // MODIFIED: toggleFavorite with guest protection
 window.toggleFavorite = function(gameId, event) {
   event.stopPropagation();
   
-  // Check if user is guest or not logged in
   if (isGuest || !auth.currentUser || auth.currentUser.isAnonymous) {
     showToast('❌ Can\'t favorite, maybe create an account?');
     
-    // Animate the star to draw attention
     const star = event.target;
     star.style.animation = 'shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both';
     setTimeout(() => star.style.animation = '', 500);
     return;
   }
   
-  // Check if user is signed in
   if (!auth.currentUser) {
     showToast('❌ Please sign in to favorite games');
     showAccountModal();
@@ -1942,12 +2002,10 @@ window.toggleFavorite = function(gameId, event) {
     showToast('☆ removed from favorites');
   }
   
-  // Update Firebase (this will trigger the real-time listener and sync across devices)
   const user = auth.currentUser;
   if (user && !user.isAnonymous) {
     database.ref('users/' + user.uid + '/favorites').set(newFavorites)
       .then(() => {
-        // The real-time listener will update favorites automatically
         const star = event.target;
         star.classList.toggle('active', newFavorites.includes(gameId));
         if (index === -1) {
@@ -1962,7 +2020,7 @@ window.toggleFavorite = function(gameId, event) {
   }
 };
 
-// Add shake animation for guest attempts
+// Add shake animation
 const style = document.createElement('style');
 style.textContent = `
 @keyframes shake {
@@ -2017,8 +2075,8 @@ window.sortZones = function() {
   if (by === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
   else if (by === 'id') zones.sort((a, b) => a.id - b.id);
   
-  displayFeaturedZones(zones.filter(z => z.featured));
   displayFavorites();
+  displayRecentlyPlayed();
   
   if (showFavOnly) {
     const favGames = zones.filter(z => favorites.includes(z.id));
@@ -2027,13 +2085,6 @@ window.sortZones = function() {
     displayZones(zones);
   }
 };
-
-function displayFeaturedZones(featured) {
-  const container = document.getElementById('featuredZones');
-  container.innerHTML = "";
-  featured.forEach(file => container.appendChild(createZoneCard(file)));
-  document.getElementById('featuredCount').innerText = featured.length;
-}
 
 function displayZones(list) {
   const container = document.getElementById('container');
@@ -2066,14 +2117,11 @@ function createZoneCard(file) {
   const contentDiv = document.createElement('div');
   contentDiv.className = 'zone-content';
   
-  // Title container with star
   const titleContainer = document.createElement('div');
   titleContainer.className = 'zone-title-container';
   
-  // Star element
   const star = document.createElement('span');
   
-  // Check if user can favorite
   const canFavorite = auth.currentUser && !auth.currentUser.isAnonymous;
   const isFavorited = favorites.includes(file.id);
   
@@ -2081,7 +2129,6 @@ function createZoneCard(file) {
   star.innerHTML = '★';
   star.onclick = (e) => toggleFavorite(file.id, e);
   
-  // Add tooltip for guests
   if (!canFavorite) {
     star.title = 'Sign in to favorite games';
   }
@@ -2124,7 +2171,11 @@ window.filterZones = function() {
   }
 };
 
+// MODIFIED: openZone to track recently played
 window.openZone = function(file) {
+  // Add to recently played
+  addToRecentlyPlayed(file.id);
+  
   if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
     window.open(file.url, "_blank");
   } else {
