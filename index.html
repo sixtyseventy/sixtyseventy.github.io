@@ -5,12 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478559909779083264/favicon.png?ex=69a8d7b8&is=69a78638&hm=997ceab27b75fe6d9458c7dfd1522db7bff1e4f45fd756b7f7d918d413b40501&=&format=webp&quality=lossless&width=150&height=150">
-<link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478559909779083264/favicon.png?ex=69a8d7b8&is=69a78638&hm=997ceab27b75fe6d9458c7dfd1522db7bff1e4f45fd756b7f7d918d413b40501&=&format=webp&quality=lossless&width=150&height=150">
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
+<link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
+
 <title>PH - Science</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
-<meta name="description" content="719 unblocked games, Google sign-in, collapsible vaults, stacked notifications">
-
+<meta name="description" content="719 unblocked games, collapsible vaults, stacked notifications, premium experience">
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -31,10 +31,6 @@ return 'Any unsaved progress will be lost.';
   --orange-bright: #ff8c2e;
   --orange-deep: #cc5500;
   --orange-glow: 0 0 30px #ff6b00, 0 0 60px rgba(255,107,0,0.5);
-  --google-blue: #4285f4;
-  --google-green: #34a853;
-  --google-yellow: #fbbc05;
-  --google-red: #ea4335;
   
   --bg-primary: #030405;
   --bg-secondary: #0a0c0e;
@@ -87,7 +83,6 @@ body {
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Animated background enhancement */
 body::before {
   content: '';
   position: fixed;
@@ -95,17 +90,15 @@ body::before {
   background-image: 
     radial-gradient(circle at 20% 30%, rgba(255,107,0,0.12) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(255,140,0,0.1) 0%, transparent 40%),
-    radial-gradient(circle at 40% 80%, rgba(66,133,244,0.05) 0%, transparent 50%),
     repeating-linear-gradient(45deg, rgba(255,107,0,0.02) 0px, rgba(255,107,0,0.02) 1px, transparent 1px, transparent 30px);
   pointer-events: none;
   z-index: -1;
-  animation: bgShift 25s infinite alternate ease-in-out;
+  animation: bgShift 20s infinite alternate ease-in-out;
 }
 
 @keyframes bgShift {
   0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-  50% { transform: scale(1.05) rotate(1deg); opacity: 0.8; }
-  100% { transform: scale(1.1) rotate(-1deg); opacity: 1; }
+  100% { transform: scale(1.08) rotate(0.5deg); opacity: 1; }
 }
 
 header {
@@ -142,11 +135,11 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   font-size: 2.5rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
-  animation: logoShimmer 4s infinite linear;
+  animation: logoShimmer 3s infinite linear;
   background-size: 200% auto;
 }
 
@@ -334,7 +327,7 @@ header:hover {
   font-family: 'JetBrains Mono', monospace;
   font-size: 3rem;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
@@ -405,53 +398,6 @@ header:hover {
   transform: translateY(-2px);
 }
 
-/* Google Sign-In Button */
-.google-btn {
-  background: white;
-  color: #757575;
-  border: 1px solid #dadce0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1.2rem;
-  border-radius: var(--radius-full);
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: var(--transition-bounce);
-  margin-bottom: 1rem;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.google-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-  transition: left 0.5s ease;
-}
-
-.google-btn:hover::before {
-  left: 100%;
-}
-
-.google-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.google-btn svg {
-  width: 24px;
-  height: 24px;
-}
-
 .modal-divider {
   display: flex;
   align-items: center;
@@ -459,7 +405,7 @@ header:hover {
   color: var(--text-muted);
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.9rem;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 .modal-divider::before,
@@ -748,7 +694,6 @@ header:hover {
 .hero-card {
   background: radial-gradient(ellipse at 20% 30%, rgba(255,107,0,0.3) 0%, transparent 70%),
               radial-gradient(ellipse at 90% 70%, rgba(255,140,0,0.15) 0%, transparent 70%),
-              radial-gradient(ellipse at 40% 50%, rgba(66,133,244,0.1) 0%, transparent 60%),
               var(--bg-secondary);
   backdrop-filter: blur(15px);
   border-radius: var(--radius-xl);
@@ -787,18 +732,18 @@ header:hover {
 .hero h1 {
   font-size: 5.5rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ff6b00, #ffa64d, #ff8c2e, #ff6b00);
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: 'JetBrains Mono', monospace;
   line-height: 1;
-  animation: titleShimmer 6s infinite linear;
-  background-size: 300% auto;
+  animation: titleShimmer 4s infinite linear;
+  background-size: 200% auto;
 }
 
 @keyframes titleShimmer {
   0% { background-position: 0% center; }
-  100% { background-position: 300% center; }
+  100% { background-position: 200% center; }
 }
 
 .hero p {
@@ -859,7 +804,6 @@ main {
   padding: 0 2rem;
 }
 
-/* COLLAPSIBLE VAULTS ENHANCED */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -1405,21 +1349,6 @@ footer {
     <h2>PH·SCIENCE</h2>
     <p>join the vault · 719 games</p>
     <div class="modal-buttons">
-      <!-- Google Sign-In Button -->
-      <button class="google-btn" onclick="signInWithGoogle()">
-        <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-          <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-            <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
-            <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
-            <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
-            <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
-          </g>
-        </svg>
-        Continue with Google
-      </button>
-      
-      <div class="modal-divider">or</div>
-      
       <button class="modal-btn primary" onclick="showSignup()">create account</button>
       <button class="modal-btn secondary" onclick="continueAsGuest()">continue as guest</button>
     </div>
@@ -1431,21 +1360,6 @@ footer {
   <div class="modal-content">
     <h2>welcome back</h2>
     <p>sign in to your account</p>
-    
-    <!-- Google Sign-In Button (Login Modal) -->
-    <button class="google-btn" onclick="signInWithGoogle()" style="margin-bottom: 1.5rem;">
-      <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-          <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
-          <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
-          <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
-          <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
-        </g>
-      </svg>
-      Continue with Google
-    </button>
-    
-    <div class="modal-divider">or</div>
     
     <input type="text" id="loginUsername" placeholder="username" style="width:100%; padding:1.2rem; margin-bottom:1rem; background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:var(--radius-full); color:var(--text-primary); font-family:'JetBrains Mono',monospace;">
     
@@ -1465,21 +1379,6 @@ footer {
   <div class="modal-content">
     <h2>create account</h2>
     <p>start saving your favorites</p>
-    
-    <!-- Google Sign-In Button (Signup Modal) -->
-    <button class="google-btn" onclick="signInWithGoogle()" style="margin-bottom: 1.5rem;">
-      <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-        <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
-          <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" />
-          <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" />
-          <path fill="#FBBC05" d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" />
-          <path fill="#EA4335" d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" />
-        </g>
-      </svg>
-      Continue with Google
-    </button>
-    
-    <div class="modal-divider">or</div>
     
     <input type="text" id="signupUsername" placeholder="username" style="width:100%; padding:1.2rem; margin-bottom:1rem; background:rgba(0,0,0,0.3); border:1px solid var(--border-color); border-radius:var(--radius-full); color:var(--text-primary); font-family:'JetBrains Mono',monospace;">
     
@@ -1651,7 +1550,7 @@ footer {
       <a href="#" onclick="document.getElementById('importFile').click(); return false;">import</a>
       <input type="file" id="importFile" style="display:none;" onchange="importData(event)">
     </div>
-    <div class="footer-copy">PH·SCIENCE — 719 games · Google Sign-In · collapsible vaults</div>
+    <div class="footer-copy">PH·SCIENCE — 719 games · premium experience</div>
   </div>
 </footer>
 
@@ -1674,9 +1573,6 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 
-// Enable Google Sign-In
-const googleProvider = new firebase.auth.GoogleAuthProvider();
-
 let zones = [];
 let favorites = JSON.parse(localStorage.getItem('ph_favorites')) || [];
 let showFavOnly = false;
@@ -1684,8 +1580,6 @@ let currentUser = null;
 
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
-
-let activeToasts = 0;
 
 // COLLAPSIBLE VAULT FUNCTIONS
 window.toggleVault = function(vaultId) {
@@ -1722,55 +1616,15 @@ function showToast(message, duration = 3000) {
   toast.textContent = message;
   container.appendChild(toast);
   
-  activeToasts++;
-  
   setTimeout(() => {
     toast.classList.add('exit');
     setTimeout(() => {
       if (toast.parentNode) {
         toast.remove();
-        activeToasts--;
       }
     }, 300);
   }, duration);
 }
-
-// GOOGLE SIGN-IN FUNCTION
-window.signInWithGoogle = function() {
-  auth.signInWithPopup(googleProvider)
-    .then((result) => {
-      const user = result.user;
-      showToast(`✅ welcome, ${user.displayName || 'Google user'}!`);
-      closeAllModals();
-      
-      // Check if user exists in database, if not create entry
-      database.ref('users/' + user.uid).once('value')
-        .then((snapshot) => {
-          if (!snapshot.exists()) {
-            return database.ref('users/' + user.uid + '/favorites').set([]);
-          }
-        })
-        .then(() => {
-          // Load favorites
-          return database.ref('users/' + user.uid + '/favorites').once('value');
-        })
-        .then((snapshot) => {
-          const favs = snapshot.val();
-          if (favs) {
-            favorites = favs;
-            localStorage.setItem('ph_favorites', JSON.stringify(favorites));
-            if (typeof displayZones === 'function') {
-              displayZones(zones);
-              displayFavorites();
-            }
-          }
-        });
-    })
-    .catch((error) => {
-      console.error('Google Sign-In Error:', error);
-      showToast('❌ Google sign-in failed');
-    });
-};
 
 window.showAccountModal = function() {
   const modal = document.getElementById('accountModal');
@@ -1843,7 +1697,7 @@ window.register = function() {
       });
     })
     .then(() => {
-      showToast(`✅ account created! welcome, ${username}`);
+      showToast(`✅ welcome, ${username}!`);
       closeAllModals();
     })
     .catch((error) => {
@@ -2231,7 +2085,7 @@ window.addEventListener('click', (e) => {
 });
 
 listZones();
-console.log('cogs loaded, happy hunting!');
+console.log('cogs loaded, HAPPY HUNTING!');
 </script>
 </body>
 </html>
