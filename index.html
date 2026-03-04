@@ -1932,26 +1932,29 @@ window.continueAsGuest = function() {
     });
 };
 
-// Auth state listener - NOW WITH CLOUD STORAGE FOR EVERYONE (including guests)
+// Auth state listener - FIXED to track sign-in status properly
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   const favoritesContainer = document.getElementById('favoritesZones');
   
   if (user) {
-    // This works for BOTH signed-in users AND guests!
-    const userId = user.uid; // Guests have UIDs too!
+    const userId = user.uid;
     
     if (!user.isAnonymous) {
+      // This is a REAL signed-in user!
       currentUser = user.displayName || user.email.split('@')[0];
       accountBtn.innerHTML = `👤 ${currentUser}`;
       isGuest = false;
+      console.log('✅ Signed in as:', currentUser); // Debug log
     } else {
+      // This is an anonymous guest
       accountBtn.innerHTML = '👤 guest';
       currentUser = 'guest';
       isGuest = true;
+      console.log('👤 Guest user'); // Debug log
     }
     
-    // Set up real-time listener for favorites (works for guests too!)
+    // Set up real-time listener for favorites
     database.ref('users/' + userId + '/favorites').on('value', (snapshot) => {
       const favs = snapshot.val();
       if (favs) {
@@ -1968,7 +1971,7 @@ auth.onAuthStateChanged((user) => {
       }
     });
     
-    // Set up real-time listener for recently played (works for guests too!)
+    // Set up real-time listener for recently played
     database.ref('users/' + userId + '/recent').on('value', (snapshot) => {
       const recent = snapshot.val();
       if (recent) {
@@ -1993,7 +1996,7 @@ auth.onAuthStateChanged((user) => {
     }
     
   } else {
-    // No user at all - shouldn't happen with anonymous sign-in, but just in case
+    // No user
     accountBtn.innerHTML = '✨ sign in';
     currentUser = null;
     isGuest = false;
@@ -2013,8 +2016,12 @@ auth.onAuthStateChanged((user) => {
       }
     }
   }
+  
+  // Force a re-render of all game cards to update lock status
+  if (typeof displayZones === 'function' && zones.length > 0) {
+    displayZones(zones);
+  }
 });
-
 // RECENTLY PLAYED FUNCTIONS - NOW CLOUD STORAGE
 function addToRecentlyPlayed(gameId) {
   if (!auth.currentUser) return;
@@ -2187,14 +2194,19 @@ function displayZones(list) {
   document.getElementById('allCount').innerText = list.length;
 }
 
-// MODIFIED: createZoneCard with locking system
+// MODIFIED: createZoneCard with fixed locking logic
 function createZoneCard(file) {
   const div = document.createElement('div');
   div.className = 'zone-item';
   
-  // Check if game is locked (not in freeGames AND user is guest/no user)
+  // FIXED: Check if user is properly signed in (not anonymous)
+  const isSignedIn = auth.currentUser && !auth.currentUser.isAnonymous;
   const isFree = freeGames.includes(file.id);
-  const isLocked = !isFree && (!auth.currentUser || auth.currentUser.isAnonymous);
+  
+  // Game is locked if:
+  // 1. It's not a free game AND
+  // 2. User is NOT signed in (either no user OR anonymous guest)
+  const isLocked = !isFree && !isSignedIn;
   
   if (isLocked) {
     div.classList.add('locked');
@@ -2246,18 +2258,20 @@ function createZoneCard(file) {
   
   const star = document.createElement('span');
   
-  const canFavorite = auth.currentUser && !auth.currentUser.isAnonymous;
+  // FIXED: Only signed-in users can favorite
+  const canFavorite = isSignedIn;
   const isFavorited = favorites.includes(file.id);
   
   star.className = 'favorite-star' + (isFavorited ? ' active' : '') + (!canFavorite ? ' guest-disabled' : '');
   star.innerHTML = '★';
   star.onclick = (e) => {
     e.stopPropagation();
-    if (!auth.currentUser || auth.currentUser.isAnonymous) {
-      showToast('❌ Can\'t favorite, maybe create an account?');
+    if (!canFavorite) {
+      showToast('❌ Sign in to favorite games');
       const star = e.target;
       star.style.animation = 'shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both';
       setTimeout(() => star.style.animation = '', 500);
+      showAccountModal();
     } else {
       toggleFavorite(file.id, e);
     }
