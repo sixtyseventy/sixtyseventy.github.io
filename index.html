@@ -5,12 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
 
 <title>PH - Science</title>
 <meta name="title" content="PH·SCIENCE — ultimate game vault">
 <meta name="description" content="719 unblocked games, collapsible vaults, stacked notifications, premium experience">
+
 <script>
 window.addEventListener('beforeunload', function (event) {
 event.preventDefault();
@@ -804,6 +806,7 @@ main {
   padding: 0 2rem;
 }
 
+/* FIXED: COLLAPSIBLE VAULTS WITH DYNAMIC HEIGHT */
 .vault {
   background: rgba(0,0,0,0.2);
   backdrop-filter: blur(20px);
@@ -869,6 +872,7 @@ main {
   transform: rotate(180deg);
 }
 
+/* FIX: Use max-height with a much larger value to ensure all content shows */
 .vault-content {
   max-height: 0;
   overflow: hidden;
@@ -876,8 +880,9 @@ main {
   background: rgba(0,0,0,0.1);
 }
 
+/* Increased max-height to 10000px to accommodate all games */
 .vault-content.expanded {
-  max-height: 5000px;
+  max-height: 10000px;
 }
 
 .zone-container {
@@ -2085,7 +2090,7 @@ window.addEventListener('click', (e) => {
 });
 
 listZones();
-console.log('cogs loaded, HAPPY HUNTING!');
+console.log('loaded.');
 </script>
 </body>
 </html>
