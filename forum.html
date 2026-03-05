@@ -2782,7 +2782,7 @@ header {
 <header>
   <div class="header-content">
     <div style="display:flex; align-items:center; gap:1.2rem;">
-      <span class="logo" onclick="showView('forum')">PH Social</span>
+      <span class="logo" onclick="showView('forum')">PH Forums</span>
     </div>
     
     <div class="nav-links">
@@ -3149,7 +3149,7 @@ function showCommunityDashboard(community) {
         <div class="community-dashboard-icon">${community.name[0].toUpperCase()}</div>
         <div class="community-dashboard-info">
           <h2>${escapeHtml(community.name)}</h2>
-          <div class="community-description">${escapeHtml(community.description || 'A community on PH Social')}</div>
+          <div class="community-description">${escapeHtml(community.description || 'A community on PH Forums')}</div>
           <div class="community-stats">
             <div class="community-stat">
               <span class="community-stat-value">${community.members?.length || 0}</span>
@@ -3652,7 +3652,7 @@ window.showSmartAccountModal = function() {
     const isOwner = user.displayName === OWNER_USERNAME;
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH Social</h2>
+      <h2>PH Forums</h2>
       <div style="color: var(--orange); margin-bottom: 2rem;">👋 ${escapeHtml(user.displayName || 'user')} ${isOwner ? '<span class="owner-badge">👑 OWNER</span>' : ''}</div>
       <div class="modal-buttons">
         <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
@@ -3662,7 +3662,7 @@ window.showSmartAccountModal = function() {
   } else if (user && user.isAnonymous) {
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH Social</h2>
+      <h2>PH Forums</h2>
       <div style="color: var(--orange); margin-bottom: 2rem;">👤 guest mode (view only)</div>
       <div class="modal-buttons">
         <button class="modal-btn primary" onclick="showSignup()">✨ create account</button>
@@ -3672,7 +3672,7 @@ window.showSmartAccountModal = function() {
   } else {
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH Social</h2>
+      <h2>PH Forums</h2>
       <p>join the community</p>
       <div class="modal-buttons">
         <button class="modal-btn primary" onclick="showSignup()">create account</button>
