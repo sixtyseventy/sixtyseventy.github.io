@@ -218,7 +218,7 @@ header {
   text-align: center;
 }
 
-.owner-badge {
+.ricky-badge {
   background: gold;
   color: black;
   font-size: 0.7rem;
@@ -2207,7 +2207,7 @@ let conversationsUnsubscribe = null;
 let currentCommunity = 'all';
 let selectedRecipient = null;
 
-const OWNER_USERNAME = 'OWNER';
+const ricky_USERNAME = 'ricky';
 
 const REACTIONS = [
   { emoji: '👍', name: 'like' },
@@ -2325,11 +2325,11 @@ window.showSmartAccountModal = function() {
   const user = auth.currentUser;
   
   if (user && !user.isAnonymous) {
-    const isOwner = user.displayName === OWNER_USERNAME;
+    const isricky = user.displayName === ricky_USERNAME;
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
       <h2>PH Social</h2>
-      <div style="color: var(--orange); margin-bottom: 2rem;">👋 ${user.displayName || 'user'} ${isOwner ? '<span class="owner-badge">👑 OWNER</span>' : ''}</div>
+      <div style="color: var(--orange); margin-bottom: 2rem;">👋 ${user.displayName || 'user'} ${isricky ? '<span class="ricky-badge">👑 ricky</span>' : ''}</div>
       <div class="modal-buttons">
         <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
         <button class="modal-btn secondary" onclick="switchAccounts()">🔄 switch</button>
@@ -2603,7 +2603,7 @@ function createPostCard(post) {
   div.onclick = () => openPost(post.id);
   
   const authorInitial = post.authorName ? post.authorName[0].toUpperCase() : '?';
-  const isOwner = post.authorName === OWNER_USERNAME;
+  const isricky = post.authorName === ricky_USERNAME;
   
   let totalReactions = 0;
   if (post.reactions) {
@@ -2618,7 +2618,7 @@ function createPostCard(post) {
       <div class="post-author-info">
         <div class="post-author-name" onclick="event.stopPropagation(); viewUserProfile('${post.author}')">
           ${escapeHtml(post.authorName || 'unknown')}
-          ${isOwner ? '<span class="owner-badge">👑</span>' : ''}
+          ${isricky ? '<span class="ricky-badge">👑</span>' : ''}
         </div>
         <div class="post-meta">
           <span>🕒 ${timeAgo(post.createdAt)}</span>
@@ -2680,7 +2680,7 @@ function loadPostDetails(postId) {
           const userData = userDoc.data() || {};
           const avatarUrl = userData?.avatar || null;
           const authorInitial = post.authorName ? post.authorName[0].toUpperCase() : '?';
-          const isOwner = post.authorName === OWNER_USERNAME;
+          const isricky = post.authorName === ricky_USERNAME;
           
           const detailTitle = document.getElementById('detailTitle');
           const detailBody = document.getElementById('detailBody');
@@ -2701,7 +2701,7 @@ function loadPostDetails(postId) {
               <div class="detail-author-info">
                 <h3 onclick="viewUserProfile('${post.author}')">
                   ${escapeHtml(post.authorName || 'unknown')}
-                  ${isOwner ? '<span class="owner-badge">👑 OWNER</span>' : ''}
+                  ${isricky ? '<span class="ricky-badge">👑 ricky</span>' : ''}
                 </h3>
                 <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
                 ${post.community ? `<p>community: ${post.community}</p>` : ''}
@@ -2722,7 +2722,7 @@ function loadPostDetails(postId) {
           if (detailComments) detailComments.innerHTML = `💬 ${post.comments || 0}`;
           
           if (deleteBtn) {
-            const canDelete = (currentUser && (currentUser.uid === post.author || currentUser.displayName === OWNER_USERNAME));
+            const canDelete = (currentUser && (currentUser.uid === post.author || currentUser.displayName === ricky_USERNAME));
             deleteBtn.style.display = canDelete ? 'inline-flex' : 'none';
           }
           
@@ -2848,7 +2848,7 @@ function loadComments(postId) {
           const userData = userDoc.data() || {};
           const avatarUrl = userData?.avatar || null;
           const authorInitial = comment.authorName ? comment.authorName[0].toUpperCase() : '?';
-          const isOwner = comment.authorName === OWNER_USERNAME;
+          const isricky = comment.authorName === ricky_USERNAME;
           
           const userCommentReactions = (comment.userReactions && currentUser && !currentUser.isAnonymous) ? comment.userReactions[currentUser.uid] : {};
           
@@ -2871,7 +2871,7 @@ function loadComments(postId) {
               </div>
               <span class="comment-author" onclick="viewUserProfile('${comment.author}')">
                 ${escapeHtml(comment.authorName || 'unknown')}
-                ${isOwner ? '<span class="owner-badge">👑</span>' : ''}
+                ${isricky ? '<span class="ricky-badge">👑</span>' : ''}
               </span>
               <span class="comment-date">${timeAgo(comment.createdAt)}</span>
             </div>
@@ -3147,7 +3147,7 @@ function loadProfile(userId = null) {
       const avatarUrl = userData.avatar || null;
       const displayName = userId ? userData.username : (currentUser.displayName || 'user');
       const authorInitial = displayName ? displayName[0].toUpperCase() : '?';
-      const isOwner = displayName === OWNER_USERNAME;
+      const isricky = displayName === ricky_USERNAME;
       const isOwnProfile = !userId || userId === currentUser?.uid;
       
       profileSection.innerHTML = `
@@ -3157,7 +3157,7 @@ function loadProfile(userId = null) {
             ${isOwnProfile && !currentUser?.isAnonymous ? '<div class="avatar-overlay">📷 change</div>' : ''}
           </div>
           <div class="profile-info">
-            <h2>${escapeHtml(displayName)} ${isOwner ? '<span class="owner-badge">👑 OWNER</span>' : ''}</h2>
+            <h2>${escapeHtml(displayName)} ${isricky ? '<span class="ricky-badge">👑 ricky</span>' : ''}</h2>
             <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
             <div class="profile-stats">
               <div class="profile-stat">
@@ -3519,7 +3519,7 @@ window.openConversation = function(conversationId, otherUserId) {
   
   db.collection('users').doc(otherUserId).get().then((doc) => {
     const userData = doc.data() || {};
-    const isOwner = userData.username === OWNER_USERNAME;
+    const isricky = userData.username === ricky_USERNAME;
     
     const conversationUser = document.getElementById('conversationUser');
     if (conversationUser) {
@@ -3528,7 +3528,7 @@ window.openConversation = function(conversationId, otherUserId) {
           ${userData.avatar ? `<img src="${userData.avatar}" alt="avatar">` : (userData.username ? userData.username[0].toUpperCase() : '?')}
         </div>
         <div class="conversation-user-info">
-          <h3>${userData.username || 'user'} ${isOwner ? '<span class="owner-badge">👑</span>' : ''}</h3>
+          <h3>${userData.username || 'user'} ${isricky ? '<span class="ricky-badge">👑</span>' : ''}</h3>
           <p>last seen ${timeAgo(userData.lastSeen || Date.now())}</p>
         </div>
       `;
