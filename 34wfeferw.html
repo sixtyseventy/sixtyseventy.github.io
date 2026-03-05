@@ -22,7 +22,7 @@ window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.__REACT_DEVTOOLS_GLOBAL_HOOK__ ||
 <script src="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/gnmath.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <style>
@@ -1610,12 +1610,11 @@ header {
 
 <script>
 //===================================================
-// FIREBASE CONFIG - WITH DATABASE URL FIXED
+// FIREBASE CONFIG - FIRESTORE VERSION
 //===================================================
 const firebaseConfig = {
   apiKey: "AIzaSyA-68XKNt_PD0I1TJbNcyotT4qMbgHh-tI",
   authDomain: "ph-science.firebaseapp.com",
-  databaseURL: "https://ph-science-default-rtdb.firebaseio.com",
   projectId: "ph-science",
   storageBucket: "ph-science.firebasestorage.app",
   messagingSenderId: "883067098385",
@@ -1626,8 +1625,18 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const database = firebase.database();
+const db = firebase.firestore(); // Using Firestore, NOT Realtime Database!
 const storage = firebase.storage();
+
+// Enable offline persistence (optional)
+db.enablePersistence()
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      console.log('Persistence failed');
+    } else if (err.code == 'unimplemented') {
+      console.log('Persistence not available');
+    }
+  });
 
 //===================================================
 // GLOBAL VARIABLES
@@ -1636,6 +1645,7 @@ let currentUser = null;
 let currentPostId = null;
 let currentView = 'forum';
 let posts = [];
+let postsUnsubscribe = null;
 
 // Available reactions
 const REACTIONS = [
@@ -1794,7 +1804,8 @@ window.register = function() {
     .then((userCredential) => {
       const user = userCredential.user;
       return user.updateProfile({ displayName: username }).then(() => {
-        return database.ref('users/' + user.uid).set({
+        // Store user in Firestore
+        return db.collection('users').doc(user.uid).set({
           username: username,
           avatar: null,
           createdAt: Date.now(),
@@ -1849,6 +1860,12 @@ window.continueAsGuest = function() {
 };
 
 window.logout = function() {
+  // Unsubscribe from real-time updates
+  if (postsUnsubscribe) {
+    postsUnsubscribe();
+    postsUnsubscribe = null;
+  }
+  
   auth.signOut().then(() => {
     showToast('👋 logged out');
     closeAllModals();
@@ -1858,6 +1875,12 @@ window.logout = function() {
 };
 
 window.switchAccounts = function() {
+  // Unsubscribe from real-time updates
+  if (postsUnsubscribe) {
+    postsUnsubscribe();
+    postsUnsubscribe = null;
+  }
+  
   auth.signOut().then(() => {
     closeAllModals();
     setTimeout(() => showSmartAccountModal(), 300);
@@ -1885,34 +1908,40 @@ auth.onAuthStateChanged((user) => {
 });
 
 //===================================================
-// POSTS FUNCTIONS
+// POSTS FUNCTIONS - FIRESTORE VERSION
 //===================================================
 function loadPosts() {
-  database.ref('posts').orderByChild('createdAt').once('value', (snapshot) => {
-    const postsData = snapshot.val();
-    posts = [];
-    
-    if (postsData) {
-      posts = Object.keys(postsData).map(key => ({
-        id: key,
-        ...postsData[key]
-      })).sort((a, b) => b.createdAt - a.createdAt);
-    }
-    
-    displayPosts(posts);
-    updateStats();
-    loadTrending();
-  }).catch(error => {
-    console.error("Error loading posts:", error);
-    showToast('❌ failed to load posts');
-    document.getElementById('postsList').innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">⚠️</div>
-        <h3>connection error</h3>
-        <p>please check your internet and refresh</p>
-      </div>
-    `;
-  });
+  // Unsubscribe from previous listener if exists
+  if (postsUnsubscribe) {
+    postsUnsubscribe();
+  }
+  
+  // Set up real-time listener
+  postsUnsubscribe = db.collection('posts')
+    .orderBy('createdAt', 'desc')
+    .onSnapshot((snapshot) => {
+      posts = [];
+      snapshot.forEach(doc => {
+        posts.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      
+      displayPosts(posts);
+      updateStats();
+      loadTrending();
+    }, (error) => {
+      console.error("Error loading posts:", error);
+      showToast('❌ failed to load posts');
+      document.getElementById('postsList').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">⚠️</div>
+          <h3>connection error</h3>
+          <p>please check your internet and refresh</p>
+        </div>
+      `;
+    });
 }
 
 function displayPosts(postsToShow) {
@@ -1957,7 +1986,7 @@ function createPostCard(post) {
         ${post.authorAvatar ? `<img src="${post.authorAvatar}" alt="avatar">` : authorInitial}
       </div>
       <div class="post-author-info">
-        <div class="post-author-name">${post.authorName || 'unknown'}</div>
+        <div class="post-author-name">${escapeHtml(post.authorName || 'unknown')}</div>
         <div class="post-meta">
           <span>🕒 ${timeAgo(post.createdAt)}</span>
           ${post.nsfw ? '<span class="nsfw-badge">NSFW</span>' : ''}
@@ -1991,71 +2020,78 @@ function openPost(postId) {
   currentPostId = postId;
   
   // Increment views
-  database.ref('posts/' + postId + '/views').transaction(views => (views || 0) + 1);
+  db.collection('posts').doc(postId).update({
+    views: firebase.firestore.FieldValue.increment(1)
+  }).catch(error => console.error("Error updating views:", error));
   
   loadPostDetails(postId);
   showView('postDetail');
 }
 
 function loadPostDetails(postId) {
-  database.ref('posts/' + postId).once('value', (snapshot) => {
-    const post = snapshot.val();
-    if (!post) return;
-    
-    post.id = postId;
-    
-    // Load author info
-    database.ref('users/' + post.author).once('value', (userSnapshot) => {
-      const userData = userSnapshot.val() || {};
-      const avatarUrl = userData?.avatar || null;
-      const authorInitial = post.authorName ? post.authorName[0].toUpperCase() : '?';
+  db.collection('posts').doc(postId).get()
+    .then((doc) => {
+      if (!doc.exists) return;
       
-      document.getElementById('detailTitle').textContent = post.title;
-      document.getElementById('detailBody').textContent = post.body;
+      const post = {
+        id: doc.id,
+        ...doc.data()
+      };
       
-      // Author section
-      const authorDiv = document.getElementById('detailAuthor');
-      authorDiv.innerHTML = `
-        <div class="detail-avatar">
-          ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
-        </div>
-        <div class="detail-author-info">
-          <h3>${escapeHtml(post.authorName || 'unknown')}</h3>
-          <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
-        </div>
-      `;
-      
-      // Media
-      const mediaDiv = document.getElementById('detailMedia');
-      if (post.imageUrl) {
-        mediaDiv.innerHTML = `<img src="${post.imageUrl}" alt="post image">`;
-        mediaDiv.style.display = 'flex';
-      } else {
-        mediaDiv.style.display = 'none';
-      }
-      
-      // Stats
-      document.getElementById('detailViews').innerHTML = `👁️ ${post.views || 0}`;
-      document.getElementById('detailComments').innerHTML = `💬 ${post.comments || 0}`;
-      
-      // Delete button (only for author)
-      const deleteBtn = document.getElementById('deleteBtn');
-      if (currentUser && currentUser.uid === post.author) {
-        deleteBtn.style.display = 'inline-flex';
-      } else {
-        deleteBtn.style.display = 'none';
-      }
-      
-      // Load reactions
-      displayReactions(post);
-      
-      // Load comments
-      loadComments(postId);
+      // Load author info
+      return db.collection('users').doc(post.author).get()
+        .then((userDoc) => {
+          const userData = userDoc.data() || {};
+          const avatarUrl = userData?.avatar || null;
+          const authorInitial = post.authorName ? post.authorName[0].toUpperCase() : '?';
+          
+          document.getElementById('detailTitle').textContent = post.title;
+          document.getElementById('detailBody').textContent = post.body;
+          
+          // Author section
+          const authorDiv = document.getElementById('detailAuthor');
+          authorDiv.innerHTML = `
+            <div class="detail-avatar">
+              ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
+            </div>
+            <div class="detail-author-info">
+              <h3>${escapeHtml(post.authorName || 'unknown')}</h3>
+              <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
+            </div>
+          `;
+          
+          // Media
+          const mediaDiv = document.getElementById('detailMedia');
+          if (post.imageUrl) {
+            mediaDiv.innerHTML = `<img src="${post.imageUrl}" alt="post image">`;
+            mediaDiv.style.display = 'flex';
+          } else {
+            mediaDiv.style.display = 'none';
+          }
+          
+          // Stats
+          document.getElementById('detailViews').innerHTML = `👁️ ${post.views || 0}`;
+          document.getElementById('detailComments').innerHTML = `💬 ${post.comments || 0}`;
+          
+          // Delete button (only for author)
+          const deleteBtn = document.getElementById('deleteBtn');
+          if (currentUser && currentUser.uid === post.author) {
+            deleteBtn.style.display = 'inline-flex';
+          } else {
+            deleteBtn.style.display = 'none';
+          }
+          
+          // Load reactions
+          displayReactions(post);
+          
+          // Load comments
+          loadComments(postId);
+        });
+    })
+    .catch(error => {
+      console.error("Error loading post:", error);
+      showToast('❌ failed to load post');
     });
-  }).catch(error => {
-    console.error("Error loading post:", error);
-    showToast('❌ failed to load post');
-  });
 }
 
 //===================================================
@@ -2088,63 +2124,69 @@ window.addReaction = function(postId, reactionName, reactionEmoji) {
     return;
   }
   
-  const postRef = database.ref('posts/' + postId);
+  const postRef = db.collection('posts').doc(postId);
   
-  postRef.once('value', (snapshot) => {
-    const post = snapshot.val();
-    if (!post) return;
-    
-    const userReactions = post.userReactions || {};
-    const userReacted = userReactions[currentUser.uid] && userReactions[currentUser.uid][reactionName];
-    
-    if (userReacted) {
-      // Remove reaction
-      if (userReactions[currentUser.uid]) {
-        delete userReactions[currentUser.uid][reactionName];
-        if (Object.keys(userReactions[currentUser.uid]).length === 0) {
-          delete userReactions[currentUser.uid];
+  db.runTransaction((transaction) => {
+    return transaction.get(postRef).then((postDoc) => {
+      if (!postDoc.exists) {
+        throw new Error("Post does not exist!");
+      }
+      
+      const post = postDoc.data();
+      const userReactions = post.userReactions || {};
+      const userReacted = userReactions[currentUser.uid] && userReactions[currentUser.uid][reactionName];
+      
+      if (userReacted) {
+        // Remove reaction
+        const newUserReactions = { ...userReactions };
+        if (newUserReactions[currentUser.uid]) {
+          delete newUserReactions[currentUser.uid][reactionName];
+          if (Object.keys(newUserReactions[currentUser.uid]).length === 0) {
+            delete newUserReactions[currentUser.uid];
+          }
         }
+        
+        // Decrement count
+        const currentCount = (post.reactions && post.reactions[reactionName]) ? (post.reactions[reactionName].count || 0) : 0;
+        const newReactions = { ...(post.reactions || {}) };
+        if (newReactions[reactionName]) {
+          newReactions[reactionName] = {
+            ...newReactions[reactionName],
+            count: Math.max(0, currentCount - 1)
+          };
+        }
+        
+        transaction.update(postRef, {
+          userReactions: newUserReactions,
+          reactions: newReactions
+        });
+      } else {
+        // Add reaction
+        const newUserReactions = { ...userReactions };
+        if (!newUserReactions[currentUser.uid]) {
+          newUserReactions[currentUser.uid] = {};
+        }
+        newUserReactions[currentUser.uid][reactionName] = true;
+        
+        // Increment count
+        const currentCount = (post.reactions && post.reactions[reactionName]) ? (post.reactions[reactionName].count || 0) : 0;
+        const newReactions = { ...(post.reactions || {}) };
+        newReactions[reactionName] = {
+          count: currentCount + 1,
+          emoji: reactionEmoji
+        };
+        
+        transaction.update(postRef, {
+          userReactions: newUserReactions,
+          reactions: newReactions
+        });
       }
-      
-      // Decrement count
-      const currentCount = (post.reactions && post.reactions[reactionName]) ? (post.reactions[reactionName].count || 0) : 0;
-      
-      const updates = {};
-      updates['userReactions'] = userReactions;
-      if (post.reactions && post.reactions[reactionName]) {
-        updates['reactions.' + reactionName + '.count'] = Math.max(0, currentCount - 1);
-      }
-      
-      postRef.update(updates).then(() => {
-        loadPostDetails(postId);
-        showToast(`removed ${reactionEmoji}`);
-      }).catch(error => {
-        console.error(error);
-        showToast('❌ failed to update reaction');
-      });
-    } else {
-      // Add reaction
-      if (!userReactions[currentUser.uid]) {
-        userReactions[currentUser.uid] = {};
-      }
-      userReactions[currentUser.uid][reactionName] = true;
-      
-      // Increment count
-      const currentCount = (post.reactions && post.reactions[reactionName]) ? (post.reactions[reactionName].count || 0) : 0;
-      
-      const updates = {};
-      updates['userReactions'] = userReactions;
-      updates['reactions.' + reactionName + '.count'] = currentCount + 1;
-      updates['reactions.' + reactionName + '.emoji'] = reactionEmoji;
-      
-      postRef.update(updates).then(() => {
-        loadPostDetails(postId);
-        showToast(`added ${reactionEmoji}`);
-      }).catch(error => {
-        console.error(error);
-        showToast('❌ failed to update reaction');
-      });
-    }
+    });
+  }).then(() => {
+    loadPostDetails(postId);
+  }).catch(error => {
+    console.error(error);
+    showToast('❌ failed to update reaction');
   });
 };
 
@@ -2203,29 +2245,34 @@ window.createPost = function() {
 };
 
 function savePost(postData) {
-  database.ref('posts').push(postData).then(() => {
-    showToast('✅ post created!');
-    
-    // Increment user post count
-    database.ref('users/' + currentUser.uid + '/posts').transaction(count => (count || 0) + 1);
-    
-    // Clear form
-    document.getElementById('postTitle').value = '';
-    document.getElementById('postBody').value = '';
-    document.getElementById('nsfwTag').checked = false;
-    document.getElementById('imagePreview').innerHTML = '';
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('imageUpload').value = '';
-    
-    showView('forum');
-  }).catch(error => {
-    console.error(error);
-    showToast('❌ failed to create post');
-  }).finally(() => {
-    const submitBtn = document.getElementById('submitPostBtn');
-    submitBtn.disabled = false;
-    submitBtn.textContent = '📬 publish post';
-  });
+  db.collection('posts').add(postData)
+    .then(() => {
+      showToast('✅ post created!');
+      
+      // Increment user post count
+      db.collection('users').doc(currentUser.uid).update({
+        posts: firebase.firestore.FieldValue.increment(1)
+      }).catch(error => console.error("Error updating user post count:", error));
+      
+      // Clear form
+      document.getElementById('postTitle').value = '';
+      document.getElementById('postBody').value = '';
+      document.getElementById('nsfwTag').checked = false;
+      document.getElementById('imagePreview').innerHTML = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('imageUpload').value = '';
+      
+      showView('forum');
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ failed to create post');
+    })
+    .finally(() => {
+      const submitBtn = document.getElementById('submitPostBtn');
+      submitBtn.disabled = false;
+      submitBtn.textContent = '📬 publish post';
+    });
 }
 
 window.deletePost = function() {
@@ -2233,60 +2280,69 @@ window.deletePost = function() {
   
   if (!confirm('⚠️ delete this post? this cannot be undone.')) return;
   
-  database.ref('posts/' + currentPostId).remove().then(() => {
-    showToast('🗑️ post deleted');
-    showView('forum');
-  }).catch(error => {
-    console.error(error);
-    showToast('❌ failed to delete post');
-  });
+  db.collection('posts').doc(currentPostId).delete()
+    .then(() => {
+      showToast('🗑️ post deleted');
+      showView('forum');
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ failed to delete post');
+    });
 };
 
 //===================================================
 // COMMENTS
 //===================================================
 function loadComments(postId) {
-  database.ref('posts/' + postId + '/comments').orderByChild('createdAt').once('value', (snapshot) => {
-    const commentsData = snapshot.val();
-    const commentsList = document.getElementById('commentsList');
-    
-    if (!commentsData) {
-      commentsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-muted);">💭 no comments yet. be the first!</div>';
-      return;
-    }
-    
-    const comments = Object.keys(commentsData).map(key => ({
-      id: key,
-      ...commentsData[key]
-    })).sort((a, b) => b.createdAt - a.createdAt);
-    
-    commentsList.innerHTML = '';
-    comments.forEach(comment => {
-      const commentDiv = document.createElement('div');
-      commentDiv.className = 'comment';
+  db.collection('posts').doc(postId).collection('comments')
+    .orderBy('createdAt', 'desc')
+    .get()
+    .then((snapshot) => {
+      const commentsList = document.getElementById('commentsList');
       
-      database.ref('users/' + comment.author).once('value', (userSnapshot) => {
-        const userData = userSnapshot.val() || {};
-        const avatarUrl = userData?.avatar || null;
-        const authorInitial = comment.authorName ? comment.authorName[0].toUpperCase() : '?';
-        
-        commentDiv.innerHTML = `
-          <div class="comment-header">
-            <div class="comment-avatar">
-              ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
-            </div>
-            <span class="comment-author">${escapeHtml(comment.authorName || 'unknown')}</span>
-            <span class="comment-date">${timeAgo(comment.createdAt)}</span>
-          </div>
-          <div class="comment-text">${escapeHtml(comment.text)}</div>
-        `;
+      if (snapshot.empty) {
+        commentsList.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-muted);">💭 no comments yet. be the first!</div>';
+        return;
+      }
+      
+      const comments = [];
+      snapshot.forEach(doc => {
+        comments.push({
+          id: doc.id,
+          ...doc.data()
+        });
       });
       
-      commentsList.appendChild(commentDiv);
+      commentsList.innerHTML = '';
+      comments.forEach(comment => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment';
+        
+        db.collection('users').doc(comment.author).get()
+          .then((userDoc) => {
+            const userData = userDoc.data() || {};
+            const avatarUrl = userData?.avatar || null;
+            const authorInitial = comment.authorName ? comment.authorName[0].toUpperCase() : '?';
+            
+            commentDiv.innerHTML = `
+              <div class="comment-header">
+                <div class="comment-avatar">
+                  ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
+                </div>
+                <span class="comment-author">${escapeHtml(comment.authorName || 'unknown')}</span>
+                <span class="comment-date">${timeAgo(comment.createdAt)}</span>
+              </div>
+              <div class="comment-text">${escapeHtml(comment.text)}</div>
+            `;
+          });
+        
+        commentsList.appendChild(commentDiv);
+      });
+    })
+    .catch(error => {
+      console.error("Error loading comments:", error);
     });
-  }).catch(error => {
-    console.error("Error loading comments:", error);
-  });
 }
 
 window.addComment = function() {
@@ -2315,29 +2371,36 @@ window.addComment = function() {
     createdAt: Date.now()
   };
   
-  const postRef = database.ref('posts/' + currentPostId);
+  const postRef = db.collection('posts').doc(currentPostId);
   
-  postRef.child('comments').push(commentData).then(() => {
-    return postRef.child('comments').once('value', (snapshot) => {
-      const commentsCount = snapshot.numChildren();
-      return postRef.update({ comments: commentsCount });
-    });
-  }).then(() => {
-    document.getElementById('commentInput').value = '';
-    showToast('💬 comment added');
-    loadComments(currentPostId);
-    
-    // Update comment count in detail view
-    database.ref('posts/' + currentPostId + '/comments').once('value', (snapshot) => {
-      const count = snapshot.numChildren();
-      document.getElementById('detailComments').innerHTML = `💬 ${count}`;
-    });
-  }).catch(error => {
-    console.error(error);
-    showToast('❌ failed to add comment');
-  }).finally(() => {
-    submitBtn.disabled = false;
+  // Use batched write to add comment and update count
+  const batch = db.batch();
+  const commentRef = postRef.collection('comments').doc();
+  batch.set(commentRef, commentData);
+  batch.update(postRef, {
+    comments: firebase.firestore.FieldValue.increment(1)
   });
+  
+  batch.commit()
+    .then(() => {
+      document.getElementById('commentInput').value = '';
+      showToast('💬 comment added');
+      loadComments(currentPostId);
+      
+      // Update comment count in detail view
+      postRef.get().then((doc) => {
+        if (doc.exists) {
+          document.getElementById('detailComments').innerHTML = `💬 ${doc.data().comments || 0}`;
+        }
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ failed to add comment');
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+    });
 };
 
 //===================================================
@@ -2348,82 +2411,87 @@ function loadProfile() {
   
   const profileSection = document.getElementById('profileSection');
   
-  database.ref('users/' + currentUser.uid).once('value', (snapshot) => {
-    const userData = snapshot.val() || {};
-    const avatarUrl = userData.avatar || null;
-    const authorInitial = currentUser.displayName ? currentUser.displayName[0].toUpperCase() : '?';
-    
-    profileSection.innerHTML = `
-      <div class="profile-header">
-        <div class="profile-avatar-large" onclick="changeAvatar()">
-          ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
-          <div class="avatar-overlay">📷 change</div>
-        </div>
-        <div class="profile-info">
-          <h2>${escapeHtml(currentUser.displayName)}</h2>
-          <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
-          <div class="profile-stats">
-            <div class="profile-stat">
-              <div class="profile-stat-value">${userData.posts || 0}</div>
-              <div class="profile-stat-label">posts</div>
+  db.collection('users').doc(currentUser.uid).get()
+    .then((doc) => {
+      const userData = doc.data() || {};
+      const avatarUrl = userData.avatar || null;
+      const authorInitial = currentUser.displayName ? currentUser.displayName[0].toUpperCase() : '?';
+      
+      profileSection.innerHTML = `
+        <div class="profile-header">
+          <div class="profile-avatar-large" onclick="changeAvatar()">
+            ${avatarUrl ? `<img src="${avatarUrl}" alt="avatar">` : authorInitial}
+            <div class="avatar-overlay">📷 change</div>
+          </div>
+          <div class="profile-info">
+            <h2>${escapeHtml(currentUser.displayName)}</h2>
+            <p>joined ${userData.joined ? new Date(userData.joined).toLocaleDateString() : 'recently'}</p>
+            <div class="profile-stats">
+              <div class="profile-stat">
+                <div class="profile-stat-value">${userData.posts || 0}</div>
+                <div class="profile-stat-label">posts</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        
+        <div class="profile-tabs">
+          <span class="profile-tab active" onclick="loadUserPosts()">📝 my posts</span>
+        </div>
+        
+        <div id="userContent" class="posts-list">
+          <div class="loading-spinner"></div>
+        </div>
+      `;
       
-      <div class="profile-tabs">
-        <span class="profile-tab active" onclick="loadUserPosts()">📝 my posts</span>
-      </div>
-      
-      <div id="userContent" class="posts-list">
-        <div class="loading-spinner"></div>
-      </div>
-    `;
-    
-    loadUserPosts();
-  }).catch(error => {
-    console.error("Error loading profile:", error);
-  });
+      loadUserPosts();
+    })
+    .catch(error => {
+      console.error("Error loading profile:", error);
+    });
 }
 
 function loadUserPosts() {
   document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.profile-tab')[0].classList.add('active');
   
-  database.ref('posts').orderByChild('author').equalTo(currentUser.uid).once('value', (snapshot) => {
-    const postsData = snapshot.val();
-    const userPosts = [];
-    
-    if (postsData) {
-      userPosts.push(...Object.keys(postsData).map(key => ({
-        id: key,
-        ...postsData[key]
-      })).sort((a, b) => b.createdAt - a.createdAt));
-    }
-    
-    const container = document.getElementById('userContent');
-    
-    if (userPosts.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">📝</div>
-          <h3>no posts yet</h3>
-          <p>share something with the community!</p>
-          <button class="empty-state-btn" onclick="showView('newPost')">
-            <span>✏️</span> create post
-          </button>
-        </div>
-      `;
-      return;
-    }
-    
-    container.innerHTML = '';
-    userPosts.forEach(post => {
-      container.appendChild(createPostCard(post));
+  db.collection('posts')
+    .where('author', '==', currentUser.uid)
+    .orderBy('createdAt', 'desc')
+    .get()
+    .then((snapshot) => {
+      const userPosts = [];
+      snapshot.forEach(doc => {
+        userPosts.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      
+      const container = document.getElementById('userContent');
+      
+      if (userPosts.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📝</div>
+            <h3>no posts yet</h3>
+            <p>share something with the community!</p>
+            <button class="empty-state-btn" onclick="showView('newPost')">
+              <span>✏️</span> create post
+            </button>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = '';
+      userPosts.forEach(post => {
+        container.appendChild(createPostCard(post));
+      });
+    })
+    .catch(error => {
+      console.error("Error loading user posts:", error);
     });
-  }).catch(error => {
-    console.error("Error loading user posts:", error);
-  });
 }
 
 window.changeAvatar = function() {
@@ -2438,7 +2506,9 @@ window.changeAvatar = function() {
     storageRef.put(file).then(snapshot => {
       return snapshot.ref.getDownloadURL();
     }).then(url => {
-      return database.ref('users/' + currentUser.uid + '/avatar').set(url);
+      return db.collection('users').doc(currentUser.uid).update({
+        avatar: url
+      });
     }).then(() => {
       showToast('✅ avatar updated!');
       loadProfile();
@@ -2508,9 +2578,8 @@ function loadTrending() {
 function updateStats() {
   document.getElementById('totalPostsStat').textContent = posts.length;
   
-  database.ref('users').once('value', (snapshot) => {
-    const usersCount = snapshot.numChildren();
-    document.getElementById('totalUsersStat').textContent = usersCount;
+  db.collection('users').get().then((snapshot) => {
+    document.getElementById('totalUsersStat').textContent = snapshot.size;
   }).catch(error => {
     console.error("Error loading stats:", error);
   });
