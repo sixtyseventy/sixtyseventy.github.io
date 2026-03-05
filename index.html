@@ -1850,6 +1850,10 @@ footer {
       <input type="password" id="loginPassword" placeholder="password">
       <button class="password-toggle" onclick="togglePassword('loginPassword', this)">show</button>
     </div>
+
+    <div style="text-align: center; margin-top: 1rem;">
+      <a class="modal-link" onclick="showBackupRecovery()" style="color: var(--orange);">🔑 forgot password? (use backup code)</a> 
+    </div>
     
     <div class="modal-buttons">
       <button class="modal-btn primary" onclick="login()">sign in</button>
@@ -1858,11 +1862,22 @@ footer {
   </div>
 </div>
 
-<!-- SIGNUP MODAL -->
+<!-- Replace your existing signup modal -->
 <div class="account-modal" id="signupModal">
   <div class="modal-content">
-    <h2>create account</h2>
-    <p>start saving your favorites</p>
+    <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
+    <h2>🚀 create account</h2>
+    
+    <!-- Backup Code Banner -->
+    <div style="background: linear-gradient(135deg, #ff6b0011, #ff8c2e11); border: 2px solid var(--orange); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem;">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <div style="background: var(--orange); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🔐</div>
+        <div style="text-align: left;">
+          <div style="color: var(--orange); font-weight: 800; font-size: 1.1rem;">BACKUP CODES ARE YOUR ONLY RECOVERY</div>
+          <div style="color: var(--text-secondary); font-size: 0.9rem;">save these 5 codes - no email means no "forgot password" without them!</div>
+        </div>
+      </div>
+    </div>
     
     <input type="text" id="signupUsername" class="auth-input" placeholder="username">
     
@@ -1871,13 +1886,74 @@ footer {
       <button class="password-toggle" onclick="togglePassword('signupPassword', this)">show</button>
     </div>
     
+    <!-- Backup Codes Display -->
+    <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-lg); padding: 1.2rem; margin: 1.2rem 0; border: 1px solid var(--border-color);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span style="color: var(--orange); font-family: 'JetBrains Mono'; font-weight: 700;">🔑 YOUR 5 BACKUP CODES</span>
+        <button onclick="regenerateBackupCodes()" style="background: rgba(255,107,0,0.2); border: none; color: var(--orange); padding: 0.3rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.8rem; font-family: 'JetBrains Mono';">↻ regenerate</button>
+      </div>
+      
+      <div id="backupCodesContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem;">
+        <!-- Codes will be inserted here by JavaScript -->
+      </div>
+      
+      <div style="display: flex; gap: 0.5rem; justify-content: center;">
+        <button onclick="copyAllBackupCodes()" style="background: rgba(255,107,0,0.1); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.9rem;">📋 copy all</button>
+        <button onclick="downloadBackupCodes()" style="background: rgba(255,107,0,0.1); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.9rem;">⬇️ download</button>
+      </div>
+      
+      <div style="color: #ff4444; font-size: 0.8rem; text-align: center; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-color);">
+        ⚠️ these codes will NEVER be shown again! save them now
+      </div>
+    </div>
+    
     <div class="modal-buttons">
-      <button class="modal-btn primary" onclick="register()">create</button>
+      <button class="modal-btn primary" onclick="register()" id="signupButton">✨ CREATE ACCOUNT</button>
       <button class="modal-btn secondary" onclick="backToMain()">back</button>
+    </div>
+    
+    <!-- Forgot password link -->
+    <div style="margin-top: 1rem; text-align: center;">
+      <a class="modal-link" onclick="showBackupRecovery()" style="color: var(--orange);">🔑 forgot password? (use backup code)</a>
     </div>
   </div>
 </div>
 
+<!-- Backup Recovery Modal -->
+<div class="account-modal" id="backupRecoveryModal">
+  <div class="modal-content">
+    <button class="modal-close-btn" onclick="closeBackupRecovery()">✕</button>
+    <h2>🔐 recover account</h2>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">enter a backup code to reset your password</p>
+    
+    <div style="background: rgba(255,107,0,0.1); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem; border-left: 4px solid var(--orange); text-align: left;">
+      <div style="color: var(--orange); font-weight: 700; margin-bottom: 0.3rem;">📌 need a backup code?</div>
+      <div style="color: var(--text-secondary); font-size: 0.9rem;">you should have saved 5 codes when you created your account. each code can only be used once.</div>
+    </div>
+    
+    <input type="text" id="recoveryUsername" class="auth-input" placeholder="username" style="margin-bottom: 1rem;">
+    
+    <input type="text" id="backupCodeInput" class="auth-input" placeholder="backup code (e.g. XK92-PL41-8F3A)" style="margin-bottom: 1.5rem; font-family: 'JetBrains Mono'; letter-spacing: 2px; text-transform: uppercase;">
+    
+    <div id="recoveryNewPasswordSection" style="display: none;">
+      <div class="password-wrapper" style="margin-bottom: 1rem;">
+        <input type="password" id="recoveryNewPassword" placeholder="new password">
+        <button class="password-toggle" onclick="togglePassword('recoveryNewPassword', this)">show</button>
+      </div>
+      <div class="password-wrapper" style="margin-bottom: 1.5rem;">
+        <input type="password" id="recoveryConfirmPassword" placeholder="confirm new password">
+        <button class="password-toggle" onclick="togglePassword('recoveryConfirmPassword', this)">show</button>
+      </div>
+    </div>
+    
+    <div class="modal-buttons">
+      <button class="modal-btn primary" id="verifyBackupBtn" onclick="verifyBackupCodeForRecovery()">verify backup code</button>
+      <button class="modal-btn primary" id="recoveryResetBtn" style="display: none;" onclick="resetPasswordWithBackup()">reset password</button>
+      <button class="modal-btn secondary" onclick="closeBackupRecovery()">cancel</button>
+    </div>
+  </div>
+</div>
+  
 <div class="settings-panel" id="settingsPanel">
   <div class="settings-header">
     <h2>settings</h2>
@@ -2121,6 +2197,358 @@ function formatTimeAgo(timestamp) {
   }
 }
 
+  // Generate a secure backup code
+function generateBackupCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  
+  // Format: XXXX-XXXX-XXXX
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 4; j++) {
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    if (i < 2) code += '-';
+  }
+  
+  return code;
+}
+
+// Generate 5 backup codes
+function generateBackupCodes() {
+  const codes = [];
+  for (let i = 0; i < 5; i++) {
+    codes.push(generateBackupCode());
+  }
+  return codes;
+}
+
+// Display backup codes in the UI
+function displayBackupCodes(codes) {
+  const container = document.getElementById('backupCodesContainer');
+  if (!container) return;
+  
+  let html = '';
+  codes.forEach((code, index) => {
+    html += `
+      <div style="background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 0.8rem 0.5rem; text-align: center; border: 1px solid var(--border-color);">
+        <div style="color: var(--orange); font-family: 'JetBrains Mono'; font-weight: 700; font-size: 0.7rem; margin-bottom: 0.3rem;">CODE ${index + 1}</div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 0.9rem; letter-spacing: 1px; color: var(--text-primary);">${code}</div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+// Generate and store backup codes in memory
+window.regenerateBackupCodes = function() {
+  const codes = generateBackupCodes();
+  window.tempBackupCodes = codes;
+  displayBackupCodes(codes);
+  showToast('✅ new backup codes generated');
+};
+
+// Copy all codes to clipboard
+window.copyAllBackupCodes = function() {
+  const codes = window.tempBackupCodes || [];
+  if (codes.length === 0) {
+    showToast('❌ no codes generated yet');
+    return;
+  }
+  
+  const text = codes.join('\n');
+  navigator.clipboard.writeText(text);
+  showToast('✅ all 5 codes copied! paste them somewhere safe');
+};
+
+// Download codes as text file
+window.downloadBackupCodes = function() {
+  const codes = window.tempBackupCodes || [];
+  if (codes.length === 0) {
+    showToast('❌ no codes generated yet');
+    return;
+  }
+  
+  const username = document.getElementById('signupUsername')?.value || 'user';
+  const text = `PH-FORUMS BACKUP CODES FOR: ${username}\nGenerated: ${new Date().toLocaleString()}\n\n${codes.join('\n')}\n\n⚠️ KEEP THESE SAFE! Each code can only be used once.`;
+  
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `ph-forums-backup-${username}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+  
+  showToast('✅ backup codes downloaded');
+};
+
+// Auto-generate codes when signup modal opens
+document.addEventListener('DOMNodeInserted', function(e) {
+  if (e.target.id === 'signupModal' && e.target.style.display === 'flex') {
+    setTimeout(() => {
+      window.regenerateBackupCodes();
+    }, 100);
+  }
+});
+
+// Modified register function
+window.register = function() {
+  const username = document.getElementById('signupUsername').value.trim();
+  const password = document.getElementById('signupPassword').value.trim();
+  const backupCodes = window.tempBackupCodes;
+  
+  if (!username || !password) { 
+    showToast('❌ enter username and password'); 
+    return; 
+  }
+  if (password.length < 6) { 
+    showToast('❌ password must be at least 6 characters'); 
+    return; 
+  }
+  if (!backupCodes || backupCodes.length !== 5) {
+    showToast('❌ backup codes not generated');
+    return;
+  }
+  
+  const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
+  
+  // Show loading state
+  const btn = document.getElementById('signupButton');
+  btn.disabled = true;
+  btn.textContent = '📤 creating account...';
+  
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      return user.updateProfile({ displayName: username }).then(() => {
+        // Hash backup codes (simple hash - in production use proper encryption)
+        const hashedCodes = backupCodes.map(code => {
+          return btoa(code).split('').reverse().join(''); // simple obfuscation
+        });
+        
+        return db.collection('users').doc(user.uid).set({
+          username: username,
+          avatar: null,
+          createdAt: Date.now(),
+          posts: 0,
+          joined: new Date().toISOString(),
+          lastSeen: Date.now(),
+          backupCodes: hashedCodes,
+          usedBackupCodes: [] // track used codes
+        });
+      });
+    })
+    .then(() => {
+      showToast(`✅ account created! SAVE YOUR BACKUP CODES!`);
+      closeAllModals();
+      window.tempBackupCodes = null;
+      
+      // Show success message with reminder
+      setTimeout(() => {
+        showToast('⚠️ seriously, save those backup codes!');
+      }, 2000);
+      
+      showView('forum');
+    })
+    .catch((error) => {
+      console.error(error);
+      btn.disabled = false;
+      btn.textContent = '✨ CREATE ACCOUNT';
+      if (error.code === 'auth/email-already-in-use') showToast('❌ username already exists');
+      else showToast('❌ signup failed: ' + error.message);
+    });
+};
+
+// Backup recovery functions
+window.showBackupRecovery = function() {
+  closeAllModals();
+  
+  const modal = document.getElementById('backupRecoveryModal');
+  if (!modal) {
+    // Create modal if it doesn't exist
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <div class="account-modal" id="backupRecoveryModal">
+        <div class="modal-content">
+          <button class="modal-close-btn" onclick="closeBackupRecovery()">✕</button>
+          <h2>🔐 recover account</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">enter a backup code to reset your password</p>
+          
+          <div style="background: rgba(255,107,0,0.1); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem; border-left: 4px solid var(--orange); text-align: left;">
+            <div style="color: var(--orange); font-weight: 700; margin-bottom: 0.3rem;">📌 need a backup code?</div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">you should have saved 5 codes when you created your account. each code can only be used once.</div>
+          </div>
+          
+          <input type="text" id="recoveryUsername" class="auth-input" placeholder="username" style="margin-bottom: 1rem;">
+          
+          <input type="text" id="backupCodeInput" class="auth-input" placeholder="backup code (e.g. XK92-PL41-8F3A)" style="margin-bottom: 1.5rem; font-family: 'JetBrains Mono'; letter-spacing: 2px; text-transform: uppercase;">
+          
+          <div id="recoveryNewPasswordSection" style="display: none;">
+            <div class="password-wrapper" style="margin-bottom: 1rem;">
+              <input type="password" id="recoveryNewPassword" placeholder="new password">
+              <button class="password-toggle" onclick="togglePassword('recoveryNewPassword', this)">show</button>
+            </div>
+            <div class="password-wrapper" style="margin-bottom: 1.5rem;">
+              <input type="password" id="recoveryConfirmPassword" placeholder="confirm new password">
+              <button class="password-toggle" onclick="togglePassword('recoveryConfirmPassword', this)">show</button>
+            </div>
+          </div>
+          
+          <div class="modal-buttons">
+            <button class="modal-btn primary" id="verifyBackupBtn" onclick="verifyBackupCodeForRecovery()">verify backup code</button>
+            <button class="modal-btn primary" id="recoveryResetBtn" style="display: none;" onclick="resetPasswordWithBackup()">reset password</button>
+            <button class="modal-btn secondary" onclick="closeBackupRecovery()">cancel</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(div.firstElementChild);
+  }
+  
+  const modalElem = document.getElementById('backupRecoveryModal');
+  modalElem.style.display = 'flex';
+  setTimeout(() => modalElem.classList.add('active'), 10);
+  
+  // Reset form
+  document.getElementById('recoveryUsername').value = '';
+  document.getElementById('backupCodeInput').value = '';
+  document.getElementById('recoveryNewPasswordSection').style.display = 'none';
+  document.getElementById('verifyBackupBtn').style.display = 'block';
+  document.getElementById('recoveryResetBtn').style.display = 'none';
+  window.recoveryUserId = null;
+};
+
+window.closeBackupRecovery = function() {
+  const modal = document.getElementById('backupRecoveryModal');
+  if (modal) {
+    modal.classList.remove('active');
+    setTimeout(() => modal.style.display = 'none', 300);
+  }
+};
+
+// Verify backup code
+window.verifyBackupCodeForRecovery = function() {
+  const username = document.getElementById('recoveryUsername').value.trim();
+  const inputCode = document.getElementById('backupCodeInput').value.trim().toUpperCase();
+  
+  if (!username || !inputCode) {
+    showToast('❌ enter username and backup code');
+    return;
+  }
+  
+  db.collection('users').where('username', '==', username).get()
+    .then((snapshot) => {
+      if (snapshot.empty) {
+        showToast('❌ username not found');
+        return;
+      }
+      
+      const userDoc = snapshot.docs[0];
+      const userData = userDoc.data();
+      const hashedCodes = userData.backupCodes || [];
+      const usedCodes = userData.usedBackupCodes || [];
+      
+      // Check if code was already used
+      const inputHash = btoa(inputCode).split('').reverse().join('');
+      if (usedCodes.includes(inputHash)) {
+        showToast('❌ this backup code has already been used');
+        return;
+      }
+      
+      // Verify code
+      const codeIndex = hashedCodes.indexOf(inputHash);
+      if (codeIndex === -1) {
+        showToast('❌ invalid backup code');
+        return;
+      }
+      
+      // Code is valid
+      window.recoveryUserId = userDoc.id;
+      window.recoveryCodeHash = inputHash;
+      window.recoveryCodeIndex = codeIndex;
+      
+      // Show password fields
+      document.getElementById('recoveryNewPasswordSection').style.display = 'block';
+      document.getElementById('verifyBackupBtn').style.display = 'none';
+      document.getElementById('recoveryResetBtn').style.display = 'block';
+      
+      showToast('✅ backup code verified! set your new password');
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ error verifying code');
+    });
+};
+
+// Reset password with backup code
+window.resetPasswordWithBackup = function() {
+  const newPass = document.getElementById('recoveryNewPassword').value;
+  const confirmPass = document.getElementById('recoveryConfirmPassword').value;
+  
+  if (!newPass || !confirmPass) {
+    showToast('❌ enter new password');
+    return;
+  }
+  
+  if (newPass.length < 6) {
+    showToast('❌ password must be at least 6 characters');
+    return;
+  }
+  
+  if (newPass !== confirmPass) {
+    showToast('❌ passwords do not match');
+    return;
+  }
+  
+  if (!window.recoveryUserId || !window.recoveryCodeHash) {
+    showToast('❌ session expired, start over');
+    closeBackupRecovery();
+    return;
+  }
+  
+  // Get user's email
+  db.collection('users').doc(window.recoveryUserId).get()
+    .then((doc) => {
+      const userData = doc.data();
+      const email = userData.username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
+      
+      // Mark code as used
+      const usedCodes = userData.usedBackupCodes || [];
+      usedCodes.push(window.recoveryCodeHash);
+      
+      return db.collection('users').doc(window.recoveryUserId).update({
+        usedBackupCodes: usedCodes
+      }).then(() => {
+        // Here you would normally update the password in Firebase Auth
+        // Since we can't do that client-side, we'll generate a reset request
+        
+        const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        
+        return db.collection('passwordResets').add({
+          userId: window.recoveryUserId,
+          username: userData.username,
+          newPassword: newPass, // In production, hash this!
+          resetToken: resetToken,
+          timestamp: Date.now(),
+          completed: false
+        }).then(() => {
+          // Show owner contact info
+          showToast('✅ contact @ricky dicky in the discord server.');
+          
+          setTimeout(() => {
+            alert(`🔐 PASSWORD RESET REQUEST\n\nYour reset token: ${resetToken}\n\nSend this token to @ricky - he'll complete the reset for you.\n\n(This is a security measure since passwords can't be reset client-side)`);
+            closeBackupRecovery();
+          }, 500);
+        });
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ reset failed');
+    });
+};
+  
 // WELCOME CARD
 function checkWelcomeCard() {
   const hasSeenWelcome = localStorage.getItem('ph_welcome_seen');
