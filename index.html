@@ -9,8 +9,8 @@
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a8d8f8&is=69a78778&hm=abee371c7fede1116bf9773b6dcdd858b1c7c7ddb4b2425b7774a0381481756a&=&format=webp&quality=lossless&width=40&height=40">
 
 <title>PH - Science</title>
-<meta name="title" content="PH Science | Learn Biology the Easy Way">
-<meta name="description" content="Access 700+ science worksheets designed to help you master biology quickly and easily.">
+<meta name="title" content="PH Science | Unblocked Games">
+<meta name="description" content="Access 700+ unblocked games - play free at school or work!">
 
 <script>
 window.addEventListener('beforeunload', function (event) {
@@ -174,6 +174,135 @@ body::before {
 @keyframes bgShift {
   0% { transform: scale(1) rotate(0deg); opacity: 0.5; }
   100% { transform: scale(1.08) rotate(0.5deg); opacity: 1; }
+}
+
+/* Welcome Card */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(20px);
+  z-index: 20000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.welcome-overlay.active {
+  display: flex;
+  opacity: 1;
+}
+
+.welcome-card {
+  max-width: 500px;
+  width: 90%;
+  background: var(--bg-panel);
+  border: 2px solid var(--border-glow);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  box-shadow: 0 50px 100px -30px black, 0 0 100px rgba(255,107,0,0.3);
+  transform: scale(0.9);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+  position: relative;
+  animation: welcomePulse 3s infinite alternate;
+}
+
+@keyframes welcomePulse {
+  0% { box-shadow: 0 0 30px rgba(255,107,0,0.3); }
+  100% { box-shadow: 0 0 60px rgba(255,107,0,0.6); }
+}
+
+.welcome-overlay.active .welcome-card {
+  transform: scale(1);
+}
+
+.welcome-card h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: wave 2s infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+
+.welcome-card h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2rem;
+  color: var(--orange);
+  margin-bottom: 1.5rem;
+}
+
+.welcome-card p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.welcome-update {
+  background: rgba(255,107,0,0.1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.welcome-update h3 {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.welcome-update ul {
+  list-style: none;
+}
+
+.welcome-update li {
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.welcome-update li::before {
+  content: '・';
+  color: var(--orange);
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+.welcome-ok-btn {
+  background: linear-gradient(135deg, var(--orange), var(--orange-bright));
+  border: none;
+  color: black;
+  font-weight: 800;
+  padding: 1.2rem 3rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  transition: var(--transition-bounce);
+  box-shadow: 0 4px 15px rgba(255,107,0,0.3);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.welcome-ok-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(255,107,0,0.5);
 }
 
 header {
@@ -355,7 +484,7 @@ header:hover {
   transform: rotate(180deg) scale(1.1);
 }
 
-/* ACCOUNT MODAL - context-aware */
+/* ACCOUNT MODAL */
 .account-modal {
   position: fixed;
   inset: 0;
@@ -1671,7 +1800,27 @@ footer {
 </head>
 <body>
 
-<!-- MAIN ACCOUNT MODAL (smart context) -->
+<!-- WELCOME CARD -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card">
+    <h1>👋</h1>
+    <h2>welcome to ph-science!</h2>
+    <p>this website is mainly for <span style="color: var(--orange); font-weight: 700;">unblocked games</span>, not for science worksheets</p>
+    
+    <div class="welcome-update">
+      <h3>Update (1.73)</h3>
+      <ul>
+        <li>・integrated forums (chat privately / communities)</li>
+        <li>・new games have been added!</li>
+        <li>・other various stuffs.</li>
+      </ul>
+    </div>
+    
+    <button class="welcome-ok-btn" onclick="dismissWelcome()">ok</button>
+  </div>
+</div>
+
+<!-- MAIN ACCOUNT MODAL -->
 <div class="account-modal" id="accountModal">
   <div class="modal-content" id="accountModalContent">
     <!-- dynamic content injected by JS -->
@@ -1901,9 +2050,7 @@ footer {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <script>
-//===================================================
 // FIREBASE & GLOBAL
-//===================================================
 const firebaseConfig = {
   apiKey: "AIzaSyA-68XKNt_PD0I1TJbNcyotT4qMbgHh-tI",
   authDomain: "ph-science.firebaseapp.com",
@@ -1924,14 +2071,14 @@ let recentlyPlayed = [];
 let showFavOnly = false;
 let currentUser = null;
 let isGuest = false;
-let unlockedGames = []; // for guest mode (50% random)
-let lockFilter = 'unlocked'; // 'unlocked' or 'locked' (for guests)
+let unlockedGames = [];
+let lockFilter = 'unlocked';
 
 const bannedIds = [-1, 596];
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
-// Custom forum zone
+// Custom forum zone - direct link to ph-science.github.io/forum.html
 const forumZone = {
   id: "forum",
   name: "Forums",
@@ -1940,16 +2087,28 @@ const forumZone = {
   url: "https://ph-science.github.io/forum.html"
 };
 
-//===================================================
-// SMART ACCOUNT MODAL (context-aware)
-//===================================================
+// WELCOME CARD
+function checkWelcomeCard() {
+  const hasSeenWelcome = localStorage.getItem('ph_welcome_seen');
+  if (!hasSeenWelcome) {
+    setTimeout(() => {
+      document.getElementById('welcomeOverlay').classList.add('active');
+    }, 500);
+  }
+}
+
+window.dismissWelcome = function() {
+  localStorage.setItem('ph_welcome_seen', 'true');
+  document.getElementById('welcomeOverlay').classList.remove('active');
+};
+
+// SMART ACCOUNT MODAL
 window.showSmartAccountModal = function() {
   const modal = document.getElementById('accountModal');
   const content = document.getElementById('accountModalContent');
   const user = auth.currentUser;
   
   if (user && !user.isAnonymous) {
-    // Signed-in user (non-guest)
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <div class="user-greeting">👋 ${user.displayName || 'player'}</div>
@@ -1959,7 +2118,6 @@ window.showSmartAccountModal = function() {
       </div>
     `;
   } else if (user && user.isAnonymous) {
-    // Guest
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <div class="user-greeting">👤 guest mode · 50% unlocked</div>
@@ -1968,7 +2126,6 @@ window.showSmartAccountModal = function() {
       </div>
     `;
   } else {
-    // Not logged in
     content.innerHTML = `
       <h2>PH·SCIENCE</h2>
       <p>join the vault · 700+ games</p>
@@ -2007,19 +2164,16 @@ window.logout = function() {
   });
 };
 
-//===================================================
 // LOCK FILTER LOGIC
-//===================================================
 function updateLockFilterVisibility() {
   const container = document.getElementById('lockFilterContainer');
   const user = auth.currentUser;
   
   if (user && user.isAnonymous) {
-    container.style.display = 'flex'; // guest sees filter
-    // Reset to unlocked view by default
+    container.style.display = 'flex';
     setLockFilter('unlocked');
   } else {
-    container.style.display = 'none'; // signed-in or logged-out don't see filter
+    container.style.display = 'none';
   }
 }
 
@@ -2027,12 +2181,10 @@ window.setLockFilter = function(filter) {
   lockFilter = filter;
   document.getElementById('showUnlockedBtn').classList.toggle('active', filter === 'unlocked');
   document.getElementById('showLockedBtn').classList.toggle('active', filter === 'locked');
-  displayZones(zones); // re-render with filter
+  displayZones(zones);
 };
 
-//===================================================
 // OPTIMIZED MODE
-//===================================================
 window.toggleOptimized = function() {
   document.body.classList.toggle('optimized-mode');
   const toggle = document.getElementById('optimizedToggle');
@@ -2055,9 +2207,7 @@ if (!localStorage.getItem('ph_optimized')) {
   }
 }
 
-//===================================================
 // VAULT TOGGLE & UTILS
-//===================================================
 window.toggleVault = function(vaultId) {
   const content = document.getElementById(vaultId + 'Content');
   const icon = document.getElementById(vaultId + 'Icon');
@@ -2428,7 +2578,7 @@ window.sortZones = function() {
   if (by === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
   else if (by === 'id') zones.sort((a, b) => a.id - b.id);
   
-  // Make sure forum is always first when sorting by name or id
+  // Make sure forum is always first
   const forumIndex = zones.findIndex(z => z.id === 'forum');
   if (forumIndex > 0) {
     const forum = zones.splice(forumIndex, 1)[0];
@@ -2449,15 +2599,12 @@ function displayZones(list) {
   const container = document.getElementById('container');
   container.innerHTML = "";
   
-  // Apply lock filtering based on user state
   let displayList = list;
   const user = auth.currentUser;
   
   if (!user) {
-    // Not signed in: all locked
     displayList = list.map(game => ({ ...game, forcedLock: true }));
   } else if (user.isAnonymous) {
-    // Guest: filter based on lockFilter
     displayList = list.filter(game => {
       const isUnlocked = unlockedGames.includes(game.id);
       return lockFilter === 'unlocked' ? isUnlocked : !isUnlocked;
@@ -2466,7 +2613,6 @@ function displayZones(list) {
       forcedLock: lockFilter === 'locked' ? true : (unlockedGames.includes(game.id) ? false : true)
     }));
   } else {
-    // Signed in: all unlocked
     displayList = list.map(game => ({ ...game, forcedLock: false }));
   }
   
@@ -2502,7 +2648,8 @@ function createZoneCard(file) {
       showSmartAccountModal();
     } else {
       if (file.id === 'forum') {
-        window.location.href = '/forum.html';
+        // Direct redirect to forum - no base path interference
+        window.location.href = file.url;
       } else {
         openZone(file);
       }
@@ -2591,7 +2738,8 @@ function createZoneCard(file) {
       showSmartAccountModal();
     } else {
       if (file.id === 'forum') {
-        window.location.href = '/forum.html';
+        // Direct redirect to forum - no base path interference
+        window.location.href = file.url;
       } else {
         openZone(file);
       }
@@ -2709,8 +2857,10 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// Initialize
 listZones();
-console.log('loaded: lock system with guest filter');
+checkWelcomeCard();
+console.log('loaded!');
 </script>
 </body>
 </html>
