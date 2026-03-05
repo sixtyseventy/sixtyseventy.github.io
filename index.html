@@ -484,7 +484,7 @@ header:hover {
   transform: rotate(180deg) scale(1.1);
 }
 
-/* ACCOUNT MODAL - FIXED CENTERING */
+/* ACCOUNT MODAL */
 .account-modal {
   position: fixed;
   inset: 0;
@@ -496,7 +496,6 @@ header:hover {
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s;
-  padding: 1rem;
 }
 
 .account-modal.active {
@@ -505,20 +504,26 @@ header:hover {
 }
 
 .modal-content {
-  max-width: 500px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 450px;
+  width: 90%;
   background: var(--bg-panel);
   border: 2px solid var(--border-glow);
   border-radius: var(--radius-xl);
-  padding: 2rem;
+  padding: 2.5rem;
   box-shadow: 0 50px 100px -30px black, 0 0 100px rgba(255,107,0,0.3);
   transform: scale(0.9);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   text-align: center;
   position: relative;
-  margin: auto;
+  overflow: hidden;
+}
+
+.modal-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,107,0,0.15) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .account-modal.active .modal-content {
@@ -527,12 +532,12 @@ header:hover {
 
 .modal-content h2 {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
   background: linear-gradient(135deg, #ff6b00, #ffa64d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  word-break: break-word;
+  position: relative;
 }
 
 .modal-content .user-greeting {
@@ -544,36 +549,12 @@ header:hover {
   padding-bottom: 1rem;
 }
 
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: var(--transition);
-  z-index: 10;
-}
-
-.modal-close-btn:hover {
-  background: rgba(255,107,0,0.2);
-  color: var(--orange);
-  transform: rotate(90deg);
-}
-
 .modal-buttons {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin: 2rem 0 1rem;
+  position: relative;
 }
 
 .modal-btn {
@@ -731,97 +712,11 @@ header:hover {
   transform: translateY(-50%) scale(1.1);
 }
 
-/* Backup Code Display - IMPROVED */
-.backup-code-container {
-  background: rgba(0,0,0,0.3);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem;
-  margin: 1rem 0;
-  border: 2px solid var(--orange);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.backup-code-container::before {
-  content: '🔐';
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  font-size: 5rem;
-  opacity: 0.1;
-  transform: rotate(15deg);
-}
-
-.backup-code-label {
-  color: var(--orange);
-  font-family: 'JetBrains Mono';
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  font-weight: 700;
-}
-
-.backup-code {
-  font-family: 'JetBrains Mono';
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--orange);
-  letter-spacing: 8px;
-  background: rgba(0,0,0,0.5);
-  padding: 1rem;
-  border-radius: var(--radius-lg);
-  margin: 1rem 0;
-  word-break: break-word;
-  line-height: 1.2;
-  text-shadow: 0 0 20px rgba(255,107,0,0.5);
-  border: 1px solid var(--orange);
-}
-
-.backup-code-actions {
-  display: flex;
-  gap: 0.8rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-.backup-code-btn {
-  background: rgba(255,107,0,0.15);
-  border: 1px solid var(--border-color);
-  color: var(--text-primary);
-  padding: 0.7rem 1.2rem;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  font-family: 'JetBrains Mono';
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-.backup-code-btn:hover {
-  background: rgba(255,107,0,0.3);
-  transform: translateY(-2px);
-  border-color: var(--orange);
-  color: var(--orange);
-}
-
-.backup-code-warning {
-  color: #ff4444;
-  font-size: 0.9rem;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px dashed var(--border-color);
-  font-weight: 600;
-}
-
 .settings-panel {
   position: fixed;
   top: 0;
   right: -600px;
   width: 500px;
-  max-width: 100%;
   height: 100vh;
   background: var(--bg-panel);
   backdrop-filter: blur(40px);
@@ -1928,7 +1823,7 @@ footer {
       <ul>
         <li>・integrated forums (chat privately / communities)</li>
         <li>・new games have been added!</li>
-        <li>・backup code recovery system</li>
+        <li>・other various stuffs.</li>
       </ul>
     </div>
     
@@ -1946,9 +1841,8 @@ footer {
 <!-- LOGIN MODAL -->
 <div class="account-modal" id="loginModal">
   <div class="modal-content">
-    <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
     <h2>welcome back</h2>
-    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">sign in to your account</p>
+    <p>sign in to your account</p>
     
     <input type="text" id="loginUsername" class="auth-input" placeholder="username">
     
@@ -1957,8 +1851,8 @@ footer {
       <button class="password-toggle" onclick="togglePassword('loginPassword', this)">show</button>
     </div>
 
-    <div style="text-align: center; margin-top: 1rem; margin-bottom: 1rem;">
-      <a class="modal-link" onclick="showBackupRecovery()" style="color: var(--orange);">🔑 forgot password? (use backup code)</a>
+    <div style="text-align: center; margin-top: 1rem;">
+      <a class="modal-link" onclick="showBackupRecovery()" style="color: var(--orange);">🔑 forgot password? (use backup code)</a> 
     </div>
     
     <div class="modal-buttons">
@@ -1968,20 +1862,19 @@ footer {
   </div>
 </div>
 
-<!-- SIGNUP MODAL - SINGLE BACKUP CODE (IMPROVED) -->
+<!-- Replace your existing signup modal -->
 <div class="account-modal" id="signupModal">
   <div class="modal-content">
     <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-    <h2>create account</h2>
-    <p style="color: var(--text-muted); margin-bottom: 1rem;">join the vault · 700+ games</p>
+    <h2>🚀 create account</h2>
     
-    <!-- Warning Banner -->
-    <div style="background: linear-gradient(135deg, rgba(255,107,0,0.15), rgba(255,107,0,0.05)); border: 2px solid var(--orange); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem;">
+    <!-- Backup Code Banner -->
+    <div style="background: linear-gradient(135deg, #ff6b0011, #ff8c2e11); border: 2px solid var(--orange); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem;">
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <div style="background: var(--orange); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 0 20px var(--orange);">🔐</div>
+        <div style="background: var(--orange); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🔐</div>
         <div style="text-align: left;">
-          <div style="color: var(--orange); font-weight: 800; font-size: 1.1rem;">BACKUP CODE = ONLY RECOVERY</div>
-          <div style="color: var(--text-secondary); font-size: 0.9rem;">save this code - no email = no password reset without it!</div>
+          <div style="color: var(--orange); font-weight: 800; font-size: 1.1rem;">BACKUP CODES ARE YOUR ONLY RECOVERY</div>
+          <div style="color: var(--text-secondary); font-size: 0.9rem;">save these 5 codes - no email means no "forgot password" without them!</div>
         </div>
       </div>
     </div>
@@ -1993,25 +1886,24 @@ footer {
       <button class="password-toggle" onclick="togglePassword('signupPassword', this)">show</button>
     </div>
     
-    <!-- SINGLE BACKUP CODE DISPLAY - IMPROVED -->
-    <div class="backup-code-container">
-      <div class="backup-code-label">🔑 YOUR BACKUP CODE</div>
-      <div class="backup-code" id="backupCodeDisplay">XXXX-XXXX-XXXX</div>
-      
-      <div class="backup-code-actions">
-        <button class="backup-code-btn" onclick="copyBackupCode()">
-          <span style="margin-right: 0.3rem;">📋</span> copy
-        </button>
-        <button class="backup-code-btn" onclick="downloadBackupCode()">
-          <span style="margin-right: 0.3rem;">⬇️</span> download
-        </button>
-        <button class="backup-code-btn" onclick="regenerateSingleBackupCode()">
-          <span style="margin-right: 0.3rem;">↻</span> new
-        </button>
+    <!-- Backup Codes Display -->
+    <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-lg); padding: 1.2rem; margin: 1.2rem 0; border: 1px solid var(--border-color);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <span style="color: var(--orange); font-family: 'JetBrains Mono'; font-weight: 700;">🔑 YOUR 5 BACKUP CODES</span>
+        <button onclick="regenerateBackupCodes()" style="background: rgba(255,107,0,0.2); border: none; color: var(--orange); padding: 0.3rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.8rem; font-family: 'JetBrains Mono';">↻ regenerate</button>
       </div>
       
-      <div class="backup-code-warning">
-        ⚠️ this code will NEVER be shown again! save it now
+      <div id="backupCodesContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem; margin-bottom: 1rem;">
+        <!-- Codes will be inserted here by JavaScript -->
+      </div>
+      
+      <div style="display: flex; gap: 0.5rem; justify-content: center;">
+        <button onclick="copyAllBackupCodes()" style="background: rgba(255,107,0,0.1); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.9rem;">📋 copy all</button>
+        <button onclick="downloadBackupCodes()" style="background: rgba(255,107,0,0.1); border: 1px solid var(--border-color); color: var(--text-primary); padding: 0.5rem 1rem; border-radius: var(--radius-full); cursor: pointer; font-size: 0.9rem;">⬇️ download</button>
+      </div>
+      
+      <div style="color: #ff4444; font-size: 0.8rem; text-align: center; margin-top: 1rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-color);">
+        ⚠️ these codes will NEVER be shown again! save them now
       </div>
     </div>
     
@@ -2020,22 +1912,23 @@ footer {
       <button class="modal-btn secondary" onclick="backToMain()">back</button>
     </div>
     
+    <!-- Forgot password link -->
     <div style="margin-top: 1rem; text-align: center;">
-      <a class="modal-link" onclick="showLogin()" style="color: var(--orange);">🔑 already have an account? sign in</a>
+      <a class="modal-link" onclick="showBackupRecovery()" style="color: var(--orange);">🔑 forgot password? (use backup code)</a>
     </div>
   </div>
 </div>
 
-<!-- BACKUP RECOVERY MODAL -->
+<!-- Backup Recovery Modal -->
 <div class="account-modal" id="backupRecoveryModal">
   <div class="modal-content">
     <button class="modal-close-btn" onclick="closeBackupRecovery()">✕</button>
     <h2>🔐 recover account</h2>
-    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">enter your backup code to reset password</p>
+    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">enter a backup code to reset your password</p>
     
     <div style="background: rgba(255,107,0,0.1); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem; border-left: 4px solid var(--orange); text-align: left;">
-      <div style="color: var(--orange); font-weight: 700; margin-bottom: 0.3rem;">📌 lost your code?</div>
-      <div style="color: var(--text-secondary); font-size: 0.9rem;">contact @ricky in discord for manual recovery (proof of ownership required)</div>
+      <div style="color: var(--orange); font-weight: 700; margin-bottom: 0.3rem;">📌 need a backup code?</div>
+      <div style="color: var(--text-secondary); font-size: 0.9rem;">you should have saved 5 codes when you created your account. each code can only be used once.</div>
     </div>
     
     <input type="text" id="recoveryUsername" class="auth-input" placeholder="username" style="margin-bottom: 1rem;">
@@ -2044,7 +1937,7 @@ footer {
     
     <div id="recoveryNewPasswordSection" style="display: none;">
       <div class="password-wrapper" style="margin-bottom: 1rem;">
-        <input type="password" id="recoveryNewPassword" placeholder="new password (min 6 chars)">
+        <input type="password" id="recoveryNewPassword" placeholder="new password">
         <button class="password-toggle" onclick="togglePassword('recoveryNewPassword', this)">show</button>
       </div>
       <div class="password-wrapper" style="margin-bottom: 1.5rem;">
@@ -2079,7 +1972,7 @@ footer {
     <h3>favorites</h3>
     <div class="setting-item">
       <label>show favorites only</label>
-      <input type="checkbox" id="showFavOnly" onchange="filterFavorites()" style="width:20px; height:20px; accent-color: var(--orange);">
+      <input type="checkbox" id="showFavOnly" onchange="filterFavorites()" style="width:20px; height:20px;">
     </div>
   </div>
 
@@ -2239,47 +2132,53 @@ footer {
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
-
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
 <script>
-// FIREBASE CONFIG
+// FIREBASE & GLOBAL
 const firebaseConfig = {
   apiKey: "AIzaSyA-68XKNt_PD0I1TJbNcyotT4qMbgHh-tI",
   authDomain: "ph-science.firebaseapp.com",
   projectId: "ph-science",
   storageBucket: "ph-science.firebasestorage.app",
   messagingSenderId: "883067098385",
-  appId: "1:883067098385:web:036ccc248ffa4f44cf28b0"
+  appId: "1:883067098385:web:036ccc248ffa4f44cf28b0",
+  measurementId: "G-54XJK643G2"
 };
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.firestore();
 const database = firebase.database();
 
-// GLOBAL VARIABLES
 let zones = [];
 let favorites = [];
 let recentlyPlayed = [];
-let recentTimestamps = {};
+let recentTimestamps = {}; // Store timestamps for recently played games
 let showFavOnly = false;
 let currentUser = null;
 let isGuest = false;
 let unlockedGames = [];
 let lockFilter = 'unlocked';
-let singleBackupCode = '';
 
 const bannedIds = [-1, 596];
 const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/covers@main";
 const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
-// HELPER FUNCTIONS
+// Custom forum zone - direct link to ph-science.github.io/forum.html
+const forumZone = {
+  id: "forum",
+  name: "Forums",
+  author: "Community",
+  cover: "https://media.discordapp.net/attachments/1246719291517308929/1479061650022727680/image_1.png?ex=69aaab01&is=69a95981&hm=0deadaed3877b789438454fd562b17f78e5cfb151a46b53b322dbb90163601c5&=&format=webp&quality=lossless&width=858&height=858",
+  url: "https://ph-science.github.io/forum.html"
+};
+
+// Helper function to format time ago
 function formatTimeAgo(timestamp) {
   if (!timestamp) return '';
+  
   const now = Date.now();
   const diffMs = now - timestamp;
   const diffSec = Math.floor(diffMs / 1000);
@@ -2287,216 +2186,117 @@ function formatTimeAgo(timestamp) {
   const diffHour = Math.floor(diffMin / 60);
   const diffDay = Math.floor(diffHour / 24);
   
-  if (diffDay > 0) return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
-  if (diffHour > 0) return `${diffHour} hour${diffHour > 1 ? 's' : ''} ago`;
-  if (diffMin > 0) return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
-  return 'just now';
-}
-
-function showToast(message, duration = 3000) {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.textContent = message;
-  container.appendChild(toast);
-  
-  setTimeout(() => {
-    toast.classList.add('exit');
-    setTimeout(() => {
-      if (toast.parentNode) toast.remove();
-    }, 300);
-  }, duration);
-}
-
-function closeAllModals() {
-  document.querySelectorAll('.account-modal').forEach(modal => {
-    modal.classList.remove('active');
-    setTimeout(() => modal.style.display = 'none', 300);
-  });
-}
-
-// WELCOME CARD
-function checkWelcomeCard() {
-  const hasSeenWelcome = localStorage.getItem('ph_welcome_seen');
-  if (!hasSeenWelcome) {
-    setTimeout(() => {
-      document.getElementById('welcomeOverlay').classList.add('active');
-    }, 500);
+  if (diffDay > 0) {
+    return `${diffDay} day${diffDay > 1 ? 's' : ''} ago`;
+  } else if (diffHour > 0) {
+    return `${diffHour} hour${diffHour > 1 ? 's' : ''} ago`;
+  } else if (diffMin > 0) {
+    return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
+  } else {
+    return 'just now';
   }
 }
 
-window.dismissWelcome = function() {
-  localStorage.setItem('ph_welcome_seen', 'true');
-  document.getElementById('welcomeOverlay').classList.remove('active');
-};
-
-// GENERATE SINGLE BACKUP CODE (IMPROVED)
+  // Generate a secure backup code
 function generateBackupCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let code = '';
   
-  // Format: XXXX-XXXX-XXXX (easier to read/write)
-  for (let i = 0; i < 4; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  code += '-';
-  for (let i = 0; i < 4; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
-  }
-  code += '-';
-  for (let i = 0; i < 4; i++) {
-    code += chars[Math.floor(Math.random() * chars.length)];
+  // Format: XXXX-XXXX-XXXX
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 4; j++) {
+      code += chars[Math.floor(Math.random() * chars.length)];
+    }
+    if (i < 2) code += '-';
   }
   
   return code;
 }
 
-window.regenerateSingleBackupCode = function() {
-  singleBackupCode = generateBackupCode();
-  document.getElementById('backupCodeDisplay').textContent = singleBackupCode;
-  showToast('✅ new backup code generated');
-};
-
-window.copyBackupCode = function() {
-  if (!singleBackupCode || singleBackupCode === 'XXXX-XXXX-XXXX') {
-    singleBackupCode = generateBackupCode();
-    document.getElementById('backupCodeDisplay').textContent = singleBackupCode;
+// Generate 5 backup codes
+function generateBackupCodes() {
+  const codes = [];
+  for (let i = 0; i < 5; i++) {
+    codes.push(generateBackupCode());
   }
-  navigator.clipboard.writeText(singleBackupCode)
-    .then(() => showToast('✅ backup code copied! save it somewhere safe'))
-    .catch(() => showToast('❌ failed to copy'));
+  return codes;
+}
+
+// Display backup codes in the UI
+function displayBackupCodes(codes) {
+  const container = document.getElementById('backupCodesContainer');
+  if (!container) return;
+  
+  let html = '';
+  codes.forEach((code, index) => {
+    html += `
+      <div style="background: rgba(0,0,0,0.4); border-radius: var(--radius-md); padding: 0.8rem 0.5rem; text-align: center; border: 1px solid var(--border-color);">
+        <div style="color: var(--orange); font-family: 'JetBrains Mono'; font-weight: 700; font-size: 0.7rem; margin-bottom: 0.3rem;">CODE ${index + 1}</div>
+        <div style="font-family: 'JetBrains Mono'; font-size: 0.9rem; letter-spacing: 1px; color: var(--text-primary);">${code}</div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+// Generate and store backup codes in memory
+window.regenerateBackupCodes = function() {
+  const codes = generateBackupCodes();
+  window.tempBackupCodes = codes;
+  displayBackupCodes(codes);
+  showToast('✅ new backup codes generated');
 };
 
-window.downloadBackupCode = function() {
-  if (!singleBackupCode || singleBackupCode === 'XXXX-XXXX-XXXX') {
-    singleBackupCode = generateBackupCode();
-    document.getElementById('backupCodeDisplay').textContent = singleBackupCode;
+// Copy all codes to clipboard
+window.copyAllBackupCodes = function() {
+  const codes = window.tempBackupCodes || [];
+  if (codes.length === 0) {
+    showToast('❌ no codes generated yet');
+    return;
+  }
+  
+  const text = codes.join('\n');
+  navigator.clipboard.writeText(text);
+  showToast('✅ all 5 codes copied! paste them somewhere safe');
+};
+
+// Download codes as text file
+window.downloadBackupCodes = function() {
+  const codes = window.tempBackupCodes || [];
+  if (codes.length === 0) {
+    showToast('❌ no codes generated yet');
+    return;
   }
   
   const username = document.getElementById('signupUsername')?.value || 'user';
-  const date = new Date().toLocaleString();
-  const text = `PH-SCIENCE BACKUP CODE
-═══════════════════════════
-Username: ${username}
-Generated: ${date}
-
-YOUR BACKUP CODE: ${singleBackupCode}
-
-⚠️ IMPORTANT ⚠️
-This is your ONLY way to recover your account if you forget your password.
-- Save this file somewhere safe
-- Consider printing it or storing in a password manager
-- This code will NEVER be shown again after account creation
-- Each code can only be used once
-
-Keep it safe! 🔐
-═══════════════════════════`;
-
+  const text = `PH-FORUMS BACKUP CODES FOR: ${username}\nGenerated: ${new Date().toLocaleString()}\n\n${codes.join('\n')}\n\n⚠️ KEEP THESE SAFE! Each code can only be used once.`;
+  
   const blob = new Blob([text], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `ph-science-backup-${username}.txt`;
+  a.download = `ph-forums-backup-${username}.txt`;
   a.click();
   URL.revokeObjectURL(url);
-  showToast('✅ backup code downloaded');
+  
+  showToast('✅ backup codes downloaded');
 };
 
-// AUTO-GENERATE CODE ON MODAL OPEN
+// Auto-generate codes when signup modal opens
 document.addEventListener('DOMNodeInserted', function(e) {
   if (e.target.id === 'signupModal' && e.target.style.display === 'flex') {
     setTimeout(() => {
-      singleBackupCode = generateBackupCode();
-      document.getElementById('backupCodeDisplay').textContent = singleBackupCode;
+      window.regenerateBackupCodes();
     }, 100);
   }
 });
 
-// SMART ACCOUNT MODAL
-window.showSmartAccountModal = function() {
-  const modal = document.getElementById('accountModal');
-  const content = document.getElementById('accountModalContent');
-  const user = auth.currentUser;
-  
-  if (user && !user.isAnonymous) {
-    const isOwner = user.displayName === 'ricky';
-    content.innerHTML = `
-      <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH·SCIENCE</h2>
-      <div class="user-greeting">👋 ${user.displayName || 'player'} ${isOwner ? '👑' : ''}</div>
-      <div class="modal-buttons">
-        <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
-        <button class="modal-btn secondary" onclick="switchAccounts()">🔄 switch accounts</button>
-      </div>
-    `;
-  } else if (user && user.isAnonymous) {
-    content.innerHTML = `
-      <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH·SCIENCE</h2>
-      <div class="user-greeting">👤 guest mode · 50% unlocked</div>
-      <div class="modal-buttons">
-        <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
-      </div>
-    `;
-  } else {
-    content.innerHTML = `
-      <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH·SCIENCE</h2>
-      <p>join the vault · 700+ games</p>
-      <div class="modal-buttons">
-        <button class="modal-btn primary" onclick="showSignup()">create account</button>
-        <button class="modal-btn secondary" onclick="continueAsGuest()">continue as guest</button>
-      </div>
-      <a class="modal-link" onclick="showLogin()">already have an account? sign in</a>
-    `;
-  }
-  
-  modal.style.display = 'flex';
-  setTimeout(() => modal.classList.add('active'), 10);
-};
-
-window.showLogin = function() {
-  closeAllModals();
-  setTimeout(() => {
-    const modal = document.getElementById('loginModal');
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-  }, 300);
-};
-
-window.showSignup = function() {
-  closeAllModals();
-  setTimeout(() => {
-    const modal = document.getElementById('signupModal');
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-    // Generate backup code
-    singleBackupCode = generateBackupCode();
-    document.getElementById('backupCodeDisplay').textContent = singleBackupCode;
-  }, 300);
-};
-
-window.backToMain = function() {
-  closeAllModals();
-  setTimeout(() => showSmartAccountModal(), 300);
-};
-
-window.togglePassword = function(inputId, button) {
-  const input = document.getElementById(inputId);
-  if (input.type === 'password') {
-    input.type = 'text';
-    button.textContent = 'hide';
-  } else {
-    input.type = 'password';
-    button.textContent = 'show';
-  }
-};
-
-// REGISTER WITH SINGLE BACKUP CODE
+// Modified register function
 window.register = function() {
   const username = document.getElementById('signupUsername').value.trim();
   const password = document.getElementById('signupPassword').value.trim();
-  const backupCode = singleBackupCode;
+  const backupCodes = window.tempBackupCodes;
   
   if (!username || !password) { 
     showToast('❌ enter username and password'); 
@@ -2506,41 +2306,50 @@ window.register = function() {
     showToast('❌ password must be at least 6 characters'); 
     return; 
   }
-  if (!backupCode || backupCode === 'XXXX-XXXX-XXXX') {
-    showToast('❌ backup code not generated');
+  if (!backupCodes || backupCodes.length !== 5) {
+    showToast('❌ backup codes not generated');
     return;
   }
   
   const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
   
+  // Show loading state
   const btn = document.getElementById('signupButton');
   btn.disabled = true;
-  btn.textContent = '📤 creating...';
+  btn.textContent = '📤 creating account...';
   
   auth.createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       const user = userCredential.user;
       return user.updateProfile({ displayName: username }).then(() => {
-        // Simple hash for backup code (base64 + reverse)
-        const hashedCode = btoa(backupCode).split('').reverse().join('');
+        // Hash backup codes (simple hash - in production use proper encryption)
+        const hashedCodes = backupCodes.map(code => {
+          return btoa(code).split('').reverse().join(''); // simple obfuscation
+        });
         
         return db.collection('users').doc(user.uid).set({
           username: username,
+          avatar: null,
           createdAt: Date.now(),
-          backupCode: hashedCode,
-          usedBackupCode: false
+          posts: 0,
+          joined: new Date().toISOString(),
+          lastSeen: Date.now(),
+          backupCodes: hashedCodes,
+          usedBackupCodes: [] // track used codes
         });
       });
     })
     .then(() => {
-      showToast(`✅ account created! SAVE YOUR BACKUP CODE!`);
+      showToast(`✅ account created! SAVE YOUR BACKUP CODES!`);
       closeAllModals();
-      singleBackupCode = '';
+      window.tempBackupCodes = null;
       
-      // Show reminder
+      // Show success message with reminder
       setTimeout(() => {
-        showToast('⚠️ seriously, save that backup code!');
+        showToast('⚠️ seriously, save those backup codes!');
       }, 2000);
+      
+      showView('forum');
     })
     .catch((error) => {
       console.error(error);
@@ -2551,77 +2360,63 @@ window.register = function() {
     });
 };
 
-window.login = function() {
-  const username = document.getElementById('loginUsername').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
-  
-  if (!username || !password) { showToast('❌ enter username and password'); return; }
-  
-  const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
-  
-  auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      showToast(`👋 welcome back, ${username}`);
-      closeAllModals();
-    })
-    .catch((error) => {
-      console.error(error);
-      showToast('❌ invalid username or password');
-    });
-};
-
-window.continueAsGuest = function() {
-  auth.signInAnonymously()
-    .then(() => {
-      showToast('👤 continuing as guest · 50% unlocked');
-      closeAllModals();
-    })
-    .catch((error) => {
-      console.error(error);
-      showToast('❌ guest login failed');
-    });
-};
-
-window.logout = function() {
-  auth.signOut().then(() => {
-    showToast('👋 logged out');
-    closeAllModals();
-    document.getElementById('accountBtn').innerHTML = '✨ sign in';
-    favorites = [];
-    recentlyPlayed = [];
-    recentTimestamps = {};
-    isGuest = false;
-    updateLockFilterVisibility();
-    displayZones(zones);
-    displayFavorites();
-    displayRecentlyPlayed();
-    updateViewerButtons();
-  });
-};
-
-window.switchAccounts = function() {
-  auth.signOut().then(() => {
-    closeAllModals();
-    setTimeout(() => showSmartAccountModal(), 300);
-  });
-};
-
-// BACKUP RECOVERY FUNCTIONS
+// Backup recovery functions
 window.showBackupRecovery = function() {
   closeAllModals();
-  setTimeout(() => {
-    const modal = document.getElementById('backupRecoveryModal');
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-    
-    // Reset form
-    document.getElementById('recoveryUsername').value = '';
-    document.getElementById('backupCodeInput').value = '';
-    document.getElementById('recoveryNewPasswordSection').style.display = 'none';
-    document.getElementById('verifyBackupBtn').style.display = 'block';
-    document.getElementById('recoveryResetBtn').style.display = 'none';
-    window.recoveryUserId = null;
-  }, 300);
+  
+  const modal = document.getElementById('backupRecoveryModal');
+  if (!modal) {
+    // Create modal if it doesn't exist
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <div class="account-modal" id="backupRecoveryModal">
+        <div class="modal-content">
+          <button class="modal-close-btn" onclick="closeBackupRecovery()">✕</button>
+          <h2>🔐 recover account</h2>
+          <p style="color: var(--text-muted); margin-bottom: 1.5rem;">enter a backup code to reset your password</p>
+          
+          <div style="background: rgba(255,107,0,0.1); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem; border-left: 4px solid var(--orange); text-align: left;">
+            <div style="color: var(--orange); font-weight: 700; margin-bottom: 0.3rem;">📌 need a backup code?</div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem;">you should have saved 5 codes when you created your account. each code can only be used once.</div>
+          </div>
+          
+          <input type="text" id="recoveryUsername" class="auth-input" placeholder="username" style="margin-bottom: 1rem;">
+          
+          <input type="text" id="backupCodeInput" class="auth-input" placeholder="backup code (e.g. XK92-PL41-8F3A)" style="margin-bottom: 1.5rem; font-family: 'JetBrains Mono'; letter-spacing: 2px; text-transform: uppercase;">
+          
+          <div id="recoveryNewPasswordSection" style="display: none;">
+            <div class="password-wrapper" style="margin-bottom: 1rem;">
+              <input type="password" id="recoveryNewPassword" placeholder="new password">
+              <button class="password-toggle" onclick="togglePassword('recoveryNewPassword', this)">show</button>
+            </div>
+            <div class="password-wrapper" style="margin-bottom: 1.5rem;">
+              <input type="password" id="recoveryConfirmPassword" placeholder="confirm new password">
+              <button class="password-toggle" onclick="togglePassword('recoveryConfirmPassword', this)">show</button>
+            </div>
+          </div>
+          
+          <div class="modal-buttons">
+            <button class="modal-btn primary" id="verifyBackupBtn" onclick="verifyBackupCodeForRecovery()">verify backup code</button>
+            <button class="modal-btn primary" id="recoveryResetBtn" style="display: none;" onclick="resetPasswordWithBackup()">reset password</button>
+            <button class="modal-btn secondary" onclick="closeBackupRecovery()">cancel</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(div.firstElementChild);
+  }
+  
+  const modalElem = document.getElementById('backupRecoveryModal');
+  modalElem.style.display = 'flex';
+  setTimeout(() => modalElem.classList.add('active'), 10);
+  
+  // Reset form
+  document.getElementById('recoveryUsername').value = '';
+  document.getElementById('backupCodeInput').value = '';
+  document.getElementById('recoveryNewPasswordSection').style.display = 'none';
+  document.getElementById('verifyBackupBtn').style.display = 'block';
+  document.getElementById('recoveryResetBtn').style.display = 'none';
+  window.recoveryUserId = null;
 };
 
 window.closeBackupRecovery = function() {
@@ -2632,6 +2427,7 @@ window.closeBackupRecovery = function() {
   }
 };
 
+// Verify backup code
 window.verifyBackupCodeForRecovery = function() {
   const username = document.getElementById('recoveryUsername').value.trim();
   const inputCode = document.getElementById('backupCodeInput').value.trim().toUpperCase();
@@ -2650,18 +2446,19 @@ window.verifyBackupCodeForRecovery = function() {
       
       const userDoc = snapshot.docs[0];
       const userData = userDoc.data();
-      const hashedCode = userData.backupCode;
-      const usedCode = userData.usedBackupCode || false;
+      const hashedCodes = userData.backupCodes || [];
+      const usedCodes = userData.usedBackupCodes || [];
       
-      if (usedCode) {
+      // Check if code was already used
+      const inputHash = btoa(inputCode).split('').reverse().join('');
+      if (usedCodes.includes(inputHash)) {
         showToast('❌ this backup code has already been used');
         return;
       }
       
-      // Verify code (reverse the hash process)
-      const inputHash = btoa(inputCode).split('').reverse().join('');
-      
-      if (inputHash !== hashedCode) {
+      // Verify code
+      const codeIndex = hashedCodes.indexOf(inputHash);
+      if (codeIndex === -1) {
         showToast('❌ invalid backup code');
         return;
       }
@@ -2669,20 +2466,22 @@ window.verifyBackupCodeForRecovery = function() {
       // Code is valid
       window.recoveryUserId = userDoc.id;
       window.recoveryCodeHash = inputHash;
+      window.recoveryCodeIndex = codeIndex;
       
       // Show password fields
       document.getElementById('recoveryNewPasswordSection').style.display = 'block';
       document.getElementById('verifyBackupBtn').style.display = 'none';
       document.getElementById('recoveryResetBtn').style.display = 'block';
       
-      showToast('✅ backup code verified! set new password');
+      showToast('✅ backup code verified! set your new password');
     })
-    .catch((error) => {
+    .catch(error => {
       console.error(error);
       showToast('❌ error verifying code');
     });
 };
 
+// Reset password with backup code
 window.resetPasswordWithBackup = function() {
   const newPass = document.getElementById('recoveryNewPassword').value;
   const confirmPass = document.getElementById('recoveryConfirmPassword').value;
@@ -2708,33 +2507,123 @@ window.resetPasswordWithBackup = function() {
     return;
   }
   
-  // Mark code as used
-  db.collection('users').doc(window.recoveryUserId).update({
-    usedBackupCode: true
-  })
-  .then(() => {
-    // Generate reset request for owner
-    const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    
-    return db.collection('passwordResets').add({
-      userId: window.recoveryUserId,
-      username: document.getElementById('recoveryUsername').value.trim(),
-      newPassword: newPass,
-      resetToken: resetToken,
-      timestamp: Date.now(),
-      completed: false
-    }).then(() => {
-      showToast('✅ contact @ricky in discord');
+  // Get user's email
+  db.collection('users').doc(window.recoveryUserId).get()
+    .then((doc) => {
+      const userData = doc.data();
+      const email = userData.username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
       
-      setTimeout(() => {
-        alert(`🔐 PASSWORD RESET REQUEST\n\nYour reset token: ${resetToken}\n\nSend this token to @ricky in Discord to complete reset.\n\n(This is a security measure since passwords can't be reset client-side)`);
-        closeBackupRecovery();
-      }, 500);
+      // Mark code as used
+      const usedCodes = userData.usedBackupCodes || [];
+      usedCodes.push(window.recoveryCodeHash);
+      
+      return db.collection('users').doc(window.recoveryUserId).update({
+        usedBackupCodes: usedCodes
+      }).then(() => {
+        // Here you would normally update the password in Firebase Auth
+        // Since we can't do that client-side, we'll generate a reset request
+        
+        const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        
+        return db.collection('passwordResets').add({
+          userId: window.recoveryUserId,
+          username: userData.username,
+          newPassword: newPass, // In production, hash this!
+          resetToken: resetToken,
+          timestamp: Date.now(),
+          completed: false
+        }).then(() => {
+          // Show owner contact info
+          showToast('✅ contact @ricky dicky in the discord server.');
+          
+          setTimeout(() => {
+            alert(`🔐 PASSWORD RESET REQUEST\n\nYour reset token: ${resetToken}\n\nSend this token to @ricky - he'll complete the reset for you.\n\n(This is a security measure since passwords can't be reset client-side)`);
+            closeBackupRecovery();
+          }, 500);
+        });
+      });
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ reset failed');
     });
-  })
-  .catch((error) => {
-    console.error(error);
-    showToast('❌ reset failed');
+};
+  
+// WELCOME CARD
+function checkWelcomeCard() {
+  const hasSeenWelcome = localStorage.getItem('ph_welcome_seen');
+  if (!hasSeenWelcome) {
+    setTimeout(() => {
+      document.getElementById('welcomeOverlay').classList.add('active');
+    }, 500);
+  }
+}
+
+window.dismissWelcome = function() {
+  localStorage.setItem('ph_welcome_seen', 'true');
+  document.getElementById('welcomeOverlay').classList.remove('active');
+};
+
+// SMART ACCOUNT MODAL
+window.showSmartAccountModal = function() {
+  const modal = document.getElementById('accountModal');
+  const content = document.getElementById('accountModalContent');
+  const user = auth.currentUser;
+  
+  if (user && !user.isAnonymous) {
+    content.innerHTML = `
+      <h2>PH·SCIENCE</h2>
+      <div class="user-greeting">👋 ${user.displayName || 'player'}</div>
+      <div class="modal-buttons">
+        <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
+        <button class="modal-btn secondary" onclick="switchAccounts()">🔄 switch accounts</button>
+      </div>
+    `;
+  } else if (user && user.isAnonymous) {
+    content.innerHTML = `
+      <h2>PH·SCIENCE</h2>
+      <div class="user-greeting">👤 guest mode · 50% unlocked</div>
+      <div class="modal-buttons">
+        <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
+      </div>
+    `;
+  } else {
+    content.innerHTML = `
+      <h2>PH·SCIENCE</h2>
+      <p>join the vault · 700+ games</p>
+      <div class="modal-buttons">
+        <button class="modal-btn primary" onclick="showSignup()">create account</button>
+        <button class="modal-btn secondary" onclick="continueAsGuest()">continue as guest</button>
+      </div>
+      <a class="modal-link" onclick="showLogin()">already have an account? sign in</a>
+    `;
+  }
+  
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('active'), 10);
+};
+
+window.switchAccounts = function() {
+  auth.signOut().then(() => {
+    closeAllModals();
+    setTimeout(() => showSmartAccountModal(), 300);
+  });
+};
+
+window.logout = function() {
+  auth.signOut().then(() => {
+    showToast('👋 logged out');
+    closeAllModals();
+    document.getElementById('accountBtn').innerHTML = '✨ sign in';
+    favorites = [];
+    recentlyPlayed = [];
+    recentTimestamps = {};
+    isGuest = false;
+    updateLockFilterVisibility();
+    displayZones(zones);
+    displayFavorites();
+    displayRecentlyPlayed();
+    updateViewerButtons();
   });
 };
 
@@ -2758,230 +2647,175 @@ window.setLockFilter = function(filter) {
   displayZones(zones);
 };
 
-// ZONE FUNCTIONS
-async function listZones() {
-  try {
-    const response = await fetch("https://cdn.jsdelivr.net/gh/gn-math/assets/zones.json?t=" + Date.now());
-    const json = await response.json();
-    zones = json.filter(game => !bannedIds.includes(game.id));
-    
-    // Randomly select 50% for unlocked in guest mode
-    const shuffled = [...zones].sort(() => 0.5 - Math.random());
-    unlockedGames = shuffled.slice(0, Math.floor(zones.length / 2)).map(g => g.id);
-    
-    document.getElementById('totalGamesStat').innerText = zones.length;
-    sortZones();
-  } catch (error) {
-    document.getElementById('container').innerHTML = 'error loading games';
+// OPTIMIZED MODE
+window.toggleOptimized = function() {
+  document.body.classList.toggle('optimized-mode');
+  const toggle = document.getElementById('optimizedToggle');
+  toggle.classList.toggle('active');
+  localStorage.setItem('ph_optimized', document.body.classList.contains('optimized-mode') ? 'on' : 'off');
+  showToast(document.body.classList.contains('optimized-mode') ? '⚡ Optimized mode enabled' : '✨ Optimized mode disabled');
+};
+
+if (localStorage.getItem('ph_optimized') === 'on') {
+  document.body.classList.add('optimized-mode');
+  document.getElementById('optimizedToggle').classList.add('active');
+}
+
+if (!localStorage.getItem('ph_optimized')) {
+  const isLowEnd = navigator.hardwareConcurrency <= 2 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  if (isLowEnd) {
+    document.body.classList.add('optimized-mode');
+    document.getElementById('optimizedToggle').classList.add('active');
+    localStorage.setItem('ph_optimized', 'on');
   }
 }
 
-window.sortZones = function() {
-  const by = document.getElementById('sortOptions').value;
-  if (by === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
-  else if (by === 'id') zones.sort((a, b) => a.id - b.id);
-  else if (by === 'popular') zones.sort((a, b) => (b.views || 0) - (a.views || 0));
+// VAULT TOGGLE & UTILS
+window.toggleVault = function(vaultId) {
+  const content = document.getElementById(vaultId + 'Content');
+  const icon = document.getElementById(vaultId + 'Icon');
+  const header = document.querySelector(`#${vaultId} .vault-header`);
   
-  displayFavorites();
-  displayRecentlyPlayed();
-  
-  if (showFavOnly) {
-    displayZones(zones.filter(z => favorites.includes(z.id)));
+  if (content.classList.contains('expanded')) {
+    content.classList.remove('expanded');
+    icon.style.transform = 'rotate(0deg)';
+    header.classList.remove('active');
   } else {
-    displayZones(zones);
+    content.classList.add('expanded');
+    icon.style.transform = 'rotate(180deg)';
+    header.classList.add('active');
   }
 };
 
-function displayZones(list) {
-  const container = document.getElementById('container');
-  if (!container) return;
-  
-  container.innerHTML = '';
-  
-  let displayList = list;
-  const user = auth.currentUser;
-  
-  if (!user) {
-    displayList = list.map(game => ({ ...game, forcedLock: true }));
-  } else if (user.isAnonymous) {
-    displayList = list.filter(game => {
-      const isUnlocked = unlockedGames.includes(game.id);
-      return lockFilter === 'unlocked' ? isUnlocked : !isUnlocked;
-    }).map(game => ({ 
-      ...game, 
-      forcedLock: lockFilter === 'locked' ? true : (unlockedGames.includes(game.id) ? false : true)
-    }));
+window.togglePassword = function(inputId, button) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    button.textContent = 'hide';
   } else {
-    displayList = list.map(game => ({ ...game, forcedLock: false }));
-  }
-  
-  displayList.forEach(file => container.appendChild(createZoneCard(file)));
-  document.getElementById('allCount').innerText = displayList.length;
-}
-
-function createZoneCard(file, isRecent = false) {
-  const div = document.createElement('div');
-  div.className = 'zone-item';
-  
-  const user = auth.currentUser;
-  const isSignedIn = user && !user.isAnonymous;
-  
-  let isLocked = (() => {
-    if (!user) return true;
-    if (user.isAnonymous) return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
-    return false;
-  })();
-  
-  let lockMessage = '🔒 You need to sign up to unlock games, it\'s free.';
-  
-  if (isLocked) div.classList.add('locked');
-  
-  div.onclick = () => {
-    if (isLocked) {
-      showToast(lockMessage);
-      showSmartAccountModal();
-    } else {
-      openZone(file);
-    }
-  };
-  
-  const mediaDiv = document.createElement('div');
-  mediaDiv.className = 'zone-media';
-  
-  const img = document.createElement('img');
-  let coverSrc = file.cover?.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) || coverURL + "/default.png";
-  img.src = coverSrc;
-  img.alt = file.name;
-  img.loading = 'lazy';
-  mediaDiv.appendChild(img);
-  
-  if (isLocked) {
-    const lockedOverlay = document.createElement('div');
-    lockedOverlay.className = 'locked-overlay';
-    lockedOverlay.innerHTML = `
-      <div class="lock-icon">🔒</div>
-      <div class="locked-message">
-        <p>${lockMessage}</p>
-        <button class="signup-prompt" onclick="event.stopPropagation(); showSignup();">✨ Sign Up Free</button>
-      </div>
-    `;
-    mediaDiv.appendChild(lockedOverlay);
-  }
-  
-  const overlay = document.createElement('div');
-  overlay.className = 'zone-overlay';
-  overlay.innerText = isLocked ? 'LOCKED' : 'PLAY';
-  mediaDiv.appendChild(overlay);
-  
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'zone-content';
-  
-  const titleContainer = document.createElement('div');
-  titleContainer.className = 'zone-title-container';
-  
-  const star = document.createElement('span');
-  const canFavorite = isSignedIn;
-  const isFavorited = favorites.includes(file.id);
-  
-  star.className = 'favorite-star' + (isFavorited ? ' active' : '') + (!canFavorite ? ' guest-disabled' : '');
-  star.innerHTML = '★';
-  star.onclick = (e) => {
-    e.stopPropagation();
-    if (!canFavorite) {
-      showToast('🔒 Sign in to favorite games');
-      showSmartAccountModal();
-    } else {
-      toggleFavorite(file.id, e);
-    }
-  };
-  
-  titleContainer.appendChild(star);
-  
-  const nameSpan = document.createElement('div');
-  nameSpan.className = 'zone-name';
-  nameSpan.innerText = file.name;
-  titleContainer.appendChild(nameSpan);
-  
-  const metaDiv = document.createElement('div');
-  metaDiv.className = 'zone-meta';
-  
-  const authorSpan = document.createElement('span');
-  authorSpan.className = 'zone-author';
-  authorSpan.innerText = file.author || 'unknown';
-  metaDiv.appendChild(authorSpan);
-  
-  if (isRecent && recentTimestamps[file.id]) {
-    const timeSpan = document.createElement('span');
-    timeSpan.className = 'zone-played-time';
-    timeSpan.innerText = `${formatTimeAgo(recentTimestamps[file.id])}`;
-    metaDiv.appendChild(timeSpan);
-  }
-  
-  contentDiv.appendChild(titleContainer);
-  contentDiv.appendChild(metaDiv);
-  
-  const playBtn = document.createElement('button');
-  playBtn.innerText = isLocked ? 'sign up to play' : 'launch';
-  playBtn.onclick = (e) => { 
-    e.stopPropagation(); 
-    if (isLocked) {
-      showToast(lockMessage);
-      showSmartAccountModal();
-    } else {
-      openZone(file);
-    }
-  };
-  
-  div.appendChild(mediaDiv);
-  div.appendChild(contentDiv);
-  div.appendChild(playBtn);
-  return div;
-}
-
-window.filterZones = function() {
-  const q = document.getElementById('searchBar').value.toLowerCase();
-  const filtered = zones.filter(z => z.name.toLowerCase().includes(q));
-  if (showFavOnly) {
-    displayZones(filtered.filter(z => favorites.includes(z.id)));
-  } else {
-    displayZones(filtered);
+    input.type = 'password';
+    button.textContent = 'show';
   }
 };
 
-window.openZone = function(file) {
-  if (!auth.currentUser) {
-    showToast('❌ Please sign in to play games');
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+function showToast(message, duration = 3000) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+  
+  setTimeout(() => {
+    toast.classList.add('exit');
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 300);
+  }, duration);
+}
+
+window.showLogin = function() {
+  document.getElementById('accountModal').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('accountModal').style.display = 'none';
+    const modal = document.getElementById('loginModal');
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+  }, 300);
+};
+
+window.showSignup = function() {
+  document.getElementById('accountModal').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('accountModal').style.display = 'none';
+    const modal = document.getElementById('signupModal');
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+  }, 300);
+};
+
+window.backToMain = function() {
+  document.getElementById('loginModal').classList.remove('active');
+  document.getElementById('signupModal').classList.remove('active');
+  setTimeout(() => {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('signupModal').style.display = 'none';
     showSmartAccountModal();
-    return;
-  }
-  
-  addToRecentlyPlayed(file.id);
-  
-  if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
-    window.open(file.url, "_blank");
-  } else {
-    const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-    fetch(url + "?t=" + Date.now()).then(r => r.text()).then(html => {
-      const frame = document.getElementById('zoneFrame');
-      frame.srcdoc = html;
-      document.getElementById('zoneName').textContent = file.name;
-      document.getElementById('zoneAuthor').textContent = "by " + (file.author || 'unknown');
-      if (file.authorLink) document.getElementById('zoneAuthor').href = file.authorLink;
-      document.getElementById('zoneViewer').style.display = "flex";
-      updateViewerButtons();
-    }).catch(e => showToast('error loading game'));
-  }
+  }, 300);
 };
 
-window.closeZone = function() {
-  document.getElementById('zoneViewer').style.display = "none";
-  document.getElementById('zoneFrame').srcdoc = '';
+window.closeAllModals = function() {
+  document.querySelectorAll('.account-modal').forEach(m => {
+    m.classList.remove('active');
+    setTimeout(() => m.style.display = 'none', 300);
+  });
 };
 
-window.aboutBlank = function() {
-  const frame = document.getElementById('zoneFrame');
-  const w = window.open("about:blank", "_blank");
-  if (w) { w.document.write(frame.srcdoc); w.document.close(); }
+window.register = function() {
+  const username = document.getElementById('signupUsername').value.trim();
+  const password = document.getElementById('signupPassword').value.trim();
+  
+  if (!username || !password) { showToast('❌ enter username and password'); return; }
+  if (password.length < 6) { showToast('❌ password must be at least 6 characters'); return; }
+  
+  const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
+  
+  auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      return user.updateProfile({ displayName: username }).then(() => {
+        return Promise.all([
+          database.ref('users/' + user.uid + '/favorites').set([]),
+          database.ref('users/' + user.uid + '/recent').set([]),
+          database.ref('users/' + user.uid + '/recentTimestamps').set({})
+        ]);
+      });
+    })
+    .then(() => {
+      showToast(`✅ welcome, ${username}!`);
+      closeAllModals();
+    })
+    .catch((error) => {
+      if (error.code === 'auth/email-already-in-use') showToast('❌ username already exists');
+      else if (error.code === 'auth/weak-password') showToast('❌ password too weak');
+      else showToast('❌ signup failed');
+    });
+};
+
+window.login = function() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  
+  if (!username || !password) { showToast('❌ enter username and password'); return; }
+  
+  const email = username.toLowerCase().replace(/[^a-z0-9]/g, '') + '@ph.user';
+  
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      showToast(`👋 welcome back, ${username}`);
+      closeAllModals();
+    })
+    .catch((error) => {
+      showToast('❌ invalid username or password');
+    });
+};
+
+window.continueAsGuest = function() {
+  auth.signInAnonymously()
+    .then(() => {
+      showToast('👤 continuing as guest · 50% unlocked');
+      closeAllModals();
+    })
+    .catch((error) => {
+      showToast('❌ guest login failed');
+    });
 };
 
 function updateViewerButtons() {
@@ -3030,124 +2864,6 @@ window.handleDownload = function() {
   a.click();
 };
 
-// FAVORITES & RECENT
-function addToRecentlyPlayed(gameId) {
-  if (!auth.currentUser) return;
-  const userId = auth.currentUser.uid;
-  
-  const timestamp = Date.now();
-  const updatedRecent = recentlyPlayed.filter(id => id !== gameId);
-  updatedRecent.unshift(gameId);
-  const maxRecent = parseInt(document.getElementById('maxRecent')?.value || '10');
-  
-  if (updatedRecent.length > maxRecent) {
-    const removed = updatedRecent.pop();
-    const updatedTimestamps = { ...recentTimestamps };
-    delete updatedTimestamps[removed];
-    database.ref('users/' + userId + '/recentTimestamps').set(updatedTimestamps);
-  }
-  
-  const updatedTimestamps = { ...recentTimestamps, [gameId]: timestamp };
-  
-  Promise.all([
-    database.ref('users/' + userId + '/recent').set(updatedRecent),
-    database.ref('users/' + userId + '/recentTimestamps').set(updatedTimestamps)
-  ]);
-}
-
-window.toggleFavorite = function(gameId, event) {
-  event.stopPropagation();
-  
-  if (!auth.currentUser || auth.currentUser.isAnonymous) {
-    showToast('🔒 Sign in to favorite games');
-    showSmartAccountModal();
-    return;
-  }
-  
-  const index = favorites.indexOf(gameId);
-  let newFavorites;
-  
-  if (index === -1) {
-    newFavorites = [...favorites, gameId];
-    showToast('⭐ added to favorites');
-  } else {
-    newFavorites = favorites.filter(id => id !== gameId);
-    showToast('☆ removed from favorites');
-  }
-  
-  database.ref('users/' + auth.currentUser.uid + '/favorites').set(newFavorites)
-    .then(() => {
-      const star = event.target;
-      star.classList.toggle('active', newFavorites.includes(gameId));
-      if (index === -1) {
-        star.style.animation = 'starPulse 0.5s';
-        setTimeout(() => star.style.animation = '', 500);
-      }
-      displayFavorites();
-    })
-    .catch(error => showToast('❌ Failed to save favorite'));
-};
-
-function displayFavorites() {
-  const container = document.getElementById('favoritesZones');
-  const favoriteGames = zones.filter(z => favorites.includes(z.id));
-  document.getElementById('favoritesCount').innerText = favoriteGames.length;
-  
-  if (favoriteGames.length === 0) {
-    const message = isGuest || !auth.currentUser ? 
-      '<div class="empty-favorites">✨ sign in to star games and see them here</div>' : 
-      '<div class="empty-favorites">✨ star games to see them here</div>';
-    container.innerHTML = message;
-  } else {
-    container.innerHTML = '';
-    favoriteGames.forEach(file => container.appendChild(createZoneCard(file)));
-  }
-}
-
-function displayRecentlyPlayed() {
-  const container = document.getElementById('recentZones');
-  const recentGames = recentlyPlayed.map(id => zones.find(z => z.id === id)).filter(g => g);
-  document.getElementById('recentCount').innerText = recentGames.length;
-  
-  if (recentGames.length === 0) {
-    container.innerHTML = '<div class="empty-recent">🎮 play some games to see them here</div>';
-  } else {
-    container.innerHTML = '';
-    recentGames.forEach(file => container.appendChild(createZoneCard(file, true)));
-  }
-}
-
-window.clearRecentHistory = function() {
-  if (!auth.currentUser) return;
-  database.ref('users/' + auth.currentUser.uid + '/recent').set([]);
-  database.ref('users/' + auth.currentUser.uid + '/recentTimestamps').set({});
-  showToast('🕒 recent history cleared');
-};
-
-window.updateMaxRecent = function() {
-  const maxRecent = parseInt(document.getElementById('maxRecent').value);
-  if (recentlyPlayed.length > maxRecent) {
-    const updatedRecent = recentlyPlayed.slice(0, maxRecent);
-    const updatedTimestamps = {};
-    updatedRecent.forEach(id => {
-      if (recentTimestamps[id]) updatedTimestamps[id] = recentTimestamps[id];
-    });
-    database.ref('users/' + auth.currentUser.uid + '/recent').set(updatedRecent);
-    database.ref('users/' + auth.currentUser.uid + '/recentTimestamps').set(updatedTimestamps);
-  }
-  showToast(`🕒 showing last ${maxRecent} games`);
-};
-
-window.filterFavorites = function() {
-  showFavOnly = document.getElementById('showFavOnly').checked;
-  if (showFavOnly) {
-    displayZones(zones.filter(z => favorites.includes(z.id)));
-  } else {
-    displayZones(zones);
-  }
-};
-
-// AUTH STATE
 auth.onAuthStateChanged((user) => {
   const accountBtn = document.getElementById('accountBtn');
   const favoritesContainer = document.getElementById('favoritesZones');
@@ -3216,7 +2932,376 @@ auth.onAuthStateChanged((user) => {
   if (zones.length > 0) displayZones(zones);
 });
 
-// SETTINGS
+function addToRecentlyPlayed(gameId) {
+  if (!auth.currentUser) return;
+  const userId = auth.currentUser.uid;
+  
+  // Don't add forum to recently played
+  if (gameId === 'forum') return;
+  
+  const timestamp = Date.now();
+  const updatedRecent = recentlyPlayed.filter(id => id !== gameId);
+  updatedRecent.unshift(gameId);
+  const maxRecent = parseInt(document.getElementById('maxRecent')?.value || '10');
+  if (updatedRecent.length > maxRecent) {
+    const removed = updatedRecent.pop();
+    // Remove timestamp for removed game
+    const updatedTimestamps = { ...recentTimestamps };
+    delete updatedTimestamps[removed];
+    database.ref('users/' + userId + '/recentTimestamps').set(updatedTimestamps);
+  }
+  
+  // Update timestamps
+  const updatedTimestamps = { ...recentTimestamps, [gameId]: timestamp };
+  
+  Promise.all([
+    database.ref('users/' + userId + '/recent').set(updatedRecent),
+    database.ref('users/' + userId + '/recentTimestamps').set(updatedTimestamps)
+  ]);
+}
+
+window.clearRecentHistory = function() {
+  if (!auth.currentUser) return;
+  database.ref('users/' + auth.currentUser.uid + '/recent').set([]);
+  database.ref('users/' + auth.currentUser.uid + '/recentTimestamps').set({});
+  showToast('🕒 recent history cleared');
+};
+
+window.updateMaxRecent = function() {
+  const maxRecent = parseInt(document.getElementById('maxRecent').value);
+  if (recentlyPlayed.length > maxRecent) {
+    const updatedRecent = recentlyPlayed.slice(0, maxRecent);
+    const updatedTimestamps = {};
+    updatedRecent.forEach(id => {
+      if (recentTimestamps[id]) updatedTimestamps[id] = recentTimestamps[id];
+    });
+    database.ref('users/' + auth.currentUser.uid + '/recent').set(updatedRecent);
+    database.ref('users/' + auth.currentUser.uid + '/recentTimestamps').set(updatedTimestamps);
+  }
+  showToast(`🕒 showing last ${maxRecent} games`);
+};
+
+function displayRecentlyPlayed() {
+  const container = document.getElementById('recentZones');
+  const recentGames = recentlyPlayed.map(id => zones.find(z => z.id === id)).filter(g => g);
+  document.getElementById('recentCount').innerText = recentGames.length;
+  if (recentGames.length === 0) {
+    container.innerHTML = '<div class="empty-recent">🎮 play some games to see them here</div>';
+  } else {
+    container.innerHTML = '';
+    recentGames.forEach(file => container.appendChild(createZoneCard(file, true)));
+  }
+}
+
+window.toggleFavorite = function(gameId, event) {
+  event.stopPropagation();
+  
+  if (!auth.currentUser || auth.currentUser.isAnonymous) {
+    showToast('🔒 Sign in to favorite games');
+    showSmartAccountModal();
+    return;
+  }
+  
+  const index = favorites.indexOf(gameId);
+  let newFavorites;
+  
+  if (index === -1) {
+    newFavorites = [...favorites, gameId];
+    showToast('⭐ added to favorites');
+  } else {
+    newFavorites = favorites.filter(id => id !== gameId);
+    showToast('☆ removed from favorites');
+  }
+  
+  database.ref('users/' + auth.currentUser.uid + '/favorites').set(newFavorites)
+    .then(() => {
+      const star = event.target;
+      star.classList.toggle('active', newFavorites.includes(gameId));
+      if (index === -1) {
+        star.style.animation = 'starPulse 0.5s';
+        setTimeout(() => star.style.animation = '', 500);
+      }
+    })
+    .catch(error => showToast('❌ Failed to save favorite'));
+};
+
+function displayFavorites() {
+  const container = document.getElementById('favoritesZones');
+  const favoriteGames = zones.filter(z => favorites.includes(z.id));
+  document.getElementById('favoritesCount').innerText = favoriteGames.length;
+  if (favoriteGames.length === 0) {
+    const message = isGuest || !auth.currentUser ? 
+      '<div class="empty-favorites">✨ sign in to star games and see them here</div>' : 
+      '<div class="empty-favorites">✨ star games to see them here</div>';
+    container.innerHTML = message;
+  } else {
+    container.innerHTML = '';
+    favoriteGames.forEach(file => container.appendChild(createZoneCard(file)));
+  }
+}
+
+window.filterFavorites = function() {
+  showFavOnly = document.getElementById('showFavOnly').checked;
+  if (showFavOnly) {
+    displayZones(zones.filter(z => favorites.includes(z.id)));
+  } else {
+    displayZones(zones);
+  }
+};
+
+async function listZones() {
+  try {
+    const response = await fetch("https://cdn.jsdelivr.net/gh/gn-math/assets/zones.json?t=" + Date.now());
+    const json = await response.json();
+    zones = json.filter(game => !bannedIds.includes(game.id));
+    
+    // Add forum zone at the beginning
+    zones.unshift(forumZone);
+    
+    // Randomly select 50% for unlocked in guest mode
+    const shuffled = [...zones].sort(() => 0.5 - Math.random());
+    unlockedGames = shuffled.slice(0, Math.floor(zones.length / 2)).map(g => g.id);
+    
+    document.getElementById('totalGamesStat').innerText = zones.length;
+    sortZones();
+  } catch (error) {
+    document.getElementById('container').innerHTML = `error loading games`;
+  }
+}
+
+window.sortZones = function() {
+  const by = document.getElementById('sortOptions').value;
+  if (by === 'name') zones.sort((a, b) => a.name.localeCompare(b.name));
+  else if (by === 'id') zones.sort((a, b) => a.id - b.id);
+  
+  // Make sure forum is always first
+  const forumIndex = zones.findIndex(z => z.id === 'forum');
+  if (forumIndex > 0) {
+    const forum = zones.splice(forumIndex, 1)[0];
+    zones.unshift(forum);
+  }
+  
+  displayFavorites();
+  displayRecentlyPlayed();
+  
+  if (showFavOnly) {
+    displayZones(zones.filter(z => favorites.includes(z.id)));
+  } else {
+    displayZones(zones);
+  }
+};
+
+function displayZones(list) {
+  const container = document.getElementById('container');
+  container.innerHTML = "";
+  
+  let displayList = list;
+  const user = auth.currentUser;
+  
+  if (!user) {
+    displayList = list.map(game => ({ ...game, forcedLock: true }));
+  } else if (user.isAnonymous) {
+    displayList = list.filter(game => {
+      const isUnlocked = unlockedGames.includes(game.id);
+      return lockFilter === 'unlocked' ? isUnlocked : !isUnlocked;
+    }).map(game => ({ 
+      ...game, 
+      forcedLock: lockFilter === 'locked' ? true : (unlockedGames.includes(game.id) ? false : true)
+    }));
+  } else {
+    displayList = list.map(game => ({ ...game, forcedLock: false }));
+  }
+  
+  displayList.forEach(file => container.appendChild(createZoneCard(file)));
+  document.getElementById('allCount').innerText = displayList.length;
+}
+
+function createZoneCard(file, isRecent = false) {
+  const div = document.createElement('div');
+  div.className = 'zone-item';
+  
+  const user = auth.currentUser;
+  const isSignedIn = user && !user.isAnonymous;
+  
+  // Determine if game is locked (forum is never locked)
+  let isLocked = file.id !== 'forum' ? (() => {
+    if (!user) {
+      return true;
+    } else if (user.isAnonymous) {
+      return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
+    } else {
+      return false;
+    }
+  })() : false;
+  
+  let lockMessage = '🔒 You need to sign up to unlock games, it\'s free.';
+  
+  if (isLocked) div.classList.add('locked');
+  
+  div.onclick = () => {
+    if (isLocked) {
+      showToast(lockMessage);
+      showSmartAccountModal();
+    } else {
+      if (file.id === 'forum') {
+        // Direct redirect to forum - no base path interference
+        window.location.href = file.url;
+      } else {
+        openZone(file);
+      }
+    }
+  };
+  
+  const mediaDiv = document.createElement('div');
+  mediaDiv.className = 'zone-media';
+  
+  const img = document.createElement('img');
+  let coverSrc = file.cover?.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL) || coverURL + "/default.png";
+  img.src = coverSrc;
+  img.alt = file.name;
+  img.loading = 'lazy';
+  mediaDiv.appendChild(img);
+  
+  if (isLocked) {
+    const lockedOverlay = document.createElement('div');
+    lockedOverlay.className = 'locked-overlay';
+    lockedOverlay.innerHTML = `
+      <div class="lock-icon">🔒</div>
+      <div class="locked-message">
+        <p>${lockMessage}</p>
+        <button class="signup-prompt" onclick="event.stopPropagation(); showSignup();">✨ Sign Up Free</button>
+      </div>
+    `;
+    mediaDiv.appendChild(lockedOverlay);
+  }
+  
+  const overlay = document.createElement('div');
+  overlay.className = 'zone-overlay';
+  overlay.innerText = file.id === 'forum' ? 'JOIN' : (isLocked ? 'LOCKED' : 'PLAY');
+  mediaDiv.appendChild(overlay);
+  
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'zone-content';
+  
+  const titleContainer = document.createElement('div');
+  titleContainer.className = 'zone-title-container';
+  
+  // Only show favorite star for non-forum games
+  if (file.id !== 'forum') {
+    const star = document.createElement('span');
+    const canFavorite = isSignedIn;
+    const isFavorited = favorites.includes(file.id);
+    
+    star.className = 'favorite-star' + (isFavorited ? ' active' : '') + (!canFavorite ? ' guest-disabled' : '');
+    star.innerHTML = '★';
+    star.onclick = (e) => {
+      e.stopPropagation();
+      if (!canFavorite) {
+        showToast('🔒 Sign in to favorite games');
+        showSmartAccountModal();
+      } else {
+        toggleFavorite(file.id, e);
+      }
+    };
+    
+    if (!canFavorite) star.title = 'Sign in to favorite games';
+    
+    titleContainer.appendChild(star);
+  }
+  
+  const nameSpan = document.createElement('div');
+  nameSpan.className = 'zone-name';
+  nameSpan.innerText = file.name;
+  titleContainer.appendChild(nameSpan);
+  
+  const metaDiv = document.createElement('div');
+  metaDiv.className = 'zone-meta';
+  
+  const authorSpan = document.createElement('span');
+  authorSpan.className = 'zone-author';
+  authorSpan.innerText = file.author || 'unknown';
+  metaDiv.appendChild(authorSpan);
+  
+  // Add played time for recently played games
+  if (isRecent && recentTimestamps[file.id]) {
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'zone-played-time';
+    timeSpan.innerText = `Played: ${formatTimeAgo(recentTimestamps[file.id])}`;
+    metaDiv.appendChild(timeSpan);
+  }
+  
+  contentDiv.appendChild(titleContainer);
+  contentDiv.appendChild(metaDiv);
+  
+  const playBtn = document.createElement('button');
+  playBtn.innerText = file.id === 'forum' ? 'join discussion' : (isLocked ? 'sign up to play' : 'launch');
+  playBtn.onclick = (e) => { 
+    e.stopPropagation(); 
+    if (isLocked) {
+      showToast(lockMessage);
+      showSmartAccountModal();
+    } else {
+      if (file.id === 'forum') {
+        // Direct redirect to forum - no base path interference
+        window.location.href = file.url;
+      } else {
+        openZone(file);
+      }
+    }
+  };
+  
+  div.appendChild(mediaDiv);
+  div.appendChild(contentDiv);
+  div.appendChild(playBtn);
+  return div;
+}
+
+window.filterZones = debounce(function() {
+  const q = document.getElementById('searchBar').value.toLowerCase();
+  const filtered = zones.filter(z => z.name.toLowerCase().includes(q));
+  if (showFavOnly) {
+    displayZones(filtered.filter(z => favorites.includes(z.id)));
+  } else {
+    displayZones(filtered);
+  }
+}, 150);
+
+window.openZone = function(file) {
+  if (!auth.currentUser) {
+    showToast('❌ Please sign in to play games');
+    showSmartAccountModal();
+    return;
+  }
+  
+  addToRecentlyPlayed(file.id);
+  
+  if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
+    window.open(file.url, "_blank");
+  } else {
+    const url = file.url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+    fetch(url + "?t=" + Date.now()).then(r => r.text()).then(html => {
+      const frame = document.getElementById('zoneFrame');
+      frame.srcdoc = html;
+      document.getElementById('zoneName').textContent = file.name;
+      document.getElementById('zoneAuthor').textContent = "by " + (file.author || 'unknown');
+      if (file.authorLink) document.getElementById('zoneAuthor').href = file.authorLink;
+      document.getElementById('zoneViewer').style.display = "flex";
+      updateViewerButtons();
+    }).catch(e => showToast('error loading game'));
+  }
+};
+
+window.closeZone = function() {
+  document.getElementById('zoneViewer').style.display = "none";
+  document.getElementById('zoneFrame').srcdoc = '';
+};
+
+window.aboutBlank = function() {
+  const frame = document.getElementById('zoneFrame');
+  const w = window.open("about:blank", "_blank");
+  if (w) { w.document.write(frame.srcdoc); w.document.close(); }
+};
+
 document.getElementById('settingsBtn').addEventListener('click', () => {
   document.getElementById('settingsPanel').classList.add('active');
 });
@@ -3237,20 +3322,6 @@ if (localStorage.getItem('ph_theme') === 'light') {
   document.getElementById('themeToggle').classList.add('active');
 }
 
-window.toggleOptimized = function() {
-  document.body.classList.toggle('optimized-mode');
-  const toggle = document.getElementById('optimizedToggle');
-  toggle.classList.toggle('active');
-  localStorage.setItem('ph_optimized', document.body.classList.contains('optimized-mode') ? 'on' : 'off');
-  showToast(document.body.classList.contains('optimized-mode') ? '⚡ Optimized mode enabled' : '✨ Optimized mode disabled');
-};
-
-if (localStorage.getItem('ph_optimized') === 'on') {
-  document.body.classList.add('optimized-mode');
-  document.getElementById('optimizedToggle').classList.add('active');
-}
-
-// TAB CLOAK
 window.cloakPreset = function(title, iconUrl) {
   document.title = title;
   let link = document.querySelector("link[rel~='icon']") || document.createElement('link');
@@ -3275,7 +3346,6 @@ window.applyCustomCloak = function() {
   document.getElementById('settingsPanel').classList.remove('active');
 };
 
-// MOUSE MOVE EFFECT
 document.getElementById('heroCard').addEventListener('mousemove', (e) => {
   const rect = e.currentTarget.getBoundingClientRect();
   const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -3284,7 +3354,6 @@ document.getElementById('heroCard').addEventListener('mousemove', (e) => {
   e.currentTarget.style.setProperty('--y', y + '%');
 });
 
-// CLOSE MODALS ON OUTSIDE CLICK
 window.addEventListener('click', (e) => {
   if (e.target.classList.contains('account-modal')) {
     e.target.classList.remove('active');
@@ -3292,39 +3361,10 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// VAULT TOGGLE
-window.toggleVault = function(vaultId) {
-  const content = document.getElementById(vaultId + 'Content');
-  const icon = document.getElementById(vaultId + 'Icon');
-  const header = document.querySelector(`#${vaultId} .vault-header`);
-  
-  if (content.classList.contains('expanded')) {
-    content.classList.remove('expanded');
-    icon.style.transform = 'rotate(0deg)';
-    header.classList.remove('active');
-  } else {
-    content.classList.add('expanded');
-    icon.style.transform = 'rotate(180deg)';
-    header.classList.add('active');
-  }
-};
-
-// INIT
+// Initialize
 listZones();
 checkWelcomeCard();
+console.log('loaded!');
 </script>
-
-<footer>
-  <div class="footer-content">
-    <div style="color: var(--text-muted); font-family: 'JetBrains Mono';">PH·SCIENCE © 2024</div>
-    <div class="footer-links">
-      <a href="#">about</a>
-      <a href="#">contact</a>
-      <a href="#">privacy</a>
-      <a href="#">discord</a>
-    </div>
-  </div>
-</footer>
-
 </body>
 </html>
