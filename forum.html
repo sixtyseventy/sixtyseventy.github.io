@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png">
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png">
 
-<title>PH - Science</title>
+<title>PH Social - Communities & Chat</title>
 
 <script async src="https://tenor.com/embed.js"></script>
 
@@ -404,7 +404,7 @@ header {
   position: fixed;
   right: 20px;
   top: 120px;
-  width: 300px;
+  width: 320px;
   background: var(--bg-panel);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
@@ -445,6 +445,9 @@ header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .conversation-item {
@@ -515,11 +518,11 @@ header {
 /* Main Feed */
 .main-feed {
   margin-left: 280px;
-  margin-right: 330px;
+  margin-right: 350px;
   transition: margin 0.3s;
 }
 
-/* Communities Sidebar */
+/* Communities Sidebar - REDESIGNED like Reddit */
 .communities-sidebar {
   position: fixed;
   left: 20px;
@@ -530,6 +533,8 @@ header {
   border-radius: var(--radius-xl);
   padding: 1.5rem;
   z-index: 90;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
 }
 
 .communities-sidebar h3 {
@@ -537,6 +542,9 @@ header {
   color: var(--orange);
   margin-bottom: 1rem;
   font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .community-list {
@@ -555,6 +563,7 @@ header {
   align-items: center;
   gap: 0.8rem;
   color: var(--text-secondary);
+  position: relative;
 }
 
 .community-item:hover {
@@ -569,16 +578,54 @@ header {
   font-weight: 700;
 }
 
+.community-item.active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: var(--orange);
+  border-radius: var(--radius-full);
+}
+
 .community-icon {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--orange);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: black;
+  font-weight: 700;
+}
+
+.community-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.community-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.community-meta {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.community-badge {
+  font-size: 0.7rem;
+  background: rgba(255,215,0,0.2);
+  color: gold;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-full);
+  margin-left: 0.5rem;
 }
 
 .create-community-btn {
@@ -601,6 +648,232 @@ header {
 .create-community-btn:hover {
   background: rgba(255,107,0,0.2);
   border-color: var(--orange);
+}
+
+/* Community Dashboard - NEW */
+.community-dashboard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.community-dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.community-dashboard-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-bright));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: black;
+}
+
+.community-dashboard-info h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #ff6b00, #ffa64d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.community-dashboard-info p {
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.community-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.community-stat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.community-stat-value {
+  font-weight: 700;
+  color: var(--orange);
+}
+
+.community-dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+/* Community Posts */
+.community-posts {
+  background: rgba(0,0,0,0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.community-posts h3 {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.community-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.community-mini-post {
+  padding: 1rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid var(--border-color);
+}
+
+.community-mini-post:hover {
+  background: rgba(255,107,0,0.1);
+  transform: translateX(5px);
+}
+
+.mini-post-title {
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: var(--text-primary);
+}
+
+.mini-post-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Community Sidebar */
+.community-info-sidebar {
+  background: rgba(0,0,0,0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.community-info-sidebar h4 {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--orange);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.community-description {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.mod-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.mod-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mod-item:hover {
+  background: rgba(255,107,0,0.1);
+}
+
+.mod-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-bright));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: black;
+}
+
+.mod-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.mod-info {
+  flex: 1;
+}
+
+.mod-name {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 0.9rem;
+}
+
+.mod-role {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.mod-badge {
+  font-size: 0.7rem;
+  background: gold;
+  color: black;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-full);
+  margin-left: 0.3rem;
+}
+
+.join-community-btn {
+  background: linear-gradient(135deg, var(--orange), var(--orange-bright));
+  border: none;
+  color: black;
+  font-weight: 800;
+  padding: 0.8rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  transition: var(--transition-bounce);
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.join-community-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255,107,0,0.5);
 }
 
 /* Forum Header */
@@ -674,6 +947,9 @@ header {
   font-family: 'JetBrains Mono', monospace;
   font-size: 1.5rem;
   color: var(--orange);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .filter-tabs {
@@ -833,6 +1109,11 @@ header {
   border-radius: var(--radius-full);
   font-size: 0.8rem;
   font-weight: 700;
+  cursor: pointer;
+}
+
+.post-community-tag:hover {
+  background: rgba(255,107,0,0.3);
 }
 
 .post-title {
@@ -2310,7 +2591,7 @@ header {
 <header>
   <div class="header-content">
     <div style="display:flex; align-items:center; gap:1.2rem;">
-      <span class="logo" onclick="showView('forum')">PH - Science | Social</span>
+      <span class="logo" onclick="showView('forum')">PH Social</span>
     </div>
     
     <div class="nav-links">
@@ -2329,30 +2610,21 @@ header {
   </div>
 </header>
 
-<!-- Communities Sidebar -->
+<!-- Communities Sidebar - REDESIGNED -->
 <div class="communities-sidebar">
-  <h3>communities</h3>
+  <h3>
+    communities
+    <span style="font-size: 0.8rem; color: var(--text-muted);" id="communityCount">0</span>
+  </h3>
   <div class="community-list" id="communityList">
     <div class="community-item active" onclick="selectCommunity('all')">
       <div class="community-icon">🌐</div>
-      <span>all</span>
+      <div class="community-info">
+        <span class="community-name">all</span>
+        <span class="community-meta">everything</span>
+      </div>
     </div>
-    <div class="community-item" onclick="selectCommunity('general')">
-      <div class="community-icon">💬</div>
-      <span>general</span>
-    </div>
-    <div class="community-item" onclick="selectCommunity('gaming')">
-      <div class="community-icon">🎮</div>
-      <span>gaming</span>
-    </div>
-    <div class="community-item" onclick="selectCommunity('tech')">
-      <div class="community-icon">💻</div>
-      <span>tech</span>
-    </div>
-    <div class="community-item" onclick="selectCommunity('creative')">
-      <div class="community-icon">🎨</div>
-      <span>creative</span>
-    </div>
+    <!-- Dynamic communities will load here -->
   </div>
   <button class="create-community-btn" onclick="createCommunity()">
     <span>➕</span> create community
@@ -2368,6 +2640,32 @@ header {
   <div class="conversation-list" id="conversationList">
     <div style="color: var(--text-muted); padding: 1rem; text-align: center;">sign in to message</div>
   </div>
+  
+  <!-- Community Info Section (appears when community selected) -->
+  <div id="communityInfoPanel" style="display: none; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+    <h3 style="font-size: 1rem; margin-bottom: 1rem;">
+      <span id="communityInfoName">community</span>
+      <span id="communityOwnerBadge" style="display: none; font-size: 0.7rem; background: gold; color: black; padding: 0.2rem 0.4rem; border-radius: var(--radius-full); margin-left: 0.5rem;">OWNED</span>
+    </h3>
+    
+    <div style="margin-bottom: 1rem;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem;">
+        <span>members</span>
+        <span class="stat-value" id="communityMemberCount">0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+        <span>posts</span>
+        <span class="stat-value" id="communityPostCount">0</span>
+      </div>
+    </div>
+    
+    <h4 style="font-size: 0.9rem; color: var(--orange); margin-bottom: 0.5rem;">moderators</h4>
+    <div id="modList" class="mod-list" style="max-height: 150px; overflow-y: auto;">
+      <!-- Mods will load here -->
+    </div>
+    
+    <button class="join-community-btn" id="joinCommunityBtn" onclick="toggleJoinCommunity()" style="display: none;">join</button>
+  </div>
 </div>
 
 <!-- Toast Container (Bottom Right) -->
@@ -2375,11 +2673,16 @@ header {
 
 <div class="main-content">
   <div class="main-feed" id="mainFeed">
+    <!-- Community Dashboard (shows when community selected) -->
+    <div id="communityDashboard" style="display: none;">
+      <!-- Dynamic community dashboard -->
+    </div>
+    
     <div id="forumView" style="display: block;">
       <div class="forum-header">
         <div class="forum-title">
-          <h1>feed</h1>
-          <p>connect with the community</p>
+          <h1 id="feedTitle">feed</h1>
+          <p id="feedSubtitle">connect with the community</p>
         </div>
         <button class="new-post-btn" onclick="showView('newPost')">
           <span>✏️</span> create post
@@ -2388,7 +2691,7 @@ header {
       
       <div class="posts-container">
         <div class="posts-header">
-          <h2>latest posts</h2>
+          <h2 id="postsHeaderTitle">latest posts</h2>
           <div class="filter-tabs">
             <span class="filter-tab active" onclick="filterPosts('all')">all</span>
             <span class="filter-tab" onclick="filterPosts('hot')">🔥 hot</span>
@@ -2508,9 +2811,6 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-// Fix CORS issue by setting correct storage bucket
-const storageRef = storage.ref();
-
 db.enablePersistence().catch(() => {});
 
 let currentUser = null;
@@ -2524,6 +2824,9 @@ let currentCommunity = 'all';
 let selectedRecipient = null;
 let notifications = [];
 let unreadNotifications = 0;
+let communities = [];
+let currentCommunityData = null;
+let isCommunityMember = false;
 
 const OWNER_USERNAME = 'ricky';
 
@@ -2536,8 +2839,415 @@ const REACTIONS = [
   { emoji: '🔥', name: 'fire' }
 ];
 
-// Tenor API key - you'll need to get one from Tenor
-const TENOR_API_KEY = 'AIzaSyDxVnJZ7_l0Zn8X2aXQMQfZNX5l2U5y5oM'; // Replace with your key
+// Tenor API key
+const TENOR_API_KEY = 'AIzaSyDxVnJZ7_l0Zn8X2aXQMQfZNX5l2U5y5oM';
+
+// Initialize communities
+function loadCommunities() {
+  db.collection('communities').onSnapshot((snapshot) => {
+    communities = [];
+    snapshot.forEach(doc => {
+      communities.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+    
+    updateCommunityList();
+    document.getElementById('communityCount').textContent = communities.length;
+  });
+}
+
+function updateCommunityList() {
+  const container = document.getElementById('communityList');
+  if (!container) return;
+  
+  // Keep the "all" item
+  container.innerHTML = `
+    <div class="community-item ${currentCommunity === 'all' ? 'active' : ''}" onclick="selectCommunity('all')">
+      <div class="community-icon">🌐</div>
+      <div class="community-info">
+        <span class="community-name">all</span>
+        <span class="community-meta">everything</span>
+      </div>
+    </div>
+  `;
+  
+  communities.forEach(community => {
+    const isOwner = community.createdBy === currentUser?.uid || currentUser?.displayName === OWNER_USERNAME;
+    const div = document.createElement('div');
+    div.className = `community-item ${currentCommunity === community.id ? 'active' : ''}`;
+    div.setAttribute('onclick', `selectCommunity('${community.id}')`);
+    div.innerHTML = `
+      <div class="community-icon">${community.name[0].toUpperCase()}</div>
+      <div class="community-info">
+        <span class="community-name">${community.name}</span>
+        <span class="community-meta">${community.members?.length || 0} members</span>
+      </div>
+      ${isOwner ? '<span class="community-badge">👑</span>' : ''}
+    `;
+    container.appendChild(div);
+  });
+}
+
+window.selectCommunity = function(communityId) {
+  currentCommunity = communityId;
+  
+  // Update UI
+  document.querySelectorAll('.community-item').forEach(item => item.classList.remove('active'));
+  if (event && event.target) {
+    const item = event.target.closest('.community-item');
+    if (item) item.classList.add('active');
+  }
+  
+  if (communityId === 'all') {
+    document.getElementById('communityDashboard').style.display = 'none';
+    document.getElementById('forumView').style.display = 'block';
+    document.getElementById('communityInfoPanel').style.display = 'none';
+    document.getElementById('feedTitle').textContent = 'feed';
+    document.getElementById('feedSubtitle').textContent = 'connect with the community';
+    document.getElementById('postsHeaderTitle').textContent = 'latest posts';
+    loadPosts();
+  } else {
+    // Load community data
+    loadCommunityData(communityId);
+  }
+};
+
+function loadCommunityData(communityId) {
+  db.collection('communities').doc(communityId).get().then((doc) => {
+    if (doc.exists) {
+      currentCommunityData = { id: doc.id, ...doc.data() };
+      
+      // Check if user is member
+      isCommunityMember = currentUser && currentCommunityData.members?.includes(currentUser.uid);
+      
+      // Show community dashboard
+      showCommunityDashboard(currentCommunityData);
+      
+      // Update messages panel with community info
+      updateCommunityInfoPanel(currentCommunityData);
+      
+      // Load community posts
+      loadCommunityPosts(communityId);
+    }
+  });
+}
+
+function showCommunityDashboard(community) {
+  const dashboard = document.getElementById('communityDashboard');
+  const forumView = document.getElementById('forumView');
+  
+  dashboard.style.display = 'block';
+  forumView.style.display = 'none';
+  
+  const isOwner = community.createdBy === currentUser?.uid || currentUser?.displayName === OWNER_USERNAME;
+  
+  dashboard.innerHTML = `
+    <div class="community-dashboard">
+      <div class="community-dashboard-header">
+        <div class="community-dashboard-icon">${community.name[0].toUpperCase()}</div>
+        <div class="community-dashboard-info">
+          <h2>${community.name}</h2>
+          <p>${community.description || 'A community on PH Social'}</p>
+          <div class="community-stats">
+            <div class="community-stat">
+              <span class="community-stat-value">${community.members?.length || 0}</span>
+              <span>members</span>
+            </div>
+            <div class="community-stat">
+              <span class="community-stat-value" id="communityPostCountDisplay">0</span>
+              <span>posts</span>
+            </div>
+            <div class="community-stat">
+              <span class="community-stat-value">${community.createdAt ? timeAgo(community.createdAt) : 'new'}</span>
+              <span>created</span>
+            </div>
+          </div>
+          ${!isCommunityMember && currentUser && !currentUser.isAnonymous ? `
+            <button class="join-community-btn" onclick="joinCommunity('${community.id}')" style="width: auto; margin-top: 1rem;">join community</button>
+          ` : ''}
+          ${isOwner ? '<span class="owner-badge" style="margin-top: 0.5rem; display: inline-block;">👑 you own this community</span>' : ''}
+        </div>
+      </div>
+      
+      <div class="community-dashboard-grid">
+        <div class="community-posts">
+          <h3>📝 posts in ${community.name}</h3>
+          <div id="communityPostsList" class="community-posts-list">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        
+        <div class="community-info-sidebar">
+          <h4>about community</h4>
+          <div class="community-description">
+            ${community.description || 'No description yet.'}
+          </div>
+          
+          <h4 style="margin-top: 1.5rem;">👑 owner</h4>
+          <div id="communityOwnerDisplay" class="mod-list">
+            <div class="loading-spinner" style="width: 30px; height: 30px;"></div>
+          </div>
+          
+          <h4 style="margin-top: 1.5rem;">🛡️ moderators</h4>
+          <div id="communityModsDisplay" class="mod-list">
+            <div class="loading-spinner" style="width: 30px; height: 30px;"></div>
+          </div>
+          
+          <h4 style="margin-top: 1.5rem;">📊 rules</h4>
+          <div style="color: var(--text-secondary); font-size: 0.9rem;">
+            ${community.rules ? community.rules.map((r, i) => `${i+1}. ${r}`).join('<br>') : 'No rules set.'}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  // Load owner and mods
+  loadCommunityOwner(community.createdBy);
+  loadCommunityMods(community.moderators || []);
+}
+
+function loadCommunityOwner(ownerId) {
+  db.collection('users').doc(ownerId).get().then((doc) => {
+    if (doc.exists) {
+      const user = doc.data();
+      const ownerDisplay = document.getElementById('communityOwnerDisplay');
+      if (ownerDisplay) {
+        ownerDisplay.innerHTML = `
+          <div class="mod-item" onclick="viewUserProfile('${ownerId}')">
+            <div class="mod-avatar">${user.username ? user.username[0].toUpperCase() : '?'}</div>
+            <div class="mod-info">
+              <span class="mod-name">${user.username} <span class="mod-badge">👑</span></span>
+            </div>
+          </div>
+        `;
+      }
+    }
+  });
+}
+
+function loadCommunityMods(modIds) {
+  if (!modIds || modIds.length === 0) {
+    document.getElementById('communityModsDisplay').innerHTML = '<div style="color: var(--text-muted);">no moderators</div>';
+    return;
+  }
+  
+  let html = '';
+  let loaded = 0;
+  
+  modIds.forEach(modId => {
+    db.collection('users').doc(modId).get().then((doc) => {
+      if (doc.exists) {
+        const user = doc.data();
+        html += `
+          <div class="mod-item" onclick="viewUserProfile('${modId}')">
+            <div class="mod-avatar">${user.username ? user.username[0].toUpperCase() : '?'}</div>
+            <div class="mod-info">
+              <span class="mod-name">${user.username}</span>
+              <span class="mod-role">moderator</span>
+            </div>
+          </div>
+        `;
+      }
+      loaded++;
+      if (loaded === modIds.length) {
+        document.getElementById('communityModsDisplay').innerHTML = html || '<div style="color: var(--text-muted);">no moderators</div>';
+      }
+    });
+  });
+}
+
+function loadCommunityPosts(communityId) {
+  db.collection('posts')
+    .where('community', '==', communityId)
+    .orderBy('createdAt', 'desc')
+    .limit(10)
+    .get()
+    .then((snapshot) => {
+      const container = document.getElementById('communityPostsList');
+      const countDisplay = document.getElementById('communityPostCountDisplay');
+      
+      if (countDisplay) {
+        countDisplay.textContent = snapshot.size;
+      }
+      
+      if (snapshot.empty) {
+        container.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 2rem;">no posts yet</div>';
+        return;
+      }
+      
+      let html = '';
+      snapshot.forEach(doc => {
+        const post = doc.data();
+        html += `
+          <div class="community-mini-post" onclick="openPost('${doc.id}')">
+            <div class="mini-post-title">${escapeHtml(post.title)}</div>
+            <div class="mini-post-meta">
+              <span>by ${escapeHtml(post.authorName)}</span>
+              <span>❤️ ${post.reactions ? Object.values(post.reactions).reduce((s, r) => s + (r.count || 0), 0) : 0}</span>
+              <span>💬 ${post.comments || 0}</span>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    });
+}
+
+function updateCommunityInfoPanel(community) {
+  const panel = document.getElementById('communityInfoPanel');
+  const nameSpan = document.getElementById('communityInfoName');
+  const memberCount = document.getElementById('communityMemberCount');
+  const postCount = document.getElementById('communityPostCount');
+  const modList = document.getElementById('modList');
+  const joinBtn = document.getElementById('joinCommunityBtn');
+  const ownerBadge = document.getElementById('communityOwnerBadge');
+  
+  panel.style.display = 'block';
+  nameSpan.textContent = community.name;
+  memberCount.textContent = community.members?.length || 0;
+  
+  // Count posts
+  db.collection('posts').where('community', '==', community.id).get().then((snapshot) => {
+    postCount.textContent = snapshot.size;
+  });
+  
+  // Show owner badge
+  if (community.createdBy === currentUser?.uid || currentUser?.displayName === OWNER_USERNAME) {
+    ownerBadge.style.display = 'inline-block';
+  } else {
+    ownerBadge.style.display = 'none';
+  }
+  
+  // Load mods
+  const mods = community.moderators || [];
+  if (mods.length === 0) {
+    modList.innerHTML = '<div style="color: var(--text-muted);">no moderators</div>';
+  } else {
+    let modHtml = '';
+    mods.forEach(modId => {
+      db.collection('users').doc(modId).get().then((doc) => {
+        if (doc.exists) {
+          const user = doc.data();
+          modHtml += `
+            <div class="mod-item" onclick="viewUserProfile('${modId}')">
+              <div class="mod-avatar">${user.username ? user.username[0].toUpperCase() : '?'}</div>
+              <div class="mod-info">
+                <span class="mod-name">${user.username}</span>
+              </div>
+            </div>
+          `;
+          modList.innerHTML = modHtml;
+        }
+      });
+    });
+  }
+  
+  // Show join button if not member and signed in
+  if (currentUser && !currentUser.isAnonymous) {
+    const isMember = community.members?.includes(currentUser.uid);
+    if (isMember) {
+      joinBtn.textContent = 'leave';
+      joinBtn.style.display = 'block';
+    } else {
+      joinBtn.textContent = 'join';
+      joinBtn.style.display = 'block';
+    }
+  } else {
+    joinBtn.style.display = 'none';
+  }
+}
+
+window.toggleJoinCommunity = function() {
+  if (!currentCommunityData || !currentUser || currentUser.isAnonymous) return;
+  
+  const isMember = currentCommunityData.members?.includes(currentUser.uid);
+  
+  if (isMember) {
+    // Leave
+    const newMembers = (currentCommunityData.members || []).filter(id => id !== currentUser.uid);
+    db.collection('communities').doc(currentCommunityData.id).update({
+      members: newMembers
+    }).then(() => {
+      showToast('👋 left community');
+      isCommunityMember = false;
+      updateCommunityInfoPanel(currentCommunityData);
+    });
+  } else {
+    // Join
+    const newMembers = [...(currentCommunityData.members || []), currentUser.uid];
+    db.collection('communities').doc(currentCommunityData.id).update({
+      members: newMembers
+    }).then(() => {
+      showToast('✅ joined community');
+      isCommunityMember = true;
+      updateCommunityInfoPanel(currentCommunityData);
+    });
+  }
+};
+
+window.joinCommunity = function(communityId) {
+  if (!currentUser || currentUser.isAnonymous) {
+    showToast('🔒 sign in to join');
+    showSmartAccountModal();
+    return;
+  }
+  
+  db.collection('communities').doc(communityId).get().then((doc) => {
+    if (doc.exists) {
+      const community = doc.data();
+      const newMembers = [...(community.members || []), currentUser.uid];
+      return doc.ref.update({
+        members: newMembers
+      });
+    }
+  }).then(() => {
+    showToast('✅ joined community');
+    loadCommunityData(communityId);
+  });
+};
+
+window.createCommunity = function() {
+  if (!currentUser || currentUser.isAnonymous) {
+    showToast('🔒 please sign in to create a community');
+    showSmartAccountModal();
+    return;
+  }
+  
+  const name = prompt('Enter community name:');
+  if (!name) return;
+  
+  const description = prompt('Enter community description (optional):') || '';
+  
+  db.collection('communities').where('name', '==', name).get()
+    .then((snapshot) => {
+      if (!snapshot.empty) {
+        showToast('❌ community already exists');
+        return null;
+      }
+      return db.collection('communities').add({
+        name: name,
+        description: description,
+        createdBy: currentUser.uid,
+        createdAt: Date.now(),
+        members: [currentUser.uid],
+        moderators: [currentUser.uid],
+        rules: ['Be respectful', 'No spam', 'Follow site rules']
+      });
+    })
+    .then((docRef) => {
+      if (docRef) {
+        showToast('✅ community created!');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      showToast('❌ failed to create community');
+    });
+};
 
 window.showView = function(view) {
   currentView = view;
@@ -2546,19 +3256,25 @@ window.showView = function(view) {
   const newPostView = document.getElementById('newPostView');
   const postDetailView = document.getElementById('postDetailView');
   const profileView = document.getElementById('profileView');
+  const communityDashboard = document.getElementById('communityDashboard');
   
   if (forumView) forumView.style.display = 'none';
   if (newPostView) newPostView.style.display = 'none';
   if (postDetailView) postDetailView.style.display = 'none';
   if (profileView) profileView.style.display = 'none';
+  if (communityDashboard) communityDashboard.style.display = 'none';
   
   document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
   
   switch(view) {
     case 'forum':
-      if (forumView) forumView.style.display = 'block';
+      if (currentCommunity === 'all') {
+        if (forumView) forumView.style.display = 'block';
+      } else {
+        if (communityDashboard) communityDashboard.style.display = 'block';
+      }
       document.querySelectorAll('.nav-link')[0]?.classList.add('active');
-      loadPosts();
+      if (currentCommunity === 'all') loadPosts();
       break;
     case 'newPost':
       if (!auth.currentUser || auth.currentUser.isAnonymous) {
@@ -2587,59 +3303,6 @@ window.showView = function(view) {
   }
 };
 
-window.selectCommunity = function(community) {
-  currentCommunity = community;
-  document.querySelectorAll('.community-item').forEach(item => item.classList.remove('active'));
-  if (event && event.target) {
-    const item = event.target.closest('.community-item');
-    if (item) item.classList.add('active');
-  }
-  loadPosts();
-};
-
-window.createCommunity = function() {
-  if (!currentUser || currentUser.isAnonymous) {
-    showToast('🔒 please sign in to create a community');
-    showSmartAccountModal();
-    return;
-  }
-  
-  const name = prompt('Enter community name:');
-  if (!name) return;
-  
-  db.collection('communities').where('name', '==', name).get()
-    .then((snapshot) => {
-      if (!snapshot.empty) {
-        showToast('❌ community already exists');
-        return null;
-      }
-      return db.collection('communities').add({
-        name: name,
-        createdBy: currentUser.uid,
-        createdAt: Date.now(),
-        members: [currentUser.uid]
-      });
-    })
-    .then((docRef) => {
-      if (docRef) {
-        showToast('✅ community created!');
-        const communityList = document.getElementById('communityList');
-        const newCommunity = document.createElement('div');
-        newCommunity.className = 'community-item';
-        newCommunity.setAttribute('onclick', `selectCommunity('${name.toLowerCase()}')`);
-        newCommunity.innerHTML = `
-          <div class="community-icon">#</div>
-          <span>${name}</span>
-        `;
-        communityList.appendChild(newCommunity);
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      showToast('❌ failed to create community');
-    });
-};
-
 window.showSmartAccountModal = function() {
   const modal = document.getElementById('accountModal');
   const content = document.getElementById('accountModalContent');
@@ -2649,7 +3312,7 @@ window.showSmartAccountModal = function() {
     const isOwner = user.displayName === OWNER_USERNAME;
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH - Science | Social</h2>
+      <h2>PH Social</h2>
       <div style="color: var(--orange); margin-bottom: 2rem;">👋 ${user.displayName || 'user'} ${isOwner ? '<span class="owner-badge">👑 OWNER</span>' : ''}</div>
       <div class="modal-buttons">
         <button class="modal-btn warning" onclick="logout()">🚪 log out</button>
@@ -2659,7 +3322,7 @@ window.showSmartAccountModal = function() {
   } else if (user && user.isAnonymous) {
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH - Science | Social</h2>
+      <h2>PH Social</h2>
       <div style="color: var(--orange); margin-bottom: 2rem;">👤 guest mode (view only)</div>
       <div class="modal-buttons">
         <button class="modal-btn primary" onclick="showSignup()">✨ create account</button>
@@ -2669,7 +3332,7 @@ window.showSmartAccountModal = function() {
   } else {
     content.innerHTML = `
       <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
-      <h2>PH - Science | Social</h2>
+      <h2>PH Social</h2>
       <p>join the community</p>
       <div class="modal-buttons">
         <button class="modal-btn primary" onclick="showSignup()">create account</button>
@@ -2866,8 +3529,18 @@ auth.onAuthStateChanged((user) => {
     unreadNotifications = 0;
   }
   
-  if (currentView === 'forum') loadPosts();
-  else if (currentView === 'profile') loadProfile();
+  // Reload community data if needed
+  if (currentCommunity !== 'all' && currentCommunityData) {
+    loadCommunityData(currentCommunity);
+  }
+  
+  if (currentView === 'forum') {
+    if (currentCommunity === 'all') {
+      loadPosts();
+    } else if (currentCommunityData) {
+      showView('forum');
+    }
+  } else if (currentView === 'profile') loadProfile();
   else if (currentView === 'postDetail' && currentPostId) loadPostDetails(currentPostId);
 });
 
@@ -2959,7 +3632,7 @@ function createPostCard(post) {
         </div>
         <div class="post-meta">
           <span>🕒 ${timeAgo(post.createdAt)}</span>
-          ${post.community ? `<span class="post-community-tag">${post.community}</span>` : ''}
+          ${post.community ? `<span class="post-community-tag" onclick="event.stopPropagation(); selectCommunity('${post.community}')">${post.community}</span>` : ''}
           ${post.nsfw ? '<span class="nsfw-badge">NSFW</span>' : ''}
         </div>
       </div>
@@ -3834,9 +4507,10 @@ function showMessageToast(senderName, messagePreview, conversationId) {
   toast.className = 'toast';
   toast.onclick = () => {
     // Open the conversation
-    const otherUserId = window.currentOtherUserId; // You'll need to store this
-    if (conversationId && otherUserId) {
-      openConversation(conversationId, otherUserId);
+    // You'll need to find the conversation
+    const conversations = document.querySelectorAll('.conversation-item');
+    if (conversations.length > 0) {
+      conversations[0].click();
     }
     toast.remove();
   };
@@ -4429,6 +5103,9 @@ function showToast(message) {
 document.getElementById('notificationIcon')?.addEventListener('click', (e) => {
   e.stopPropagation();
 });
+
+// Initialize communities
+loadCommunities();
 
 const urlParams = new URLSearchParams(window.location.search);
 const postIdFromUrl = urlParams.get('post');
