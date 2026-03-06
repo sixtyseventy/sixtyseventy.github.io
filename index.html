@@ -11,9 +11,65 @@
 <meta name="title" content="PH Science | █████████ Games">
 <meta name="description" content="Play 700+ █████████ Games during school hours, or work hours!">
 
+<!-- CONFIGURATION - EDIT THESE VALUES TO CONTROL THE BANNER -->
+<script>
+const SITE_CONFIG = {
+  // Set to true to show problem banner, false to hide
+  hasProblem: true,
+  
+  // Custom message to display in the banner
+  problemMessage: "⚠️ We're currently having an issue with signing up.",
+  
+  // Banner colors (striped design)
+  bannerColors: {
+    stripe1: "#ff6b00",  // Orange
+    stripe2: "#b84d00"   // Darker orange
+  }
+};
+</script>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
+
+/* PROBLEM BANNER STYLES */
+.problem-banner {
+  width: 100%;
+  background: repeating-linear-gradient(45deg, #ff6b00 0px, #ff6b00 20px, #b84d00 20px, #b84d00 40px);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1001;
+  border-bottom: 2px solid white;
+  animation: bannerSlideDown 0.4s ease-out;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 0.5px;
+}
+
+@keyframes bannerSlideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Adjust header position when banner is present */
+body.has-problem header {
+  top: 80px !important;
+}
+
+/* Make sure header transition is smooth */
+header {
+  transition: top 0.3s ease;
+}
 
 :root {
   --orange-100: #fff3e0;
@@ -2012,6 +2068,15 @@ footer {
 </head>
 <body>
 
+<!-- PROBLEM BANNER - AT THE VERY TOP OF THE PAGE -->
+<div id="problemBanner" style="display: none;" class="problem-banner">
+  <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <span style="font-size: 1.4rem;">🚧</span>
+    <span id="problemMessage">⚠️ We're currently having an issue with signing up.</span>
+    <span style="font-size: 1.4rem;">🚧</span>
+  </div>
+</div>
+
 <!-- WELCOME MODAL - CLEAN VERSION 2.1.0 -->
 <div class="modal" id="welcomeModal">
   <div class="modal-content">
@@ -2279,7 +2344,7 @@ footer {
       </div>
     </div>
   </div>
-
+  
   <!-- RECENTLY PLAYED -->
   <div class="vault" id="recentVault" style="--index: 2;">
     <div class="vault-header" onclick="toggleVault('recentVault')">
@@ -2351,6 +2416,9 @@ const firebaseConfig = {
   appId: "1:883067098385:web:036ccc248ffa4f44cf28b0"
 };
 
+// CONFIGURATION IS NOW AT THE TOP OF THE PAGE
+// The SITE_CONFIG object is already defined in the head section
+  
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -2607,6 +2675,25 @@ window.continueAsGuest = function() {
     .catch(() => showToast('❌ guest login failed'));
 };
 
+// BANNER CONTROL - This runs when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  const banner = document.getElementById('problemBanner');
+  const messageSpan = document.getElementById('problemMessage');
+  
+  // Update banner based on config
+  if (SITE_CONFIG && SITE_CONFIG.hasProblem) {
+    messageSpan.textContent = SITE_CONFIG.problemMessage;
+    
+    // Update stripe colors if custom colors are provided
+    if (SITE_CONFIG.bannerColors) {
+      banner.style.background = `repeating-linear-gradient(45deg, ${SITE_CONFIG.bannerColors.stripe1} 0px, ${SITE_CONFIG.bannerColors.stripe1} 20px, ${SITE_CONFIG.bannerColors.stripe2} 20px, ${SITE_CONFIG.bannerColors.stripe2} 40px)`;
+    }
+    
+    banner.style.display = 'block';
+    document.body.classList.add('has-problem');
+  }
+});
+  
 window.logout = function() {
   auth.signOut().then(() => {
     showToast('👋 logged out');
@@ -2682,10 +2769,8 @@ function displayZones(list) {
   const user = auth.currentUser;
   
   if (!user) {
-    // Not logged in - all games locked
     displayList = list.map(game => ({ ...game, forcedLock: game.id !== 'forum' }));
   } else if (user.isAnonymous) {
-    // Guest - filter based on unlocked/locked selection
     displayList = list.filter(game => {
       if (game.id === 'forum') return true;
       const isUnlocked = unlockedGames.includes(game.id);
@@ -3183,7 +3268,6 @@ window.toggleVault = function(vaultId) {
   header.classList.toggle('active');
 };
 
-// Prevent any default form submissions
 document.addEventListener('submit', function(e) {
   e.preventDefault();
   return false;
