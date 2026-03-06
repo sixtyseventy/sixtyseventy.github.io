@@ -2871,21 +2871,39 @@ function debounce(func, wait) {
     timeout = setTimeout(() => func(...args), wait);
   };
 }
-
 window.openGame = function(file) {
   if (file.id === 'forum') {
     window.open(file.url, '_blank');
     return;
   }
   
-  if (!auth.currentUser) {
-    showToast('❌ Sign in to play');
+  // Check if the game is locked for this user
+  const user = auth.currentUser;
+  const isSignedIn = user && !user.isAnonymous;
+  const isGuest = user && user.isAnonymous;
+  
+  // Determine if game is locked
+  let isLocked = false;
+  if (!user) {
+    isLocked = true; // Not logged in at all = locked
+  } else if (isGuest) {
+    isLocked = !unlockedGames.includes(file.id); // Guests can only play unlocked games
+  } else {
+    isLocked = false; // Signed-in users can play everything
+  }
+  
+  if (isLocked) {
+    showToast('🔒 Sign up to play this game');
     showSmartAccountModal();
     return;
   }
   
-  addToRecentlyPlayed(file.id);
+  // Add to recently played for signed-in users only
+  if (isSignedIn) {
+    addToRecentlyPlayed(file.id);
+  }
   
+  // Open the game
   if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
     window.open(file.url, "_blank");
   } else {
