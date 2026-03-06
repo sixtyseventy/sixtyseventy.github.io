@@ -1418,7 +1418,6 @@ header {
   background: white;
 }
 
-/* FIXED MODAL STYLES */
 .modal {
   position: fixed;
   inset: 0;
@@ -1427,12 +1426,11 @@ header {
   -webkit-backdrop-filter: blur(30px);
   z-index: 2000;
   display: none;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity var(--transition-base);
-  padding: 20px;
-  overflow-y: auto;
+  padding: 1rem;
 }
 
 .modal.active {
@@ -1443,7 +1441,6 @@ header {
 .modal-content {
   max-width: 500px;
   width: 100%;
-  margin: auto;
   background: linear-gradient(145deg, var(--bg-card), var(--bg-dark));
   border: 2px solid var(--border-strong);
   border-radius: var(--radius-3xl);
@@ -1453,8 +1450,6 @@ header {
   transition: transform var(--transition-elastic);
   text-align: center;
   position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
 }
 
 .modal.active .modal-content {
@@ -1462,9 +1457,9 @@ header {
 }
 
 .modal-close {
-  position: sticky;
-  top: 10px;
-  float: right;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
   background: none;
   border: none;
   color: var(--text-tertiary);
@@ -1477,9 +1472,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(10px);
 }
 
 .modal-close:hover {
@@ -1496,7 +1488,6 @@ header {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.02em;
-  clear: both;
 }
 
 .modal-input {
@@ -1978,14 +1969,6 @@ footer {
   .footer-links {
     justify-content: center;
   }
-  
-  .modal-content {
-    padding: 1.5rem;
-  }
-  
-  .modal h2 {
-    font-size: 2.2rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -2014,11 +1997,11 @@ footer {
   }
   
   .modal-content {
-    padding: 1.2rem;
+    padding: 2rem 1.5rem;
   }
   
   .modal h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
   
   .cloak-grid {
@@ -2029,28 +2012,26 @@ footer {
 </head>
 <body>
 
-<!-- WELCOME MODAL - FIXED -->
+<!-- WELCOME MODAL - CLEAN VERSION 2.1.0 -->
 <div class="modal" id="welcomeModal">
   <div class="modal-content">
     <button class="modal-close" onclick="dismissWelcome()">✕</button>
     
     <!-- Version Badge -->
-    <div style="position: sticky; top: 0; z-index: 10; margin-bottom: 1.5rem; text-align: center;">
-      <div style="display: inline-block; background: linear-gradient(135deg, var(--orange-500), var(--orange-600)); color: black; padding: 0.5rem 2rem; border-radius: var(--radius-full); font-family: 'Clash Display', sans-serif; font-weight: 800; font-size: 1.2rem; border: 2px solid white; box-shadow: var(--shadow-orange-lg); white-space: nowrap;">
-        VERSION 2.1.0
-      </div>
+    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--orange-500), var(--orange-600)); color: black; padding: 0.5rem 2rem; border-radius: var(--radius-full); font-family: 'Clash Display', sans-serif; font-weight: 800; font-size: 1.2rem; border: 2px solid white; box-shadow: var(--shadow-orange-lg); z-index: 10; white-space: nowrap;">
+      VERSION 2.1.0
     </div>
     
-    <h2 style="margin-top: 0.5rem;">PH - Science</h2>
+    <h2 style="margin-top: 1.5rem;">PH - Science</h2>
     <p style="color: var(--text-secondary); font-size: 1.3rem; margin: 1rem 0;">700+ unblocked games, more to come!</p>
     
     <!-- What's New Section -->
     <div style="background: linear-gradient(145deg, rgba(255,107,0,0.15), rgba(0,0,0,0.5)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 1.5rem; margin: 2rem 0; text-align: left;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
         <span style="font-size: 1.5rem;">→</span>
-        <h3 style="font-family: 'Clash Display', sans-serif; color: var(--orange-500); font-size: 1.2rem; margin: 0;">what's new in 2.1.0</h3>
+        <h3 style="font-family: 'Clash Display', sans-serif; color: var(--orange-500); font-size: 1.2rem;">what's new in 2.1.0</h3>
       </div>
-      <ul style="list-style: none; color: var(--text-secondary); margin: 0; padding: 0;">
+      <ul style="list-style: none; color: var(--text-secondary);">
         <li style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem;">
           <span style="color: var(--orange-500);">→</span>
           <span>enhanced black & orange ui</span>
@@ -2071,28 +2052,28 @@ footer {
     </div>
     
     <!-- Feature Grid -->
-    <div style="background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0.4)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 1.5rem; margin: 2rem 0;">
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+    <div style="background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0.4)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 2rem; margin: 2rem 0;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
         <div style="text-align: center;">
-          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">🎮</div>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">700+ Games</div>
-          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">constantly growing</div>
+          <div style="font-size: 3rem; color: var(--orange-500); margin-bottom: 0.5rem;">🎮</div>
+          <div style="font-weight: 700; color: var(--text-primary);">700+ Games</div>
+          <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.3rem;">constantly growing</div>
         </div>
         <div style="text-align: center;">
-          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">👍</div>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">Vote System</div>
-          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">signed-in users only</div>
+          <div style="font-size: 3rem; color: var(--orange-500); margin-bottom: 0.5rem;">👍</div>
+          <div style="font-weight: 700; color: var(--text-primary);">Vote System</div>
+          <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.3rem;">signed-in users only</div>
         </div>
         <div style="text-align: center;">
-          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">⚡</div>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">No Lag</div>
-          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">optimized gameplay</div>
+          <div style="font-size: 3rem; color: var(--orange-500); margin-bottom: 0.5rem;">⚡</div>
+          <div style="font-weight: 700; color: var(--text-primary);">No Lag</div>
+          <div style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: 0.3rem;">optimized gameplay</div>
         </div>
       </div>
     </div>
     
     <!-- Version Footer -->
-    <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--text-tertiary); font-size: 0.85rem; flex-wrap: wrap;">
+    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; color: var(--text-tertiary); font-size: 0.9rem;">
       <span>black & orange</span>
       <span>•</span>
       <span>v2.1.0</span>
@@ -2104,7 +2085,7 @@ footer {
       START PLAYING
     </button>
     
-    <div style="margin-top: 1rem; text-align: center; padding-bottom: 0.5rem;">
+    <div style="margin-top: 1rem; text-align: center;">
       <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-tertiary); font-size: 0.9rem;" onclick="event.stopPropagation()">
         <input type="checkbox" id="dontShowWelcome" style="accent-color: var(--orange-500); width: 16px; height: 16px;">
         <span>don't show again</span>
@@ -2485,11 +2466,8 @@ function closeAllModals() {
 function checkWelcomeCard() {
   if (!localStorage.getItem('ph_welcome_seen_v2.1.0')) {
     setTimeout(() => {
-      const modal = document.getElementById('welcomeModal');
-      modal.style.display = 'flex';
-      // Force reflow
-      modal.offsetHeight;
-      modal.classList.add('active');
+      document.getElementById('welcomeModal').style.display = 'flex';
+      setTimeout(() => document.getElementById('welcomeModal').classList.add('active'), 10);
     }, 500);
   }
 }
@@ -2712,18 +2690,12 @@ function createGameCard(file, isRecent = false) {
   const user = auth.currentUser;
   const isSignedIn = user && !user.isAnonymous;
   
-let isLocked = (() => {
-  if (file.id === 'forum') return false;
-  if (!user) return true; // Not logged in at all
-  
-  // Check if user is signed in with email/password (not anonymous)
-  if (!user.isAnonymous) {
-    return false; // Fully signed up users have full access
-  }
-  
-  // Guest/anonymous users have limited access
-  return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
-})();
+  let isLocked = (() => {
+    if (file.id === 'forum') return false;
+    if (!user) return true;
+    if (user.isAnonymous) return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
+    return false;
+  })();
   
   if (isLocked) div.classList.add('locked');
   
@@ -2906,15 +2878,12 @@ window.openGame = function(file) {
     return;
   }
   
-  // Allow signed-in users (non-anonymous) to play
   if (!auth.currentUser) {
     showToast('❌ Sign in to play');
     showSmartAccountModal();
     return;
   }
   
-  // Allow both signed-in and guest users to play (guests have limited games)
-  // The locking is handled by the isLocked check in createGameCard
   addToRecentlyPlayed(file.id);
   
   if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
@@ -2975,7 +2944,7 @@ function removeFromRecent(gameId) {
 
 window.toggleFavorite = function(gameId, event) {
   if (!auth.currentUser || auth.currentUser.isAnonymous) {
-    showToast('🔒 Sign in with email to favorite');
+    showToast('🔒 Sign in to favorite');
     showSmartAccountModal();
     return;
   }
