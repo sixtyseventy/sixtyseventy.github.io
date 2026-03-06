@@ -2712,12 +2712,18 @@ function createGameCard(file, isRecent = false) {
   const user = auth.currentUser;
   const isSignedIn = user && !user.isAnonymous;
   
-  let isLocked = (() => {
-    if (file.id === 'forum') return false;
-    if (!user) return true;
-    if (user.isAnonymous) return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
-    return false;
-  })();
+let isLocked = (() => {
+  if (file.id === 'forum') return false;
+  if (!user) return true; // Not logged in at all
+  
+  // Check if user is signed in with email/password (not anonymous)
+  if (!user.isAnonymous) {
+    return false; // Fully signed up users have full access
+  }
+  
+  // Guest/anonymous users have limited access
+  return file.forcedLock !== undefined ? file.forcedLock : !unlockedGames.includes(file.id);
+})();
   
   if (isLocked) div.classList.add('locked');
   
@@ -2900,12 +2906,15 @@ window.openGame = function(file) {
     return;
   }
   
+  // Allow signed-in users (non-anonymous) to play
   if (!auth.currentUser) {
     showToast('❌ Sign in to play');
     showSmartAccountModal();
     return;
   }
   
+  // Allow both signed-in and guest users to play (guests have limited games)
+  // The locking is handled by the isLocked check in createGameCard
   addToRecentlyPlayed(file.id);
   
   if (file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
@@ -2966,7 +2975,7 @@ function removeFromRecent(gameId) {
 
 window.toggleFavorite = function(gameId, event) {
   if (!auth.currentUser || auth.currentUser.isAnonymous) {
-    showToast('🔒 Sign in to favorite');
+    showToast('🔒 Sign in with email to favorite');
     showSmartAccountModal();
     return;
   }
