@@ -11,19 +11,15 @@
 <meta name="title" content="PH Science | █████████ Games">
 <meta name="description" content="Play 700+ █████████ Games during school hours, or work hours!">
 
-<!-- CONFIGURATION - EDIT THESE VALUES TO CONTROL THE BANNER -->
 <script>
 const SITE_CONFIG = {
-  // Set to true to show problem banner, false to hide
   hasProblem: true,
   
-  // Custom message to display in the banner
   problemMessage: "⚠️ We're currently having an issue with signing up.",
   
-  // Banner colors (striped design)
   bannerColors: {
-    stripe1: "#ff6b00",  // Orange
-    stripe2: "#b84d00"   // Darker orange
+    stripe1: "#ff6b00", 
+    stripe2: "#b84d00" 
   }
 };
 </script>
@@ -32,35 +28,286 @@ const SITE_CONFIG = {
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
 
-/* PROBLEM BANNER STYLES */
 .problem-banner {
   width: 100%;
-  background: repeating-linear-gradient(45deg, #ff6b00 0px, #ff6b00 20px, #b84d00 20px, #b84d00 40px);
+  background: linear-gradient(135deg, #ff3b3b, #ff0000);
   color: white;
-  text-align: center;
-  padding: 12px;
-  font-weight: 700;
-  font-size: 1.1rem;
   position: relative;
   z-index: 1001;
-  border-bottom: 2px solid white;
-  animation: bannerSlideDown 0.4s ease-out;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  animation: bannerSlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 32px rgba(255, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+}
+
+.problem-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 255, 0.1) 20px,
+    rgba(255, 255, 255, 0.1) 40px
+  );
+  pointer-events: none;
+}
+
+.problem-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: bannerShine 3s infinite;
+}
+
+@keyframes bannerShine {
+  to {
+    left: 100%;
+  }
+}
+
+.banner-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-icon {
+  font-size: 28px;
+  display: inline-block;
+  animation: iconPulse 2s infinite ease-in-out;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.9));
+  }
+}
+
+.banner-message {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message-text {
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1.3;
+}
+
+.message-subtext {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.message-subtext::before {
+  content: '🛠️';
+  font-size: 1rem;
+}
+
+.banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+.banner-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 8px 24px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.banner-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: -1;
+}
+
+.banner-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.banner-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.banner-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.banner-pulse {
+  position: absolute;
+  right: -8px;
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-radius: 50%;
+  animation: pulseRing 2s infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
 }
 
 @keyframes bannerSlideDown {
-  from {
+  0% {
     transform: translateY(-100%);
     opacity: 0;
   }
-  to {
+  40% {
+    transform: translateY(10%);
+  }
+  70% {
+    transform: translateY(-5%);
+  }
+  100% {
     transform: translateY(0);
     opacity: 1;
   }
 }
 
+/* Responsive styles for banner */
+@media (max-width: 768px) {
+  .banner-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 16px;
+  }
+  
+  .message-text {
+    font-size: 1rem;
+  }
+  
+  .message-subtext {
+    justify-content: center;
+  }
+  
+  .banner-actions {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .banner-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .banner-pulse {
+    right: 25%;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-text {
+    font-size: 0.95rem;
+  }
+  
+  .message-subtext {
+    font-size: 0.8rem;
+  }
+  
+  .pulse-icon {
+    font-size: 24px;
+  }
+}
+
+/* Different banner color variants based on config */
+.problem-banner.info {
+  background: linear-gradient(135deg, #3b7fff, #0055ff);
+}
+
+.problem-banner.warning {
+  background: linear-gradient(135deg, #ffaa3b, #ff8800);
+}
+
+.problem-banner.success {
+  background: linear-gradient(135deg, #3bff7f, #00cc44);
+}
+
+/* Adjust header position when banner is present */
+body.has-problem header {
+  top: 92px !important;
+}
+
+@media (max-width: 768px) {
+  body.has-problem header {
+    top: 132px !important;
+  }
+}
+
+/* Smooth transition for header */
+header {
+  transition: top 0.3s ease;
+}
 /* Adjust header position when banner is present */
 body.has-problem header {
   top: 80px !important;
@@ -2068,15 +2315,22 @@ footer {
 </head>
 <body>
 
-<!-- PROBLEM BANNER - AT THE VERY TOP OF THE PAGE -->
+<!-- PROBLEM BANNER - IMPROVED UI -->
 <div id="problemBanner" style="display: none;" class="problem-banner">
-  <div style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 10px;">
-    <span style="font-size: 1.4rem;">🚧</span>
-    <span id="problemMessage">⚠️ We're currently having an issue with signing up.</span>
-    <span style="font-size: 1.4rem;">🚧</span>
+  <div class="banner-content">
+    <div class="banner-icon">
+      <span class="pulse-icon">⚠️</span>
+    </div>
+    <div class="banner-message">
+      <span class="message-text" id="problemMessage">⚠️ We're currently having an issue with signing up.</span>
+      <span class="message-subtext">Our team is working on it</span>
+    </div>
+    <div class="banner-actions">
+      <button class="banner-btn" onclick="dismissBanner()">Dismiss</button>
+      <span class="banner-pulse"></span>
+    </div>
   </div>
 </div>
-
 <!-- WELCOME MODAL - CLEAN VERSION 2.1.0 -->
 <div class="modal" id="welcomeModal">
   <div class="modal-content">
@@ -2769,8 +3023,10 @@ function displayZones(list) {
   const user = auth.currentUser;
   
   if (!user) {
+    // Not logged in - all games locked
     displayList = list.map(game => ({ ...game, forcedLock: game.id !== 'forum' }));
   } else if (user.isAnonymous) {
+    // Guest - filter based on unlocked/locked selection
     displayList = list.filter(game => {
       if (game.id === 'forum') return true;
       const isUnlocked = unlockedGames.includes(game.id);
@@ -2978,6 +3234,32 @@ window.filterZones = debounce(function() {
     displayZones(filtered);
   }
 }, 200);
+
+// Add this function to handle banner dismissal
+window.dismissBanner = function() {
+  const banner = document.getElementById('problemBanner');
+  banner.style.animation = 'bannerSlideUp 0.4s ease-in forwards';
+  setTimeout(() => {
+    banner.style.display = 'none';
+    document.body.classList.remove('has-problem');
+  }, 400);
+};
+
+// Add this keyframe animation for banner dismissal
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes bannerSlideUp {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
 
 function debounce(func, wait) {
   let timeout;
@@ -3268,6 +3550,7 @@ window.toggleVault = function(vaultId) {
   header.classList.toggle('active');
 };
 
+// Prevent any default form submissions
 document.addEventListener('submit', function(e) {
   e.preventDefault();
   return false;
