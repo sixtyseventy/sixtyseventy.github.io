@@ -2012,26 +2012,28 @@ footer {
 </head>
 <body>
 
-<!-- WELCOME MODAL - CLEAN VERSION 2.1.0 -->
-<div class="modal" id="welcomeModal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="dismissWelcome()">✕</button>
+<div class="modal" id="welcomeModal" style="display: none; align-items: flex-start; overflow-y: auto; padding: 20px;">
+  <div class="modal-content" style="margin: auto; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; transform: scale(1);">
+    <button class="modal-close" onclick="dismissWelcome()" style="position: sticky; top: 10px; right: 10px; float: right; z-index: 20;">✕</button>
     
     <!-- Version Badge -->
-    <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--orange-500), var(--orange-600)); color: black; padding: 0.5rem 2rem; border-radius: var(--radius-full); font-family: 'Clash Display', sans-serif; font-weight: 800; font-size: 1.2rem; border: 2px solid white; box-shadow: var(--shadow-orange-lg); z-index: 10; white-space: nowrap;">
-      VERSION 2.1.0
+    <div style="position: sticky; top: 0; z-index: 10; margin-top: -10px; text-align: center;">
+      <div style="display: inline-block; background: linear-gradient(135deg, var(--orange-500), var(--orange-600)); color: black; padding: 0.5rem 2rem; border-radius: var(--radius-full); font-family: 'Clash Display', sans-serif; font-weight: 800; font-size: 1.2rem; border: 2px solid white; box-shadow: var(--shadow-orange-lg); white-space: nowrap;">
+        VERSION 2.1.0
+      </div>
     </div>
     
-    <h2 style="margin-top: 1.5rem;">PH - Science</h2>
-    <p style="color: var(--text-secondary); font-size: 1.3rem; margin: 1rem 0;">700+ unblocked games, more to come!</p>
+    <div style="clear: both;"></div>
+    <h2 style="margin-top: 1.5rem; text-align: center;">PH - Science</h2>
+    <p style="color: var(--text-secondary); font-size: 1.3rem; margin: 1rem 0; text-align: center;">700+ unblocked games, more to come!</p>
     
     <!-- What's New Section -->
     <div style="background: linear-gradient(145deg, rgba(255,107,0,0.15), rgba(0,0,0,0.5)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 1.5rem; margin: 2rem 0; text-align: left;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
         <span style="font-size: 1.5rem;">→</span>
-        <h3 style="font-family: 'Clash Display', sans-serif; color: var(--orange-500); font-size: 1.2rem;">what's new in 2.1.0</h3>
+        <h3 style="font-family: 'Clash Display', sans-serif; color: var(--orange-500); font-size: 1.2rem; margin: 0;">what's new in 2.1.0</h3>
       </div>
-      <ul style="list-style: none; color: var(--text-secondary);">
+      <ul style="list-style: none; color: var(--text-secondary); margin: 0; padding: 0;">
         <li style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem;">
           <span style="color: var(--orange-500);">→</span>
           <span>enhanced black & orange ui</span>
@@ -2051,6 +2053,48 @@ footer {
       </ul>
     </div>
     
+    <!-- Feature Grid -->
+    <div style="background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0.4)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 1.5rem; margin: 2rem 0;">
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">🎮</div>
+          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">700+ Games</div>
+          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">constantly growing</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">👍</div>
+          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">Vote System</div>
+          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">signed-in users only</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 2.5rem; color: var(--orange-500); margin-bottom: 0.5rem;">⚡</div>
+          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">No Lag</div>
+          <div style="font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">optimized gameplay</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Version Footer -->
+    <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; color: var(--text-tertiary); font-size: 0.85rem; flex-wrap: wrap;">
+      <span>black & orange</span>
+      <span>•</span>
+      <span>v2.1.0</span>
+      <span>•</span>
+      <span>700+ games</span>
+    </div>
+    
+    <button class="modal-btn primary" onclick="dismissWelcome()" style="width: 100%;">
+      START PLAYING
+    </button>
+    
+    <div style="margin-top: 1rem; text-align: center; padding-bottom: 0.5rem;">
+      <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-tertiary); font-size: 0.9rem;" onclick="event.stopPropagation()">
+        <input type="checkbox" id="dontShowWelcome" style="accent-color: var(--orange-500); width: 16px; height: 16px;">
+        <span>don't show again</span>
+      </label>
+    </div>
+  </div>
+</div>
     <!-- Feature Grid -->
     <div style="background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0.4)); border: 2px solid var(--border-medium); border-radius: var(--radius-2xl); padding: 2rem; margin: 2rem 0;">
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
@@ -2466,12 +2510,15 @@ function closeAllModals() {
 function checkWelcomeCard() {
   if (!localStorage.getItem('ph_welcome_seen_v2.1.0')) {
     setTimeout(() => {
-      document.getElementById('welcomeModal').style.display = 'flex';
-      setTimeout(() => document.getElementById('welcomeModal').classList.add('active'), 10);
+      const modal = document.getElementById('welcomeModal');
+      modal.style.display = 'flex';
+      // Force a reflow
+      modal.offsetHeight;
+      modal.classList.add('active');
     }, 500);
   }
 }
-
+  
 window.dismissWelcome = function() {
   const dontShow = document.getElementById('dontShowWelcome')?.checked;
   if (dontShow) {
