@@ -4,7 +4,7 @@
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a981b8&is=69a83038&hm=9182bcc523c9ec712b7b0459036c3291fc447a3ab5ba922be015e08c7f12c7c1&=&format=webp&quality=lossless&width=40&height=40">
+<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/887/887569.png">
 <title>PH - Science</title>
 <meta name="title" content="PH Science | █████████ Games">
 <meta name="description" content="Play 700+ █████████ Games during school hours, or work hours!">
@@ -2526,7 +2526,7 @@ footer {
 })();
 
 window.SITE_CONFIG = {
-  mode: 'REALLY_FUCKING_BAD', 
+  mode: 'bad', 
   hasProblem: true,
   problemMessage: "No errors found, please dismiss this message.",
   bannerColors: {
@@ -2540,7 +2540,7 @@ if (window.SITE_CONFIG.mode === 'REALLY_FUCKING_BAD') {
     stripe1: "#FF0000", 
     stripe2: "#8B0000" 
   };
-  window.SITE_CONFIG.problemMessage = "EVERYONE'S DATA HAS BEEN DELETED, PLEASE CREATE A NEW ACCOUNT.";
+  window.SITE_CONFIG.problemMessage = "DATA HAS BEEN DELETED BY ACCIDENT.";
 }
 
 // Apply banner colors
@@ -2605,7 +2605,7 @@ const forumZone = {
   id: "forum",
   name: "Forums",
   author: "Community",
-  cover: "https://media.discordapp.net/attachments/1246719291517308929/1479061650022727680/image_1.png?ex=69aaab01&is=69a95981&hm=0deadaed3877b789438454fd562b17f78e5cfb151a46b53b322dbb90163601c5&=&format=webp&quality=lossless&width=858&height=858",
+  cover: "https://cdn-icons-png.flaticon.com/512/7177/7177378.png",
   url: "https://ph-science.github.io/forum.html"
 };
 
@@ -2920,12 +2920,33 @@ window.setLockFilter = function(filter) {
   displayZones(zones);
 };
 
+// --- NEW: Game addition notifier & zone diff checker ---
+let previousZoneIds = new Set();
+
 async function listZones() {
   try {
     const response = await fetch("https://cdn.jsdelivr.net/gh/gn-math/assets/zones.json?t=" + Date.now());
     const json = await response.json();
-    zones = json.filter(game => !bannedIds.includes(game.id));
-    zones.unshift(forumZone);
+    const newZones = json.filter(game => !bannedIds.includes(game.id));
+    newZones.unshift(forumZone);
+    
+    // Detect added games (compare with previous fetch)
+    const newZoneIds = new Set(newZones.map(z => z.id));
+    if (previousZoneIds.size > 0) {
+      const addedIds = [...newZoneIds].filter(id => !previousZoneIds.has(id) && id !== 'forum');
+      if (addedIds.length > 0) {
+        const addedGames = newZones.filter(z => addedIds.includes(z.id));
+        // Build notification message
+        let message = `New Games Added\n`;
+        addedGames.forEach(game => {
+          message += `- ${game.name}\n`;
+        });
+        showToast(message.trim()); // uses existing toast system
+      }
+    }
+    previousZoneIds = newZoneIds;
+
+    zones = newZones;
     
     // Fix: Properly shuffle and split games for guest access
     const shuffled = [...zones.filter(z => z.id !== 'forum')].sort(() => 0.5 - Math.random());
