@@ -3064,30 +3064,34 @@ function createGameCard(file, isRecent = false) {
   div.className = 'game-card';
   
   const user = auth.currentUser;
-  const isSignedIn = user && !user.isAnonymous;
-  const isGuest = user && user.isAnonymous;
   
-  // Determine if game should be locked - THIS IS THE KEY FIX
+  // SIMPLIFIED: Check user type
+  const isLoggedIn = !!user; // Any user (including guest)
+  const isSignedIn = user && !user.isAnonymous; // Real account
+  const isGuest = user && user.isAnonymous; // Guest mode
+  
+  // SIMPLIFIED: Determine if game should be locked
   let isLocked = false;
   
   if (file.id === 'forum') {
-    // Forum is always accessible
+    // Forum always accessible
     isLocked = false;
   } else if (!user) {
-    // No user at all - locked
+    // Not logged in - locked
     isLocked = true;
+    console.log('No user - locked');
   } else if (isGuest) {
-    // Guest user - only 50% of games unlocked
+    // Guest - only some games unlocked
     isLocked = !unlockedGames.includes(file.id);
+    console.log('Guest - locked:', isLocked, 'Game:', file.name);
   } else if (isSignedIn) {
-    // SIGNED-IN USERS - ALWAYS UNLOCKED (this is the critical fix)
+    // SIGNED IN - ALWAYS UNLOCKED
     isLocked = false;
+    console.log('Signed in - unlocked:', file.name);
   }
   
-  // Override with forcedLock if present (but for signed-in users, forcedLock should always be false)
-  if (file.forcedLock !== undefined && !isSignedIn) {
-    isLocked = file.forcedLock;
-  }
+  // Debug log
+  console.log('User state:', { isLoggedIn, isSignedIn, isGuest, isLocked, game: file.name });
   
   if (isLocked) div.classList.add('locked');
   
@@ -3118,6 +3122,163 @@ function createGameCard(file, isRecent = false) {
       openGame(file);
     }
   };
+  
+  // Rest of the function remains the same...
+  // (Keep all the existing code for creating the card elements)
+  
+  const mediaDiv = document.createElement('div');
+  mediaDiv.className = 'game-media';
+  const img = document.createElement('img');
+  img.src = file.cover?.replace("{COVER_URL}", coverURL) || coverURL + "/default.png";
+  img.alt = file.name;
+  img.loading = 'lazy';
+  img.onerror = () => { img.src = coverURL + "/default.png"; };
+  mediaDiv.appendChild(img);
+  
+  if (isLocked) {
+    const lockedOverlay = document.createElement('div');
+    lockedOverlay.className = 'locked-overlay';
+    lockedOverlay.innerHTML = `
+      <div class="lock-icon">🔒</div>
+      <div class="locked-message">
+        <p>${!user ? 'sign in to play' : (isGuest ? 'create account to unlock' : 'locked')}</p>
+        <button class="signup-prompt" onclick="event.stopPropagation(); showSignup();">✨ Sign Up</button>
+      </div>
+    `;
+    mediaDiv.appendChild(lockedOverlay);
+  }
+  
+  const overlay = document.createElement('div');
+  overlay.className = 'game-overlay';
+  overlay.innerText = file.id === 'forum' ? 'JOIN' : (isLocked ? 'LOCKED' : 'PLAY');
+  mediaDiv.appendChild(overlay);
+  
+  const contentDiv = document.createElement('div');
+  contentDiv.className = 'game-content';
+  
+  const titleRow = document.createElement('div');
+  titleRow.className = 'game-title-row';
+  
+  if (file.id !== 'forum') {
+    const star = document.createElement('span');
+    const canFavorite = isSignedIn;
+    const isFavorited = favorites.includes(file.id);
+    star.className = 'favorite-star' + (isFavorited ? ' active' : '');
+    star.innerHTML = '★';
+    star.onclick = (e) => {
+      e.stopPropagation();
+      if (!canFavorite) {
+        showToast('🔒 Create an account to favorite');
+        showSmartAccountModal();
+      } else {
+        toggleFavorite(file.id, e);
+      }
+    };
+    titleRow.appendChild(star);
+  }
+  
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'game-name';
+  nameSpan.innerText = file.name;
+  titleRow.appendChild(nameSpan);
+  contentDiv.appendChild(titleRow);
+  
+  // Vote section
+  if (file.id !== 'forum') {
+    const voteContainer = document.createElement('div');
+    voteContainer.className = 'vote-section';
+    
+    const votes = gameVotes[file.id] || { up: 0, down: 0 };
+    const userVote = userVotes[file.id];
+    
+    const upBtn = document.createElement('div');
+    upBtn.className = 'vote-btn upvote' + (userVote === 'up' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
+    upBtn.innerHTML = `👍 <span class="vote-count">${votes.up || 0}</span>`;
+    upBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      vote(file.id, 'up', e);
+    };
+    
+    const sep = document.createElement('span');
+    sep.className = 'vote-separator';
+    sep.textContent = '·';
+    
+    const downBtn = document.createElement('div');
+    downBtn.className = 'vote-btn downvote' + (userVote === 'down' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
+    downBtn.innerHTML = `👎 <span class="vote-count">${votes.down || 0}</span>`;
+    downBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      vote(file.id, 'down', e);
+    };
+    
+    voteContainer.appendChild(upBtn);
+    voteContainer.appendChild(sep);
+    voteContainer.appendChild(downBtn);
+    contentDiv.appendChild(voteContainer);
+  }
+  
+  const metaDiv = document.createElement('div');
+  metaDiv.className = 'game-meta';
+  
+  const authorSpan = document.createElement('a');
+  authorSpan.className = 'game-author';
+  authorSpan.href = file.authorLink || '#';
+  authorSpan.target = '_blank';
+  authorSpan.innerText = file.author || 'unknown';
+  metaDiv.appendChild(authorSpan);
+  
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'game-actions';
+  
+  if (isRecent && recentTimestamps[file.id]) {
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'played-time';
+    timeSpan.innerText = formatTimeAgo(recentTimestamps[file.id]);
+    actionsDiv.appendChild(timeSpan);
+    
+    if (isSignedIn) {
+      const removeBtn = document.createElement('span');
+      removeBtn.className = 'remove-recent';
+      removeBtn.innerHTML = '✕';
+      removeBtn.onclick = (e) => {
+        e.stopPropagation();
+        removeFromRecent(file.id);
+      };
+      actionsDiv.appendChild(removeBtn);
+    }
+  }
+  
+  metaDiv.appendChild(actionsDiv);
+  contentDiv.appendChild(metaDiv);
+  
+  const launchBtn = document.createElement('button');
+  launchBtn.className = 'launch-btn';
+  launchBtn.innerText = file.id === 'forum' ? 'join discussion' : (isLocked ? 'locked' : 'launch game');
+  launchBtn.onclick = (e) => { 
+    e.preventDefault();
+    e.stopPropagation(); 
+    
+    if (isLocked) {
+      if (!user) {
+        showToast('🔒 Sign in or continue as guest');
+      } else if (isGuest) {
+        showToast('🔒 Create account for full access');
+      } else {
+        showToast('🔒 This game is locked');
+      }
+      showSmartAccountModal();
+    } else {
+      openGame(file);
+    }
+  };
+  
+  div.appendChild(mediaDiv);
+  div.appendChild(contentDiv);
+  div.appendChild(launchBtn);
+  return div;
+}
   
   const mediaDiv = document.createElement('div');
   mediaDiv.className = 'game-media';
@@ -3325,38 +3486,39 @@ window.openGame = function(file) {
   const isSignedIn = user && !user.isAnonymous;
   const isGuest = user && user.isAnonymous;
   
-  console.log('Opening game - User state:', { 
-    user: user ? 'exists' : 'none', 
+  console.log('OPEN GAME - User state:', { 
+    exists: !!user,
     isSignedIn, 
     isGuest,
     uid: user?.uid,
-    isAnonymous: user?.isAnonymous 
+    isAnonymous: user?.isAnonymous,
+    game: file.name
   });
   
-  // Check if the game should be locked
+  // SIMPLIFIED: Check access
   if (!user) {
-    // Not logged in at all - locked
+    // Not logged in
     showToast('🔒 Sign in or continue as guest to play');
     showSmartAccountModal();
     return;
   }
   
-  if (isGuest) {
-    // Guest user - check if this specific game is unlocked for guests
-    if (!unlockedGames.includes(file.id)) {
-      showToast('🔒 Create an account to unlock all games');
-      showSmartAccountModal();
-      return;
-    }
+  if (isGuest && !unlockedGames.includes(file.id)) {
+    // Guest trying locked game
+    showToast('🔒 Create an account to unlock all games');
+    showSmartAccountModal();
+    return;
   }
   
-  // SIGNED-IN USERS AND GUESTS WITH UNLOCKED GAMES CAN PLAY
+  // SIGNED IN OR GUEST WITH UNLOCKED GAME - CAN PLAY
+  console.log('✅ ALLOWED to play:', file.name);
+  
   // Add to recently played for signed-in users only
   if (isSignedIn) {
     addToRecentlyPlayed(file.id);
   }
   
-  // Proceed with opening the game
+  // Open the game
   if (file.url && file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
     window.open(file.url, "_blank");
   } else if (file.url) {
@@ -3374,7 +3536,7 @@ window.openGame = function(file) {
   } else {
     showToast('game URL not available');
   }
-};
+};;
 
 window.closeViewer = function() {
   document.getElementById('gameViewer').style.display = "none";
