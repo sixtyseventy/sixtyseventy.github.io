@@ -3062,7 +3062,7 @@ function createGameCard(file, isRecent = false) {
   div.className = 'game-card';
   
   const user = auth.currentUser;
-  const isSignedIn = user && !user.isAnonymous;
+  const isSignedIn = user && !user.isAnonymous;  // Properly identifies signed-in users
   const isGuest = user && user.isAnonymous;
   
   let isLocked = false;
@@ -3072,8 +3072,8 @@ function createGameCard(file, isRecent = false) {
     isLocked = true;
   } else if (isGuest) {
     isLocked = !unlockedGames.includes(file.id);
-  } else {
-    isLocked = false;
+  } else if (isSignedIn) {
+    isLocked = false;  // Signed-in users always have access
   }
   
   if (isLocked) div.classList.add('locked');
@@ -3307,25 +3307,34 @@ window.openGame = function(file) {
   const isSignedIn = user && !user.isAnonymous;
   const isGuest = user && user.isAnonymous;
   
+  // Check if the game should be locked
   let isLocked = false;
+  
   if (!user) {
+    // Not logged in at all - locked
     isLocked = true;
     showToast('🔒 Sign in or continue as guest to play');
     showSmartAccountModal();
     return;
   } else if (isGuest) {
+    // Guest user - check if this specific game is unlocked for guests
     isLocked = !unlockedGames.includes(file.id);
     if (isLocked) {
       showToast('🔒 Create an account to unlock all games');
       showSmartAccountModal();
       return;
     }
+  } else if (isSignedIn) {
+    // Signed-in users - ALWAYS unlocked
+    isLocked = false;
   }
   
+  // Add to recently played for signed-in users only
   if (isSignedIn) {
     addToRecentlyPlayed(file.id);
   }
   
+  // Proceed with opening the game
   if (file.url && file.url.startsWith("http") && !file.url.includes("{HTML_URL}")) {
     window.open(file.url, "_blank");
   } else if (file.url) {
