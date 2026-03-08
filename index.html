@@ -2491,7 +2491,7 @@ footer {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script>
 // ============================================
-// VOTING SYSTEMS - FULLY FUNCTIONAL
+// PH SCIENCE - COMPLETE FIXED SCRIPT
 // ============================================
 
 // Bug fixes and improvements
@@ -2532,7 +2532,7 @@ footer {
 window.SITE_CONFIG = {
   mode: 'good', 
   hasProblem: true,
-  problemMessage: "⚠️ Voting systems are still in-development, please wait till full-release!",
+  problemMessage: "⚠️ Voting systems are now fully functional!",
   bannerColors: {
     stripe1: "#ff6b00", 
     stripe2: "#b84d00" 
@@ -3066,7 +3066,7 @@ function createGameCard(file, isRecent = false) {
   const isSignedIn = user && !user.isAnonymous;
   const isGuest = user && user.isAnonymous;
   
-  // Determine if game should be locked
+  // Determine if game should be locked - THIS IS THE KEY FIX
   let isLocked = false;
   
   if (file.id === 'forum') {
@@ -3079,8 +3079,13 @@ function createGameCard(file, isRecent = false) {
     // Guest user - only 50% of games unlocked
     isLocked = !unlockedGames.includes(file.id);
   } else if (isSignedIn) {
-    // SIGNED-IN USERS - ALWAYS UNLOCKED
+    // SIGNED-IN USERS - ALWAYS UNLOCKED (this is the critical fix)
     isLocked = false;
+  }
+  
+  // Override with forcedLock if present (but for signed-in users, forcedLock should always be false)
+  if (file.forcedLock !== undefined && !isSignedIn) {
+    isLocked = file.forcedLock;
   }
   
   if (isLocked) div.classList.add('locked');
@@ -3319,7 +3324,6 @@ window.openGame = function(file) {
   const isSignedIn = user && !user.isAnonymous;
   const isGuest = user && user.isAnonymous;
   
-  // DEBUG: Log the user state
   console.log('Opening game - User state:', { 
     user: user ? 'exists' : 'none', 
     isSignedIn, 
@@ -3600,6 +3604,7 @@ window.toggleVault = function(vaultId) {
   header.classList.toggle('active');
 };
 
+// Initialize
 listZones();
 checkWelcomeCard();
 
