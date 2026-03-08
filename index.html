@@ -3325,8 +3325,14 @@ window.openGame = function(file) {
       return;
     }
   } else if (isSignedIn) {
-    // Signed-in users - ALWAYS unlocked
+    // SIGNED-IN USERS - ALWAYS UNLOCKED
     isLocked = false;
+    // No need to show modal, just proceed
+  }
+  
+  // Add to recently played for signed-in users only
+  if (isSignedIn) {
+    addToRecentlyPlayed(file.id);
   }
   
   // Add to recently played for signed-in users only
