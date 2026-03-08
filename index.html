@@ -3046,6 +3046,7 @@ function displayZones(list) {
       forcedLock: game.id === 'forum' ? false : (lockFilter === 'locked' ? true : !unlockedGames.includes(game.id))
     }));
   } else {
+    // Signed-in users - show all games with no locks
     displayList = list.map(game => ({ 
       ...game, 
       forcedLock: false 
@@ -3062,7 +3063,7 @@ function createGameCard(file, isRecent = false) {
   div.className = 'game-card';
   
   const user = auth.currentUser;
-  const isSignedIn = user && !user.isAnonymous;  // This correctly identifies signed-in users
+  const isSignedIn = user && !user.isAnonymous;
   const isGuest = user && user.isAnonymous;
   
   // Determine if game should be locked
@@ -3078,7 +3079,7 @@ function createGameCard(file, isRecent = false) {
     // Guest user - only 50% of games unlocked
     isLocked = !unlockedGames.includes(file.id);
   } else if (isSignedIn) {
-    // SIGNED-IN USERS - ALWAYS UNLOCKED (this is the key fix)
+    // SIGNED-IN USERS - ALWAYS UNLOCKED
     isLocked = false;
   }
   
@@ -3253,165 +3254,6 @@ function createGameCard(file, isRecent = false) {
         showToast('🔒 Create account for full access');
       } else {
         showToast('🔒 This game is locked');
-      }
-      showSmartAccountModal();
-    } else {
-      openGame(file);
-    }
-  };
-  
-  div.appendChild(mediaDiv);
-  div.appendChild(contentDiv);
-  div.appendChild(launchBtn);
-  return div;
-}
-  
-  const mediaDiv = document.createElement('div');
-  mediaDiv.className = 'game-media';
-  const img = document.createElement('img');
-  img.src = file.cover?.replace("{COVER_URL}", coverURL) || coverURL + "/default.png";
-  img.alt = file.name;
-  img.loading = 'lazy';
-  img.onerror = () => { img.src = coverURL + "/default.png"; };
-  mediaDiv.appendChild(img);
-  
-  if (isLocked) {
-    const lockedOverlay = document.createElement('div');
-    lockedOverlay.className = 'locked-overlay';
-    lockedOverlay.innerHTML = `
-      <div class="lock-icon">🔒</div>
-      <div class="locked-message">
-        <p>${!user ? 'sign in to play' : (isGuest ? 'create account to unlock' : 'locked')}</p>
-        <button class="signup-prompt" onclick="event.stopPropagation(); showSignup();">✨ Sign Up</button>
-      </div>
-    `;
-    mediaDiv.appendChild(lockedOverlay);
-  }
-  
-  const overlay = document.createElement('div');
-  overlay.className = 'game-overlay';
-  overlay.innerText = file.id === 'forum' ? 'JOIN' : (isLocked ? 'LOCKED' : 'PLAY');
-  mediaDiv.appendChild(overlay);
-  
-  const contentDiv = document.createElement('div');
-  contentDiv.className = 'game-content';
-  
-  const titleRow = document.createElement('div');
-  titleRow.className = 'game-title-row';
-  
-  if (file.id !== 'forum') {
-    const star = document.createElement('span');
-    const canFavorite = isSignedIn;
-    const isFavorited = favorites.includes(file.id);
-    star.className = 'favorite-star' + (isFavorited ? ' active' : '');
-    star.innerHTML = '★';
-    star.onclick = (e) => {
-      e.stopPropagation();
-      if (!canFavorite) {
-        showToast('🔒 Create an account to favorite');
-        showSmartAccountModal();
-      } else {
-        toggleFavorite(file.id, e);
-      }
-    };
-    titleRow.appendChild(star);
-  }
-  
-  const nameSpan = document.createElement('span');
-  nameSpan.className = 'game-name';
-  nameSpan.innerText = file.name;
-  titleRow.appendChild(nameSpan);
-  contentDiv.appendChild(titleRow);
-  
-  // ============================================
-  // VOTE SECTION - FULLY FUNCTIONAL
-  // ============================================
-  if (file.id !== 'forum') {
-    const voteContainer = document.createElement('div');
-    voteContainer.className = 'vote-section';
-    
-    // Get vote counts (ensure they exist)
-    const votes = gameVotes[file.id] || { up: 0, down: 0 };
-    const userVote = userVotes[file.id];
-    
-    console.log(`Creating vote card for ${file.id}:`, votes, userVote);
-    
-    // Upvote button
-    const upBtn = document.createElement('div');
-    upBtn.className = 'vote-btn upvote' + (userVote === 'up' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
-    upBtn.innerHTML = `👍 <span class="vote-count">${votes.up || 0}</span>`;
-    upBtn.onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      vote(file.id, 'up', e);
-    };
-    
-    // Separator
-    const sep = document.createElement('span');
-    sep.className = 'vote-separator';
-    sep.textContent = '·';
-    
-    // Downvote button
-    const downBtn = document.createElement('div');
-    downBtn.className = 'vote-btn downvote' + (userVote === 'down' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
-    downBtn.innerHTML = `👎 <span class="vote-count">${votes.down || 0}</span>`;
-    downBtn.onclick = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      vote(file.id, 'down', e);
-    };
-    
-    voteContainer.appendChild(upBtn);
-    voteContainer.appendChild(sep);
-    voteContainer.appendChild(downBtn);
-    contentDiv.appendChild(voteContainer);
-  }
-  
-  const metaDiv = document.createElement('div');
-  metaDiv.className = 'game-meta';
-  
-  const authorSpan = document.createElement('a');
-  authorSpan.className = 'game-author';
-  authorSpan.href = file.authorLink || '#';
-  authorSpan.target = '_blank';
-  authorSpan.innerText = file.author || 'unknown';
-  metaDiv.appendChild(authorSpan);
-  
-  const actionsDiv = document.createElement('div');
-  actionsDiv.className = 'game-actions';
-  
-  if (isRecent && recentTimestamps[file.id]) {
-    const timeSpan = document.createElement('span');
-    timeSpan.className = 'played-time';
-    timeSpan.innerText = formatTimeAgo(recentTimestamps[file.id]);
-    actionsDiv.appendChild(timeSpan);
-    
-    if (isSignedIn) {
-      const removeBtn = document.createElement('span');
-      removeBtn.className = 'remove-recent';
-      removeBtn.innerHTML = '✕';
-      removeBtn.onclick = (e) => {
-        e.stopPropagation();
-        removeFromRecent(file.id);
-      };
-      actionsDiv.appendChild(removeBtn);
-    }
-  }
-  
-  metaDiv.appendChild(actionsDiv);
-  contentDiv.appendChild(metaDiv);
-  
-  const launchBtn = document.createElement('button');
-  launchBtn.className = 'launch-btn';
-  launchBtn.innerText = file.id === 'forum' ? 'join discussion' : (isLocked ? 'locked' : 'launch game');
-  launchBtn.onclick = (e) => { 
-    e.preventDefault();
-    e.stopPropagation(); 
-    if (isLocked) {
-      if (!user) {
-        showToast('🔒 Sign in or continue as guest');
-      } else if (isGuest) {
-        showToast('🔒 Create account for full access');
       }
       showSmartAccountModal();
     } else {
