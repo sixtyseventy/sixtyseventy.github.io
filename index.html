@@ -4,10 +4,10 @@
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/887/887569.png">
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a981b8&is=69a83038&hm=9182bcc523c9ec712b7b0459036c3291fc447a3ab5ba922be015e08c7f12c7c1&=&format=webp&quality=lossless&width=40&height=40">
 <title>PH - Science</title>
-<meta name="title" content="PH Science | █████████ Games">
-<meta name="description" content="Play 700+ █████████ Games during school hours, or work hours!">
+<meta name="title" content="PH Science | Voting System">
+<meta name="description" content="Play 700+ games with working voting systems!">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&display=swap');
@@ -2245,7 +2245,7 @@ footer {
       <span class="pulse-icon">⚠️</span>
     </div>
     <div class="banner-message">
-      <span class="message-text" id="problemMessage">⚠️ We're currently having an issue with signing up.</span>
+      <span class="message-text" id="problemMessage">⚠️ Voting systems are now fully functional!</span>
     </div>
     <div class="banner-actions">
       <button class="banner-btn" onclick="dismissBanner()">Dismiss</button>
@@ -2260,7 +2260,7 @@ footer {
       V2.1.0
     </div>
     <h2 style="margin-top: 1rem;">PH·SCIENCE</h2>
-    <p style="color: var(--text-secondary); font-size: 1rem; margin: 0.5rem 0;">700+ unblocked games</p>
+    <p style="color: var(--text-secondary); font-size: 1rem; margin: 0.5rem 0;">700+ unblocked games with working voting!</p>
     <div style="background: linear-gradient(145deg, rgba(255,107,0,0.1), rgba(0,0,0,0.4)); border: 1px solid var(--border-medium); border-radius: var(--radius-xl); padding: 1rem; margin: 1rem 0;">
       <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
         <div style="text-align: center;">
@@ -2490,6 +2490,10 @@ footer {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 <script>
+// ============================================
+// VOTING SYSTEMS - FULLY FUNCTIONAL
+// ============================================
+
 // Bug fixes and improvements
 (function() {
   // Fix for iOS viewport height issues
@@ -2526,22 +2530,14 @@ footer {
 })();
 
 window.SITE_CONFIG = {
-  mode: 'bad', 
+  mode: 'good', 
   hasProblem: true,
-  problemMessage: "No errors found, please dismiss this message.",
+  problemMessage: "✅ Voting systems are now fully functional! Upvote/downvote any game.",
   bannerColors: {
     stripe1: "#ff6b00", 
     stripe2: "#b84d00" 
   }
 };
-
-if (window.SITE_CONFIG.mode === 'REALLY_FUCKING_BAD') {
-  window.SITE_CONFIG.bannerColors = {
-    stripe1: "#FF0000", 
-    stripe2: "#8B0000" 
-  };
-  window.SITE_CONFIG.problemMessage = "DATA HAS BEEN DELETED BY ACCIDENT.";
-}
 
 // Apply banner colors
 document.addEventListener('DOMContentLoaded', function() {
@@ -2559,10 +2555,10 @@ document.addEventListener('DOMContentLoaded', function() {
         ${window.SITE_CONFIG.bannerColors.stripe2} 20px, 
         ${window.SITE_CONFIG.bannerColors.stripe2} 40px)`;
       
-      // Update banner pulse color based on mode
+      // Update banner pulse color
       const pulseRing = banner.querySelector('.banner-pulse');
       if (pulseRing) {
-        pulseRing.style.background = window.SITE_CONFIG.mode === 'REALLY_FUCKING_BAD' ? '#ff0000' : '#ffffff';
+        pulseRing.style.background = '#ffffff';
       }
     }
     
@@ -2605,16 +2601,27 @@ const forumZone = {
   id: "forum",
   name: "Forums",
   author: "Community",
-  cover: "https://cdn-icons-png.flaticon.com/512/7177/7177378.png",
+  cover: "https://media.discordapp.net/attachments/1246719291517308929/1479061650022727680/image_1.png?ex=69aaab01&is=69a95981&hm=0deadaed3877b789438454fd562b17f78e5cfb151a46b53b322dbb90163601c5&=&format=webp&quality=lossless&width=858&height=858",
   url: "https://ph-science.github.io/forum.html"
 };
 
+// ============================================
+// VOTING SYSTEM - CORE FUNCTIONALITY
+// ============================================
+
 function loadVotes() {
+  // Load all game votes from database
   database.ref('votes').on('value', (snapshot) => {
     gameVotes = snapshot.val() || {};
+    console.log('Votes loaded:', gameVotes);
+    
+    // Load user's personal votes if logged in
     if (auth.currentUser && !auth.currentUser.isAnonymous) {
       database.ref('userVotes/' + auth.currentUser.uid).on('value', (voteSnapshot) => {
         userVotes = voteSnapshot.val() || {};
+        console.log('User votes loaded:', userVotes);
+        
+        // Update all displays
         displayZones(zones);
         displayFavorites();
         displayRecentlyPlayed();
@@ -2625,43 +2632,86 @@ function loadVotes() {
       displayFavorites();
       displayRecentlyPlayed();
     }
+  }, (error) => {
+    console.error('Vote loading error:', error);
+    showToast('⚠️ Vote system connecting...');
   });
 }
 
 window.vote = function(gameId, voteType, event) {
-  event.preventDefault();
-  event.stopPropagation();
+  // Prevent event bubbling
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  console.log(`Vote attempt: ${gameId} - ${voteType}`);
+  
+  // Check authentication
   if (!auth.currentUser || auth.currentUser.isAnonymous) {
     showToast('🔒 Create an account to vote');
     showSmartAccountModal();
     return;
   }
+  
   const userId = auth.currentUser.uid;
   const currentVote = userVotes[gameId];
   const gameVoteData = gameVotes[gameId] || { up: 0, down: 0 };
+  
+  // Calculate new vote counts
   let newUp = gameVoteData.up || 0;
   let newDown = gameVoteData.down || 0;
   let newUserVote = voteType;
   
   if (currentVote === voteType) {
-    if (voteType === 'up') newUp--;
-    if (voteType === 'down') newDown--;
+    // User is removing their vote
+    if (voteType === 'up') newUp = Math.max(0, newUp - 1);
+    if (voteType === 'down') newDown = Math.max(0, newDown - 1);
     newUserVote = null;
+    showToast('🗳️ Vote removed');
   } else if (currentVote && currentVote !== voteType) {
-    if (currentVote === 'up') newUp--;
-    if (currentVote === 'down') newDown--;
+    // User is switching vote
+    if (currentVote === 'up') newUp = Math.max(0, newUp - 1);
+    if (currentVote === 'down') newDown = Math.max(0, newDown - 1);
     if (voteType === 'up') newUp++;
     if (voteType === 'down') newDown++;
+    showToast(voteType === 'up' ? '👍 Switched to upvote!' : '👎 Switched to downvote!');
   } else {
+    // User is casting new vote
     if (voteType === 'up') newUp++;
     if (voteType === 'down') newDown++;
+    showToast(voteType === 'up' ? '👍 Upvoted!' : '👎 Downvoted!');
   }
   
+  console.log(`New counts - Up: ${newUp}, Down: ${newDown}, User vote: ${newUserVote}`);
+  
+  // Update database
   const voteRef = database.ref('votes/' + gameId);
   const userVoteRef = database.ref('userVotes/' + userId + '/' + gameId);
-  voteRef.set({ up: newUp, down: newDown });
-  userVoteRef.set(newUserVote);
-  showToast(newUserVote === null ? '🗳️ vote removed' : voteType === 'up' ? '👍 upvoted!' : '👎 downvoted');
+  
+  // Use Promise.all to ensure both updates complete
+  Promise.all([
+    voteRef.set({ up: newUp, down: newDown }),
+    userVoteRef.set(newUserVote)
+  ]).then(() => {
+    console.log('Vote saved successfully');
+    
+    // Force UI update
+    const updatedGameVotes = { ...gameVotes, [gameId]: { up: newUp, down: newDown } };
+    const updatedUserVotes = { ...userVotes, [gameId]: newUserVote };
+    
+    gameVotes = updatedGameVotes;
+    userVotes = updatedUserVotes;
+    
+    // Refresh displays
+    displayZones(zones);
+    displayFavorites();
+    displayRecentlyPlayed();
+    
+  }).catch((error) => {
+    console.error('Vote save error:', error);
+    showToast('❌ Vote failed - try again');
+  });
 };
 
 function formatTimeAgo(timestamp) {
@@ -2920,7 +2970,7 @@ window.setLockFilter = function(filter) {
   displayZones(zones);
 };
 
-// --- NEW: Game addition notifier & zone diff checker ---
+// Game addition notifier
 let previousZoneIds = new Set();
 
 async function listZones() {
@@ -2930,25 +2980,24 @@ async function listZones() {
     const newZones = json.filter(game => !bannedIds.includes(game.id));
     newZones.unshift(forumZone);
     
-    // Detect added games (compare with previous fetch)
+    // Detect added games
     const newZoneIds = new Set(newZones.map(z => z.id));
     if (previousZoneIds.size > 0) {
       const addedIds = [...newZoneIds].filter(id => !previousZoneIds.has(id) && id !== 'forum');
       if (addedIds.length > 0) {
         const addedGames = newZones.filter(z => addedIds.includes(z.id));
-        // Build notification message
         let message = `New Games Added\n`;
         addedGames.forEach(game => {
           message += `- ${game.name}\n`;
         });
-        showToast(message.trim()); // uses existing toast system
+        showToast(message.trim());
       }
     }
     previousZoneIds = newZoneIds;
 
     zones = newZones;
     
-    // Fix: Properly shuffle and split games for guest access
+    // Shuffle and split games for guest access
     const shuffled = [...zones.filter(z => z.id !== 'forum')].sort(() => 0.5 - Math.random());
     unlockedGames = shuffled.slice(0, Math.floor((zones.length - 1) / 2)).map(g => g.id);
     
@@ -3104,25 +3153,43 @@ function createGameCard(file, isRecent = false) {
   titleRow.appendChild(nameSpan);
   contentDiv.appendChild(titleRow);
   
+  // ============================================
+  // VOTE SECTION - FULLY FUNCTIONAL
+  // ============================================
   if (file.id !== 'forum') {
     const voteContainer = document.createElement('div');
     voteContainer.className = 'vote-section';
+    
+    // Get vote counts (ensure they exist)
     const votes = gameVotes[file.id] || { up: 0, down: 0 };
     const userVote = userVotes[file.id];
     
+    console.log(`Creating vote card for ${file.id}:`, votes, userVote);
+    
+    // Upvote button
     const upBtn = document.createElement('div');
     upBtn.className = 'vote-btn upvote' + (userVote === 'up' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
     upBtn.innerHTML = `👍 <span class="vote-count">${votes.up || 0}</span>`;
-    upBtn.onclick = (e) => vote(file.id, 'up', e);
+    upBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      vote(file.id, 'up', e);
+    };
     
+    // Separator
     const sep = document.createElement('span');
     sep.className = 'vote-separator';
     sep.textContent = '·';
     
+    // Downvote button
     const downBtn = document.createElement('div');
     downBtn.className = 'vote-btn downvote' + (userVote === 'down' ? ' active' : '') + (!isSignedIn ? ' disabled' : '');
     downBtn.innerHTML = `👎 <span class="vote-count">${votes.down || 0}</span>`;
-    downBtn.onclick = (e) => vote(file.id, 'down', e);
+    downBtn.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      vote(file.id, 'down', e);
+    };
     
     voteContainer.appendChild(upBtn);
     voteContainer.appendChild(sep);
@@ -3168,6 +3235,7 @@ function createGameCard(file, isRecent = false) {
   launchBtn.className = 'launch-btn';
   launchBtn.innerText = file.id === 'forum' ? 'join discussion' : (isLocked ? 'locked' : 'launch game');
   launchBtn.onclick = (e) => { 
+    e.preventDefault();
     e.stopPropagation(); 
     if (isLocked) {
       if (!user) {
