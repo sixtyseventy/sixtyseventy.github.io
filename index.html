@@ -146,7 +146,17 @@ body::before {
 
 <script>
 setTimeout(() => {
-    window.location.href = "/Site/index.html"; 
+    const win = window.open("about:blank", "_blank");
+
+    if (win) {
+        win.document.write(`
+            <iframe src="https://ph-science.github.io/site/index.html"
+            style="border:none;width:100vw;height:100vh;"></iframe>
+        `);
+        win.document.close();
+    } else {
+        window.location.href = "https://ph-science.github.io/site/index.html";
+    }
 }, 2500);
 </script>
 
