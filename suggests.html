@@ -1,6 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Changes</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: #000;
+        color: #fff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,0.03) 0px,
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px,
+            transparent 80px
+        );
+        animation: moveBg 20s linear infinite;
+    }
+
+    @keyframes moveBg {
+        from { transform: translateX(0); }
+        to { transform: translateX(-200px); }
+    }
+
+    .container {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        max-width: 800px;
+    }
+
+    .title {
+        font-size: 3rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: lowercase;
+        margin-bottom: 20px;
+        animation: fadeIn 1.5s ease forwards;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.7;
+        letter-spacing: 1px;
+        animation: fadeIn 2.5s ease forwards;
+    }
+
+    .line {
+        width: 120px;
+        height: 2px;
+        background: #fff;
+        margin: 30px auto;
+        opacity: 0.3;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.1; width: 80px; }
+        50% { opacity: 0.6; width: 140px; }
+        100% { opacity: 0.1; width: 80px; }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .glow {
+        text-shadow: 0 0 10px rgba(255,255,255,0.4),
+                     0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .corner {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        font-size: 0.7rem;
+        opacity: 0.3;
+        letter-spacing: 2px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="title glow">revamping aswell.</div>
+    <div class="line"></div>
+    <div class="subtitle">wow sick dude.</div>
+</div>
+
+<div class="corner">i seeee you baby boi</div>
+
+<script>
+function randomString(length = 8) {
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return result;
+}
+
+function updateURL() {
+    const newPath = "/" + randomString(10);
+}
+
+function updateTitle() {
+    document.title = randomString(6) + "..." + randomString(4);
+}
+
+setInterval(() => {
+    updateURL();
+    updateTitle();
+}, 5); 
+</script>
+
+</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
 <base href="https://cdn.jsdelivr.net/gh/gn-math/gn-math.github.io@main/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1007,7 +1155,6 @@ header { top: 0 !important; margin-top: 0.5rem; }
 </div>
 
 <main>
-  <!-- Suggestion Form -->
   <div class="suggestion-container" id="suggestionFormContainer">
     <div class="suggestion-header">
       <h2>💡 submit your idea</h2>
@@ -1047,7 +1194,6 @@ header { top: 0 !important; margin-top: 0.5rem; }
     </div>
   </div>
 
-  <!-- Suggestions List Vault -->
   <div class="vault" id="suggestionsVault">
     <div class="vault-header" onclick="toggleVault('suggestionsVault')">
       <div class="vault-header-left">
@@ -1830,3 +1976,4 @@ console.log('PH·SUGGEST loaded with Firebase');
 </script>
 </body>
 </html>
+-->

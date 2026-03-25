@@ -3,144 +3,151 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Under Changes</title>
+<title>redirecting...</title>
 
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Inter", "Segoe UI", sans-serif;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", "Segoe UI", sans-serif;
+}
 
-    body {
-        background: #000;
-        color: #fff;
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+body {
+    background: #000;
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    body::before {
-        content: "";
-        position: absolute;
-        width: 200%;
-        height: 200%;
-        background: repeating-linear-gradient(
-            90deg,
-            rgba(255,255,255,0.03) 0px,
-            rgba(255,255,255,0.03) 1px,
-            transparent 1px,
-            transparent 80px
-        );
-        animation: moveBg 20s linear infinite;
-    }
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 80px
+    );
+    animation: moveBg 20s linear infinite;
+}
 
-    @keyframes moveBg {
-        from { transform: translateX(0); }
-        to { transform: translateX(-200px); }
-    }
+@keyframes moveBg {
+    from { transform: translateX(0); }
+    to { transform: translateX(-200px); }
+}
 
-    .container {
-        text-align: center;
-        z-index: 2;
-        position: relative;
-        max-width: 800px;
-    }
+.container {
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    max-width: 800px;
+}
 
-    .title {
-        font-size: 3rem;
-        font-weight: 600;
-        letter-spacing: 2px;
-        text-transform: lowercase;
-        margin-bottom: 20px;
-        animation: fadeIn 1.5s ease forwards;
-    }
+.title {
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s ease forwards;
+}
 
-    .subtitle {
-        font-size: 1.2rem;
-        opacity: 0.7;
-        letter-spacing: 1px;
-        animation: fadeIn 2.5s ease forwards;
-    }
+.subtitle {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    animation: fadeIn 2.5s ease forwards;
+}
 
-    .line {
-        width: 120px;
-        height: 2px;
-        background: #fff;
-        margin: 30px auto;
-        opacity: 0.3;
-        animation: pulse 2s infinite;
-    }
+.line {
+    width: 120px;
+    height: 2px;
+    background: #fff;
+    margin: 30px auto;
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+}
 
-    @keyframes pulse {
-        0% { opacity: 0.1; width: 80px; }
-        50% { opacity: 0.6; width: 140px; }
-        100% { opacity: 0.1; width: 80px; }
-    }
+@keyframes pulse {
+    0% { opacity: 0.1; width: 80px; }
+    50% { opacity: 0.6; width: 140px; }
+    100% { opacity: 0.1; width: 80px; }
+}
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
     }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    .glow {
-        text-shadow: 0 0 10px rgba(255,255,255,0.4),
-                     0 0 20px rgba(255,255,255,0.2);
-    }
+.glow {
+    text-shadow: 0 0 10px rgba(255,255,255,0.4),
+                 0 0 20px rgba(255,255,255,0.2);
+}
 
-    .corner {
-        position: absolute;
-        bottom: 20px;
-        right: 30px;
-        font-size: 0.7rem;
-        opacity: 0.3;
-        letter-spacing: 2px;
-    }
+.corner {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 0.7rem;
+    opacity: 0.3;
+    letter-spacing: 2px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn:hover {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.4),
+                0 0 20px rgba(255,255,255,0.2);
+    transform: scale(1.05);
+}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-    <div class="title glow">website under changes.</div>
+    <div class="title glow">redirecting...</div>
     <div class="line"></div>
-    <div class="subtitle">it's going to be huge.</div>
+    <div class="subtitle">reverted to old version / testing version</div>
+
+    <a href="https://discord.gg/xYdk28ygVK" target="_blank" class="btn">
+        discord
+    </a>
 </div>
 
-<div class="corner">i seeee you baby boi</div>
+<div class="corner">should join the discord lowkey, if you see this, you should join the discord, oh and btw if you see this you should join the discord, oh hey</div>
 
 <script>
-function randomString(length = 8) {
-    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-        result += chars[Math.floor(Math.random() * chars.length)];
-    }
-    return result;
-}
-
-function updateURL() {
-    const newPath = "/" + randomString(10);
-    history.replaceState(null, "", newPath);
-}
-
-function updateTitle() {
-    document.title = randomString(6) + "..." + randomString(4);
-}
-
-setInterval(() => {
-    updateURL();
-    updateTitle();
-}, 5); 
+setTimeout(() => {
+    window.location.href = "/Site/index.html"; 
+}, 2500);
 </script>
 
 </body>

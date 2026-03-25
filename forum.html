@@ -3,6 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Changes</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: #000;
+        color: #fff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    body::before {
+        content: "";
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        background: repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,0.03) 0px,
+            rgba(255,255,255,0.03) 1px,
+            transparent 1px,
+            transparent 80px
+        );
+        animation: moveBg 20s linear infinite;
+    }
+
+    @keyframes moveBg {
+        from { transform: translateX(0); }
+        to { transform: translateX(-200px); }
+    }
+
+    .container {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        max-width: 800px;
+    }
+
+    .title {
+        font-size: 3rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: lowercase;
+        margin-bottom: 20px;
+        animation: fadeIn 1.5s ease forwards;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.7;
+        letter-spacing: 1px;
+        animation: fadeIn 2.5s ease forwards;
+    }
+
+    .line {
+        width: 120px;
+        height: 2px;
+        background: #fff;
+        margin: 30px auto;
+        opacity: 0.3;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.1; width: 80px; }
+        50% { opacity: 0.6; width: 140px; }
+        100% { opacity: 0.1; width: 80px; }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .glow {
+        text-shadow: 0 0 10px rgba(255,255,255,0.4),
+                     0 0 20px rgba(255,255,255,0.2);
+    }
+
+    .corner {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        font-size: 0.7rem;
+        opacity: 0.3;
+        letter-spacing: 2px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="title glow">revamping aswell.</div>
+    <div class="line"></div>
+    <div class="subtitle">wow sick dude.</div>
+</div>
+
+<div class="corner">i seeee you baby boi</div>
+
+<script>
+function randomString(length = 8) {
+    const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        result += chars[Math.floor(Math.random() * chars.length)];
+    }
+    return result;
+}
+
+function updateURL() {
+    const newPath = "/" + randomString(10);
+}
+
+function updateTitle() {
+    document.title = randomString(6) + "..." + randomString(4);
+}
+
+setInterval(() => {
+    updateURL();
+    updateTitle();
+}, 5); 
+</script>
+
+</body>
+</html>
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a981b8&is=69a83038&hm=9182bcc523c9ec712b7b0459036c3291fc447a3ab5ba922be015e08c7f12c7c1&=&format=webp&quality=lossless&width=40&height=40">
 <link rel="apple-touch-icon" href="https://media.discordapp.net/attachments/1246719291517308929/1478561249032798268/New_Project_3.png?ex=69a981b8&is=69a83038&hm=9182bcc523c9ec712b7b0459036c3291fc447a3ab5ba922be015e08c7f12c7c1&=&format=webp&quality=lossless&width=40&height=40">
 <title>PH - Science | Forum</title>
@@ -3053,7 +3203,6 @@ header {
 </head>
 <body>
 
-<!-- Account Modals -->
 <div class="account-modal" id="accountModal">
   <div class="modal-content" id="accountModalContent">
     <button class="modal-close-btn" onclick="closeAllModals()">✕</button>
@@ -3100,7 +3249,6 @@ header {
   </div>
 </div>
 
-<!-- Message Modal -->
 <div class="message-modal" id="messageModal">
   <div class="message-modal-content">
     <button class="modal-close" onclick="closeMessageModal()">✕</button>
@@ -3131,7 +3279,6 @@ header {
   </div>
 </div>
 
-<!-- Conversation View -->
 <div class="conversation-view" id="conversationView">
   <div class="conversation-header">
     <button class="conversation-back" onclick="closeConversation()">←</button>
@@ -3152,7 +3299,6 @@ header {
   </div>
 </div>
 
-<!-- Community Management Modal -->
 <div class="community-manage-modal" id="communityManageModal">
   <div class="community-manage-content">
     <button class="modal-close" onclick="closeCommunityManageModal()">✕</button>
@@ -3178,7 +3324,6 @@ header {
   </div>
 </div>
 
-<!-- Notifications Panel -->
 <div class="notifications-panel" id="notificationsPanel">
   <div class="notifications-header">
     <h3>notifications</h3>
@@ -3192,7 +3337,6 @@ header {
 <header>
   <div class="header-content">
     <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;">
-      <!-- Return link -->
       <a href="https://ph-science.github.io" class="return-link">← Return to PH - Science</a>
       <span class="logo" onclick="showView('forum')">PH Forums</span>
     </div>
@@ -3213,7 +3357,6 @@ header {
   </div>
 </header>
 
-<!-- Communities Sidebar -->
 <div class="communities-sidebar">
   <h3>
     communities
@@ -3233,7 +3376,6 @@ header {
   </button>
 </div>
 
-<!-- Messages Panel -->
 <div class="messages-panel">
   <h3>
     messages
@@ -3268,7 +3410,6 @@ header {
   </div>
 </div>
 
-<!-- Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
 
 <div class="main-content">
@@ -5756,3 +5897,4 @@ showView('forum');
 </script>
 </body>
 </html>
+-->
