@@ -6,164 +6,61 @@
 <title>PH-Science | END</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --accent: #00d4d4;
-  --glass: rgba(0,0,0,0.68);
-  --border: rgba(255,255,255,0.18);
-}
+:root { --accent: #00d4d4; --glass: rgba(0,0,0,0.68); --border: rgba(255,255,255,0.18); }
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family:'DM Sans',sans-serif;
-  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat fixed;
-  color:#fff;
-  overflow-x:hidden;
-  line-height:1.7;
+body { 
+  font-family:'DM Sans',sans-serif; 
+  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat fixed; 
+  color:#fff; 
+  overflow-x:hidden; 
+  line-height:1.7; 
 }
-
-.overlay {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.2);
-  z-index:1;
+.overlay { 
+  position:fixed; 
+  inset:0; 
+  background:rgba(0,0,0,0.04); /* super light now */
+  z-index:1; 
 }
-
-#stars-canvas {
-  position:fixed;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  opacity:0.85;
-}
-
-.container {
-  position:relative;
-  z-index:10;
-  max-width:1120px;
-  margin:auto;
-  padding:80px 20px 120px;
-  text-align:center;
-}
-.logo {
-  font-family:'Syne';
-  font-size:clamp(3.4rem,9.5vw,7.4rem);
-  font-weight:800;
-  letter-spacing:-4px;
-  background:linear-gradient(90deg,#fff,#77ebeb,#00d4d4);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:14px;
-}
-.tag {
-  margin-top:16px;
-  padding:14px 32px;
-  border-radius:999px;
-  color:var(--accent);
-  border:1px solid rgba(0,212,212,0.55);
-  display:inline-block;
-  font-weight:700;
-  font-size:clamp(1.05rem,4vw,1.28rem);
-  letter-spacing:3px;
-}
-
+#stars-canvas { position:fixed; inset:0; z-index:2; pointer-events:none; opacity:0.75; } /* pulled back */
+.container { position:relative; z-index:10; max-width:1120px; margin:auto; padding:80px 20px 120px; text-align:center; }
+.logo { font-family:'Syne'; font-size:clamp(3.4rem,9.5vw,7.4rem); font-weight:800; letter-spacing:-4px; background:linear-gradient(90deg,#fff,#77ebeb,#00d4d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:14px; }
+.tag { margin-top:16px; padding:14px 32px; border-radius:999px; color:var(--accent); border:1px solid rgba(0,212,212,0.55); display:inline-block; font-weight:700; font-size:clamp(1.05rem,4vw,1.28rem); letter-spacing:3px; }
 .grid { display:flex; gap:36px; margin-top:70px; flex-wrap:wrap; justify-content:center; }
-.card {
-  flex:1; min-width:280px; max-width:540px;
-  background:var(--glass); 
-  border:1px solid var(--border);
-  border-radius:28px; 
-  padding:clamp(32px,6vw,46px);
-  text-align:left; 
-  backdrop-filter:blur(24px);
-  transition:.5s cubic-bezier(0.23,1,0.32,1);
-}
+.card { flex:1; min-width:280px; max-width:540px; background:var(--glass); border:1px solid var(--border); border-radius:28px; padding:clamp(32px,6vw,46px); text-align:left; backdrop-filter:blur(24px); transition:.5s cubic-bezier(0.23,1,0.32,1); }
 .card:hover { transform:translateY(-12px); }
 .card h2 { color:var(--accent); margin-bottom:24px; font-family:'Syne'; font-size:clamp(1.7rem,5vw,2rem); }
-
-.faq-question {
-  width:100%; text-align:left; padding:18px 24px; border-radius:16px;
-  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);
-  color:#fff; font-family:'Syne'; cursor:pointer; font-size:1.08rem;
-  transition:.3s; margin-bottom:8px;
-}
+.faq-question { width:100%; text-align:left; padding:18px 24px; border-radius:16px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#fff; font-family:'Syne'; cursor:pointer; font-size:1.08rem; transition:.3s; margin-bottom:8px; }
 .faq-question:hover { background:rgba(0,212,212,0.18); }
 .faq-answer { max-height:0; overflow:hidden; opacity:0; transition:all .45s ease; padding:0 24px; color:rgba(255,255,255,0.92); }
 .faq-item.active .faq-answer { max-height:380px; opacity:1; padding-top:20px; }
-
-.signature {
-  margin-top:90px;
-  font-family:'Comic Sans MS', cursive;
-  font-size:clamp(2.1rem,7vw,2.9rem);
-  line-height:1.1;
-  color:#77ebeb;
-  text-shadow:0 6px 30px rgba(0,0,0,0.85);
-  letter-spacing:-1px;
-}
-
+.signature { margin-top:90px; font-family:'Comic Sans MS', cursive; font-size:clamp(2.1rem,7vw,2.9rem); line-height:1.1; color:#77ebeb; text-shadow:0 6px 30px rgba(0,0,0,0.85); letter-spacing:-1px; }
 .projects { margin-top:60px; }
-.btn {
-  padding:18px 48px; margin:10px; border-radius:18px;
-  background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.32);
-  color:#fff; font-family:'Syne'; font-size:1.15rem;
-  cursor:pointer; transition:.45s; min-width:160px; touch-action:manipulation;
-}
+.btn { padding:18px 48px; margin:10px; border-radius:18px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.32); color:#fff; font-family:'Syne'; font-size:1.15rem; cursor:pointer; transition:.45s; min-width:160px; touch-action:manipulation; }
 .btn:hover, .btn:active { background:#fff; color:#000; transform:translateY(-6px) scale(1.04); }
-
 .footer { margin-top:60px; font-size:0.95rem; opacity:0.4; }
-
-/* MUSIC BUTTON */
-#music-toggle {
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  z-index:100;
-  width:52px;
-  height:52px;
-  background:rgba(0,212,212,0.18);
-  border:2px solid #00d4d4;
-  color:#00d4d4;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.4rem;
-  cursor:pointer;
-  backdrop-filter:blur(12px);
-  transition:.3s;
-}
+#music-toggle { position:fixed; bottom:25px; right:25px; z-index:100; width:52px; height:52px; background:rgba(0,212,212,0.18); border:2px solid #00d4d4; color:#00d4d4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; cursor:pointer; backdrop-filter:blur(12px); transition:.3s; }
 #music-toggle:hover { background:rgba(0,212,212,0.35); transform:scale(1.1); }
-
-@media (max-width: 768px) {
-  .container { padding:60px 16px 100px; }
-  .grid { gap:24px; margin-top:50px; }
-  .card { padding:32px 28px; }
-  .signature { margin-top:70px; }
-  .projects { margin-top:50px; }
-  .btn { padding:16px 36px; font-size:1.08rem; }
-  #music-toggle { bottom:20px; right:20px; width:48px; height:48px; font-size:1.3rem; }
-}
 </style>
 </head>
 <body>
 <canvas id="stars-canvas"></canvas>
 <div class="overlay"></div>
-
 <div class="container">
   <div class="logo">PH-SCIENCE</div>
   <div class="tag">THE END</div>
-
   <div class="grid">
     <div class="card">
       <h2>Shutdown Notice</h2>
-      <p><strong>ph-science is shutting down</strong></p>
-      <p>We’ve made the tough decision to shut down ph-science for good.</p>
-      <p>This wasn’t easy. Not long ago, the game supplier made some big changes, especially locking down their JSON files and APIs. Because of that, we can’t keep the platform working the way it’s supposed to, and we’re not able to update or improve it anymore. So, we’ve decided to officially end development.</p>
-      <p>We know this sucks. ph-science wasn’t just a project—it was a place where people could explore, learn, and hang out. What made it special was the community behind it.</p>
-      <p>Even though this is the end of ph-science, we’re not done creating. We’re now working on something new: a movie site. The goal is to build a fresh experience with new ways to be creative and connect. We’ll share more about it soon.</p>
-      <p>There’s also a chance the forums might come back later, possibly with new features like image sharing, voice messages, and better ways to interact. Nothing is confirmed yet, but it’s something we’re considering.</p>
-      <p>Thank you to everyone who was part of this. Whether you helped build it, joined conversations, or just spent time on the site—you made it what it was. That really meant a lot to us.</p>
-      <p>It’s kind of crazy to think about—ph-science only started on March 4 and ended on April 15. It didn’t last long, but it still meant something.</p>
+      <p><strong>ph-science is closing permanently</strong></p>
+      <p>Unfortunately, we have reached a difficult decision regarding ph-science closure.</p>
+      <p>In recent months, the game provider introduced drastic changes which resulted in locking access to their JSON files and APIs. This prevents any further work in order to maintain and expand the website's functionality.</p>
+      <p>Therefore, we will be ceasing our development activities and closing ph-science down for good.</p>
+      <p>It goes without saying that this decision will have its cons – we had fun exploring, chatting, and making games at ph-science. It provided a unique opportunity to socialize and enjoy the company. Of course, all this would not be possible without the community.</p>
+      <p>While ph-science is coming to an end, the development is not stopping. We currently focus our efforts on creating another project – a movie site with innovative functionality and creative possibilities.</p>
+      <p>Moreover, there's a possibility of reopening the ph-science forums sometime in the future along with the additional features such as image upload, voice messaging and improved communication.</p>
+      <p>Thanks to all those people who participated in building ph-science community in any form – you made this platform unique in its essence.</p>
+      <p>It's strange to think how fast everything happened – ph-science started on March 4 and ended on April 15, 2026. Short but real.</p>
     </div>
-
     <div class="card">
       <h2>Questions & Answers</h2>
       <div class="faq">
@@ -176,113 +73,53 @@ body {
       </div>
     </div>
   </div>
-
   <div class="signature">i hate being bi-polar, its awesome</div>
-
   <div class="projects">
     <button class="btn" onclick="alert('Forums — Coming in new project')">Forums</button>
     <button class="btn" onclick="alert('Movies dropping soon')">Movies</button>
   </div>
-
   <div class="footer">March 4 — April 15, 2026</div>
 </div>
 
 <audio id="bg-music" loop>
   <source src="Music/All Dreams Real.mp3" type="audio/mpeg">
+  <source src="https://cdn.glitch.global/8f8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f/all-dreams-real.mp3" type="audio/mpeg">
 </audio>
-
 <div id="music-toggle" onclick="toggleMusic()">▶</div>
 
 <script>
-// Stars with trails
+// Stars tuned lighter
 const canvas = document.getElementById('stars-canvas');
 const ctx = canvas.getContext('2d');
 let width, height;
+function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+class Star { constructor() { this.reset(); this.trail = []; } reset() { this.x = Math.random() * width; this.y = Math.random() * height * 0.6; this.size = Math.random() * 2 + 0.7; this.speed = Math.random() * 2 + 0.9; this.opacity = Math.random() * 0.7 + 0.5; this.twinkle = Math.random() * 0.05 + 0.02; this.trail = []; } update() { this.trail.push({x: this.x, y: this.y}); if (this.trail.length > 14) this.trail.shift(); this.y += this.speed; this.opacity = 0.5 + Math.sin(Date.now() * this.twinkle) * 0.5; if (this.y > height + 50) this.reset(); } draw() { ctx.strokeStyle = 'rgba(120, 240, 255, 0.25)'; ctx.lineWidth = this.size * 0.8; ctx.lineCap = 'round'; ctx.shadowBlur = 10; ctx.shadowColor = '#66e0e0'; ctx.beginPath(); for (let i = 0; i < this.trail.length; i++) { const p = this.trail[i]; ctx.globalAlpha = (i / this.trail.length) * 0.4; if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); } ctx.stroke(); ctx.globalAlpha = 1; ctx.fillStyle = `rgba(200,255,255,${this.opacity})`; ctx.shadowBlur = 15; ctx.shadowColor = '#00ffff'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }}
+const stars = []; const starCount = window.innerWidth < 768 ? 110 : 180; for (let i = 0; i < starCount; i++) stars.push(new Star());
+function animate() { ctx.fillStyle = 'rgba(0,0,0,0.09)'; ctx.fillRect(0, 0, width, height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); } animate();
 
-function resize() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-class Star {
-  constructor() { this.reset(); this.trail = []; }
-  reset() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height * 0.6;
-    this.size = Math.random() * 2 + 0.7;
-    this.speed = Math.random() * 2 + 0.9;
-    this.opacity = Math.random() * 0.7 + 0.5;
-    this.twinkle = Math.random() * 0.05 + 0.02;
-    this.trail = [];
-  }
-  update() {
-    this.trail.push({x: this.x, y: this.y});
-    if (this.trail.length > 14) this.trail.shift();
-    this.y += this.speed;
-    this.opacity = 0.5 + Math.sin(Date.now() * this.twinkle) * 0.5;
-    if (this.y > height + 50) this.reset();
-  }
-  draw() {
-    ctx.strokeStyle = 'rgba(120, 240, 255, 0.3)';
-    ctx.lineWidth = this.size * 0.8;
-    ctx.lineCap = 'round';
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = '#66e0e0';
-    ctx.beginPath();
-    for (let i = 0; i < this.trail.length; i++) {
-      const p = this.trail[i];
-      ctx.globalAlpha = (i / this.trail.length) * 0.55;
-      if (i === 0) ctx.moveTo(p.x, p.y);
-      else ctx.lineTo(p.x, p.y);
-    }
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    
-    ctx.fillStyle = `rgba(200,255,255,${this.opacity})`;
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = '#00ffff';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-const stars = [];
-const starCount = window.innerWidth < 768 ? 110 : 180;
-for (let i = 0; i < starCount; i++) stars.push(new Star());
-
-function animate() {
-  ctx.fillStyle = 'rgba(0,0,0,0.18)';
-  ctx.fillRect(0, 0, width, height);
-  stars.forEach(s => { s.update(); s.draw(); });
-  requestAnimationFrame(animate);
-}
-animate();
-
-// Music
+// Music locked
 const music = document.getElementById('bg-music');
 const toggleBtn = document.getElementById('music-toggle');
 
-function toggleMusic() {
-  if (music.paused) {
-    music.play();
-    toggleBtn.textContent = '❚❚';
-  } else {
-    music.pause();
-    toggleBtn.textContent = '▶';
-  }
+function unlockAndPlay() {
+  music.volume = 0.55;
+  music.play().catch(() => {});
+  document.removeEventListener('touchstart', unlockAndPlay);
+  document.removeEventListener('click', unlockAndPlay);
 }
 
-music.volume = 0.35;
+function toggleMusic() {
+  if (music.paused) { music.play(); toggleBtn.textContent = '❚❚'; }
+  else { music.pause(); toggleBtn.textContent = '▶'; }
+}
+
+document.addEventListener('touchstart', unlockAndPlay, { once: true });
+document.addEventListener('click', unlockAndPlay, { once: true });
 music.play().catch(() => {});
 
 document.querySelectorAll(".faq-question").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const item = btn.parentElement;
-    item.classList.toggle("active");
-  });
+  btn.addEventListener("click", () => { btn.parentElement.classList.toggle("active"); });
 });
 </script>
 </body>
