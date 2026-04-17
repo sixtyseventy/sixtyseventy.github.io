@@ -3,151 +3,382 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>redirecting...</title>
+<title>PH-Science | END</title>
+<link rel="icon" type="image/png" href="https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/64faebde7272982ba5193682_93.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --accent: #ff3366;
+  --glass: rgba(255,255,255,0.055);
+  --border: rgba(255,255,255,0.14);
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Inter", "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background: #000;
-    color: #fff;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-body::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,0.03) 0px,
-        rgba(255,255,255,0.03) 1px,
-        transparent 1px,
-        transparent 80px
-    );
-    animation: moveBg 20s linear infinite;
+/* =======================
+   AURORA BACKGROUND
+======================= */
+
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
 }
 
-@keyframes moveBg {
-    from { transform: translateX(0); }
-    to { transform: translateX(-200px); }
+/* aurora blobs */
+.blob {
+  position: absolute;
+  width: 750px;
+  height: 750px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+
+  /* IMPORTANT: smoother motion */
+  animation: float 551s ease-in-out infinite alternate;
+  will-change: transform;
 }
+
+/* different colors */
+.blob.one { background: #ff3366; top: -200px; left: -200px; }
+.blob.two { background: #6a5cff; bottom: -250px; right: -200px; animation-delay: -6s; }
+.blob.three { background: #00e0ff; top: 40%; left: 55%; animation-delay: -12s; }
+
+@keyframes float {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  5% {
+    transform: translate(40px, -30px) scale(1.05);
+  }
+  15% {
+    transform: translate(-30px, 25px) scale(1.02);
+  }
+  25% {
+    transform: translate(30px, 20px) scale(1.08);
+  }
+  35% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* softer depth overlay (IMPORTANT FIX) */
+.bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 40%,
+      transparent 0%,
+      rgba(0,0,0,0.35) 55%,
+      rgba(0,0,0,0.78) 100%);
+}
+
+/* =======================
+   STARS
+======================= */
+
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(circle, transparent 35%, rgba(0,0,0,0.92) 100%);
+}
+
+/* =======================
+   MAIN
+======================= */
 
 .container {
-    text-align: center;
-    z-index: 2;
-    position: relative;
-    max-width: 800px;
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: auto;
+  padding: 70px 20px 120px;
+  text-align: center;
 }
 
-.title {
-    font-size: 3rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: lowercase;
-    margin-bottom: 20px;
-    animation: fadeIn 1.5s ease forwards;
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 900;
+  background: linear-gradient(90deg, #fff, #ff99aa, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 6s ease-in-out infinite;
 }
 
-.subtitle {
-    font-size: 1.2rem;
-    opacity: 0.7;
-    letter-spacing: 1px;
-    margin-bottom: 25px;
-    animation: fadeIn 2.5s ease forwards;
+@keyframes glow {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.8); }
 }
 
-.line {
-    width: 120px;
-    height: 2px;
-    background: #fff;
-    margin: 30px auto;
-    opacity: 0.3;
-    animation: pulse 2s infinite;
+.tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 32px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  background: rgba(255,51,102,0.1);
+  border: 1px solid rgba(255,51,102,0.35);
+  backdrop-filter: blur(16px);
 }
 
-@keyframes pulse {
-    0% { opacity: 0.1; width: 80px; }
-    50% { opacity: 0.6; width: 140px; }
-    100% { opacity: 0.1; width: 80px; }
+.grid {
+  display: flex;
+  gap: 26px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.card {
+  flex: 1;
+  min-width: 320px;
+  max-width: 520px;
+
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 26px;
+
+  padding: 44px 40px;
+  text-align: left;
+
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  transition: 0.35s ease;
 }
 
-.glow {
-    text-shadow: 0 0 10px rgba(255,255,255,0.4),
-                 0 0 20px rgba(255,255,255,0.2);
+.card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255,153,170,0.4);
 }
 
-.corner {
-    position: absolute;
-    bottom: 20px;
-    right: 30px;
-    font-size: 0.7rem;
-    opacity: 0.3;
-    letter-spacing: 2px;
+.card h2 {
+  font-family: 'Syne', sans-serif;
+  color: #ff99aa;
+  margin-bottom: 16px;
+}
+
+.card p {
+  margin-bottom: 1.1em;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.7;
+}
+
+.signature {
+  margin-top: 90px;
+  text-align: center;
+}
+
+.signature-text {
+  font-size: 2.1rem;
+  font-family: cursive;
+  transform: rotate(-2deg);
+  text-shadow: 0 0 18px rgba(255,51,102,0.35);
+}
+
+.signature-line {
+  width: 300px;
+  height: 2px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, transparent, #ff3366, transparent);
+  animation: flicker 2.2s infinite;
+}
+
+@keyframes flicker {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.projects {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 60px;
+  flex-wrap: wrap;
 }
 
 .btn {
-    display: inline-block;
-    padding: 12px 26px;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    text-transform: lowercase;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+  padding: 18px 46px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: 0.3s;
 }
 
 .btn:hover {
-    border-color: #fff;
-    box-shadow: 0 0 10px rgba(255,255,255,0.4),
-                0 0 20px rgba(255,255,255,0.2);
-    transform: scale(1.05);
+  transform: translateY(-10px);
+  background: #fff;
+  color: #000;
+}
+
+.footer {
+  margin-top: 60px;
+  color: rgba(255,255,255,0.3);
+  font-size: 0.85rem;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="title glow">redirecting...</div>
-    <div class="line"></div>
-    <div class="subtitle">reverted to old version / testing version</div>
-
-    <a href="https://discord.gg/xYdk28ygVK" target="_blank" class="btn">
-        discord
-    </a>
+<div class="bg">
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
 </div>
 
-<div class="corner">should join the discord lowkey, if you see this, you should join the discord, oh and btw if you see this you should join the discord, oh hey</div>
+<canvas id="stars"></canvas>
+<div class="vignette"></div>
+
+<div class="container">
+
+  <div class="logo">SCIENCE</div>
+  <div class="tag">THE END</div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>Shutdown Notice</h2>
+ <p><strong>ph-science will officially be shutting down permanently</strong></p>
+    
+    <p>After a long period of development, updates, and support from the community. This decision wasn’t made lightly. Due to major changes from the game supplier—especially the privatization of their JSON files and APIs—the platform is no longer able to function in the way it was originally designed. These changes have made it impossible to maintain key features and continue improving the experience. Because of this, development on the current version has officially come to an end.</p>
+    
+    <p>We understand that this may come as disappointing news. ph-science has been more than just a project—it’s been a place where people explored, learned, and connected. Every update, feature, and discussion was shaped by the people who used it, and that made it something truly special.</p>
+    
+    <p>Looking ahead, the focus will now shift to a new and exciting direction. The only active project moving forward will be an upcoming movie site, which aims to bring a fresh experience and new opportunities for creativity and engagement. More details about this project will be shared over time.</p>
+    
+    <p>There is also a possibility that the forums could return in the future. If they do, they may include new and improved features such as image sharing, voice recordings, and additional ways to communicate and collaborate with others across different classes and communities. While nothing is guaranteed yet, the idea is still being considered.</p>
+    
+    <p>Thank you to everyone who has been part of this journey. Whether you contributed, participated in discussions, or simply spent time on the platform, you helped make it what it was. Your support, feedback, and presence meant a lot and will not be forgotten.</p>
+    </div>
+
+    <div class="card">
+      <h2>Data Deletion</h2>
+      <p><strong>All data has been permanently erased.</strong></p>
+      <p>- Emails & accounts</p>
+      <p>- Posts, messages, uploads</p>
+      <p>- Votes, favorites</p>
+      <p>- Sessions & cookies</p>
+    </div>
+
+  </div>
+
+  <div class="signature">
+    <div class="signature-text">
+      i hate being bi-polar, its awesome
+    </div>
+    <div class="signature-line"></div>
+  </div>
+
+  <div class="projects">
+    <button class="btn">Forums ⏳</button>
+    <button class="btn">Movies ⏳</button>
+  </div>
+
+  <div class="footer">March 4 — April 15</div>
+
+</div>
 
 <script>
-setTimeout(() => {
-    window.location.href = "/Site/index.html"; 
-}, 2500);
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+let w, h;
+
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+
+class Star {
+  constructor() { this.reset(); }
+
+  reset() {
+    this.x = Math.random() * w;
+    this.y = Math.random() * h - h;
+    this.size = Math.random() * 1.6 + 0.5;
+    this.speed = Math.random() * 1.2 + 0.3;
+    this.alpha = Math.random() * 0.6 + 0.2;
+  }
+
+  update() {
+    this.y += this.speed;
+    if (this.y > h) {
+      this.x = Math.random() * w;
+      this.y = -10;
+    }
+  }
+
+  draw() {
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(this.x, this.y, this.size, this.size);
+  }
+}
+
+function init() {
+  stars = [];
+  for (let i = 0; i < 260; i++) stars.push(new Star());
+}
+
+function animate() {
+  ctx.fillStyle = "rgba(0,0,0,0.25)";
+  ctx.fillRect(0, 0, w, h);
+
+  for (let s of stars) {
+    s.update();
+    s.draw();
+  }
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", () => {
+  resize();
+  init();
+});
+
+resize();
+init();
+animate();
 </script>
 
 </body>
