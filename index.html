@@ -3,123 +3,418 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PH-Science | END</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>PH-Science | THE END</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-:root { --accent: #00d4d4; --glass: rgba(0,0,0,0.68); --border: rgba(255,255,255,0.18); }
+:root {
+  --accent:  #00e5e5;
+  --accent2: #7af4f4;
+  --glass:   rgba(8, 16, 24, 0.42);
+  --glass2:  rgba(0, 229, 229, 0.07);
+  --border:  rgba(255,255,255,0.14);
+  --border-accent: rgba(0,229,229,0.35);
+  --text:    rgba(255,255,255,0.92);
+  --muted:   rgba(255,255,255,0.55);
+}
+
 * { margin:0; padding:0; box-sizing:border-box; }
-body { 
-  font-family:'DM Sans',sans-serif; 
-  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat fixed; 
-  color:#fff; 
-  overflow-x:hidden; 
-  line-height:1.7; 
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.75;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.28) 0%,
+      rgba(0,0,0,0.08) 35%,
+      rgba(0,0,0,0.28) 100%
+    ),
+    url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1920&q=90')
+    center / cover no-repeat fixed;
+  min-height: 100vh;
 }
-.overlay { 
-  position:fixed; 
-  inset:0; 
-  background:rgba(0,0,0,0.04); /* super light now */
-  z-index:1; 
+
+#stars-canvas {
+  position: fixed; inset: 0; z-index: 1;
+  pointer-events: none; opacity: 0.50;
 }
-#stars-canvas { position:fixed; inset:0; z-index:2; pointer-events:none; opacity:0.75; } /* pulled back */
-.container { position:relative; z-index:10; max-width:1120px; margin:auto; padding:80px 20px 120px; text-align:center; }
-.logo { font-family:'Syne'; font-size:clamp(3.4rem,9.5vw,7.4rem); font-weight:800; letter-spacing:-4px; background:linear-gradient(90deg,#fff,#77ebeb,#00d4d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:14px; }
-.tag { margin-top:16px; padding:14px 32px; border-radius:999px; color:var(--accent); border:1px solid rgba(0,212,212,0.55); display:inline-block; font-weight:700; font-size:clamp(1.05rem,4vw,1.28rem); letter-spacing:3px; }
-.grid { display:flex; gap:36px; margin-top:70px; flex-wrap:wrap; justify-content:center; }
-.card { flex:1; min-width:280px; max-width:540px; background:var(--glass); border:1px solid var(--border); border-radius:28px; padding:clamp(32px,6vw,46px); text-align:left; backdrop-filter:blur(24px); transition:.5s cubic-bezier(0.23,1,0.32,1); }
-.card:hover { transform:translateY(-12px); }
-.card h2 { color:var(--accent); margin-bottom:24px; font-family:'Syne'; font-size:clamp(1.7rem,5vw,2rem); }
-.faq-question { width:100%; text-align:left; padding:18px 24px; border-radius:16px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2); color:#fff; font-family:'Syne'; cursor:pointer; font-size:1.08rem; transition:.3s; margin-bottom:8px; }
-.faq-question:hover { background:rgba(0,212,212,0.18); }
-.faq-answer { max-height:0; overflow:hidden; opacity:0; transition:all .45s ease; padding:0 24px; color:rgba(255,255,255,0.92); }
-.faq-item.active .faq-answer { max-height:380px; opacity:1; padding-top:20px; }
-.signature { margin-top:90px; font-family:'Comic Sans MS', cursive; font-size:clamp(2.1rem,7vw,2.9rem); line-height:1.1; color:#77ebeb; text-shadow:0 6px 30px rgba(0,0,0,0.85); letter-spacing:-1px; }
-.projects { margin-top:60px; }
-.btn { padding:18px 48px; margin:10px; border-radius:18px; background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.32); color:#fff; font-family:'Syne'; font-size:1.15rem; cursor:pointer; transition:.45s; min-width:160px; touch-action:manipulation; }
-.btn:hover, .btn:active { background:#fff; color:#000; transform:translateY(-6px) scale(1.04); }
-.footer { margin-top:60px; font-size:0.95rem; opacity:0.4; }
-#music-toggle { position:fixed; bottom:25px; right:25px; z-index:100; width:52px; height:52px; background:rgba(0,212,212,0.18); border:2px solid #00d4d4; color:#00d4d4; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.4rem; cursor:pointer; backdrop-filter:blur(12px); transition:.3s; }
-#music-toggle:hover { background:rgba(0,212,212,0.35); transform:scale(1.1); }
+
+.container {
+  position: relative; z-index: 10;
+  max-width: 1120px; margin: auto;
+  padding: 90px 24px 140px;
+  text-align: center;
+}
+
+/* ── Hero ── */
+.logo {
+  font-family: 'Syne';
+  font-size: clamp(3.8rem, 10vw, 8rem);
+  font-weight: 800;
+  letter-spacing: -5px;
+  line-height: 1;
+  background: linear-gradient(135deg, #ffffff 0%, #a8f5f5 45%, #00e5e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 28px rgba(0,229,229,0.45));
+  animation: fadein 1s ease both;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 10px 30px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-accent);
+  background: rgba(0,229,229,0.10);
+  color: var(--accent);
+  font-family: 'Syne';
+  font-weight: 700;
+  font-size: clamp(0.85rem, 3vw, 1.05rem);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: fadein 1.2s ease both;
+  backdrop-filter: blur(8px);
+}
+
+.dates {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  animation: fadein 1.4s ease both;
+}
+
+.divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 40px auto;
+  animation: fadein 1.5s ease both;
+}
+
+/* ── Grid ── */
+.grid {
+  display: flex; gap: 28px;
+  margin-top: 56px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadein 1.6s ease both;
+}
+
+/* ── Cards ── */
+.card {
+  flex: 1; min-width: 290px; max-width: 520px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: clamp(28px, 5vw, 42px);
+  text-align: left;
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  transition: transform 0.45s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.45s ease,
+              border-color 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--border-accent);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,229,229,0.12) inset;
+}
+
+.card h2 {
+  font-family: 'Syne';
+  font-size: clamp(1.4rem, 4vw, 1.7rem);
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.card-body p {
+  margin-bottom: 12px;
+  color: rgba(255,255,255,0.80);
+  font-size: 0.97rem;
+}
+.card-body p strong { color: #fff; font-weight: 500; }
+.card-body p:last-child { margin-bottom: 0; }
+
+/* ── FAQ ── */
+.faq { display: flex; flex-direction: column; gap: 8px; }
+
+.faq-question {
+  width: 100%; text-align: left;
+  padding: 15px 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.13);
+  color: #fff;
+  font-family: 'Syne';
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.25s, border-color 0.25s;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+}
+.faq-question::after {
+  content: '+';
+  font-size: 1.3rem; font-weight: 300;
+  color: var(--accent);
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+.faq-item.active .faq-question::after { transform: rotate(45deg); }
+.faq-question:hover { background: rgba(0,229,229,0.12); border-color: var(--border-accent); }
+
+.faq-answer {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.35s ease, padding 0.3s ease;
+  padding: 0 18px;
+  color: rgba(255,255,255,0.72);
+  font-size: 0.91rem;
+  background: rgba(0,229,229,0.04);
+  border-left: 2px solid var(--border-accent);
+  border-radius: 0 0 12px 12px;
+}
+.faq-item.active .faq-answer {
+  max-height: 200px; opacity: 1;
+  padding: 14px 18px;
+}
+
+/* ── Signature ── */
+.signature {
+  margin-top: 80px;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--accent2);
+  text-shadow: 0 4px 32px rgba(0,0,0,0.7), 0 0 40px rgba(0,229,229,0.3);
+  letter-spacing: -1px;
+  animation: fadein 2s ease both;
+}
+
+/* ── Buttons ── */
+.projects {
+  margin-top: 52px;
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  animation: fadein 2.2s ease both;
+}
+
+.btn {
+  padding: 16px 44px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: #fff;
+  font-family: 'Syne';
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.23,1,0.32,1);
+  backdrop-filter: blur(10px);
+  touch-action: manipulation;
+}
+.btn:hover, .btn:active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 16px 40px rgba(0,229,229,0.3);
+}
+
+/* ── Music ── */
+#music-toggle {
+  position: fixed; bottom: 26px; right: 26px; z-index: 100;
+  width: 50px; height: 50px;
+  background: rgba(0,20,20,0.55);
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(0,229,229,0.2);
+}
+#music-toggle:hover {
+  background: var(--accent);
+  color: #000;
+  transform: scale(1.12);
+  box-shadow: 0 0 32px rgba(0,229,229,0.45);
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 <body>
+
 <canvas id="stars-canvas"></canvas>
-<div class="overlay"></div>
+
 <div class="container">
+
   <div class="logo">PH-SCIENCE</div>
-  <div class="tag">THE END</div>
+  <div class="tag">The End</div>
+  <div class="dates">March 4 — April 15, 2026</div>
+
+  <div class="divider"></div>
+
   <div class="grid">
+
     <div class="card">
       <h2>Shutdown Notice</h2>
-      <p><strong>ph-science is closing permanently</strong></p>
-      <p>Unfortunately, we have reached a difficult decision regarding ph-science closure.</p>
-      <p>In recent months, the game provider introduced drastic changes which resulted in locking access to their JSON files and APIs. This prevents any further work in order to maintain and expand the website's functionality.</p>
-      <p>Therefore, we will be ceasing our development activities and closing ph-science down for good.</p>
-      <p>It goes without saying that this decision will have its cons – we had fun exploring, chatting, and making games at ph-science. It provided a unique opportunity to socialize and enjoy the company. Of course, all this would not be possible without the community.</p>
-      <p>While ph-science is coming to an end, the development is not stopping. We currently focus our efforts on creating another project – a movie site with innovative functionality and creative possibilities.</p>
-      <p>Moreover, there's a possibility of reopening the ph-science forums sometime in the future along with the additional features such as image upload, voice messaging and improved communication.</p>
-      <p>Thanks to all those people who participated in building ph-science community in any form – you made this platform unique in its essence.</p>
-      <p>It's strange to think how fast everything happened – ph-science started on March 4 and ended on April 15, 2026. Short but real.</p>
-    </div>
-    <div class="card">
-      <h2>Questions & Answers</h2>
-      <div class="faq">
-        <div class="faq-item"><button class="faq-question">Will my data be deleted?</button><div class="faq-answer">Yes. All data permanently erased already.</div></div>
-        <div class="faq-item"><button class="faq-question">Can I recover my account?</button><div class="faq-answer">No. Everything is gone.</div></div>
-        <div class="faq-item"><button class="faq-question">Why did this happen?</button><div class="faq-answer">Backend changes made it impossible to run.</div></div>
-        <div class="faq-item"><button class="faq-question">Will forums return?</button><div class="faq-answer">Possibly in the new movie project.</div></div>
-        <div class="faq-item"><button class="faq-question">What's the new project?</button><div class="faq-answer">Fresh movie platform dropping soon.</div></div>
-        <div class="faq-item"><button class="faq-question">Is this permanent?</button><div class="faq-answer">This version is dead for good.</div></div>
+      <div class="card-body">
+        <p><strong>ph-science is closing permanently.</strong></p>
+        <p>In recent months, the game provider introduced drastic changes which resulted in locking access to their JSON files and APIs. This prevents any further work to maintain and expand the website's functionality.</p>
+        <p>Therefore, we will be ceasing our development activities and closing ph-science down for good.</p>
+        <p>We had fun exploring, chatting, and making games at ph-science. It provided a unique opportunity to socialize and enjoy the company — none of which would be possible without the community.</p>
+        <p>While ph-science is coming to an end, the development is not stopping. We currently focus our efforts on creating another project — a movie site with innovative functionality and creative possibilities.</p>
+        <p>There's also a possibility of reopening the ph-science forums in the future, with image upload, voice messaging, and improved communication.</p>
+        <p>Thanks to all those who participated in building the ph-science community in any form — you made this platform unique.</p>
+        <p>It's strange to think how fast everything happened. <em>Short but real.</em></p>
       </div>
     </div>
+
+    <div class="card">
+      <h2>Questions &amp; Answers</h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-question">Will my data be deleted?</button>
+          <div class="faq-answer">Yes. All data has been permanently erased.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Can I recover my account?</button>
+          <div class="faq-answer">No. Everything is gone — accounts, posts, saves, all of it.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Why did this happen?</button>
+          <div class="faq-answer">Backend API changes by the game provider made it impossible to keep running.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Will forums return?</button>
+          <div class="faq-answer">Possibly — as part of the new movie project, with better features.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">What's the new project?</button>
+          <div class="faq-answer">A fresh movie platform. Dropping soon.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Is this permanent?</button>
+          <div class="faq-answer">This version of ph-science is gone for good. What comes next is something new.</div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
   <div class="signature">i hate being bi-polar, its awesome</div>
+
   <div class="projects">
     <button class="btn" onclick="alert('Forums — Coming in new project')">Forums</button>
     <button class="btn" onclick="alert('Movies dropping soon')">Movies</button>
   </div>
-  <div class="footer">March 4 — April 15, 2026</div>
+
 </div>
 
-<audio id="bg-music" loop>
-  <source src="Music/All Dreams Real.mp3" type="audio/mpeg">
-  <source src="https://cdn.glitch.global/8f8f8f8f-8f8f-8f8f-8f8f-8f8f8f8f8f8f/all-dreams-real.mp3" type="audio/mpeg">
+<audio id="bg-music" loop preload="auto">
+  <source src="ph-Science.github.io/Music/All Dreams Real.mp3" type="audio/mpeg">
 </audio>
-<div id="music-toggle" onclick="toggleMusic()">▶</div>
+<div id="music-toggle" title="Play / Pause">▶</div>
 
 <script>
-// Stars tuned lighter
+/* ── Stars ── */
 const canvas = document.getElementById('stars-canvas');
 const ctx = canvas.getContext('2d');
-let width, height;
-function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
 resize(); window.addEventListener('resize', resize);
-class Star { constructor() { this.reset(); this.trail = []; } reset() { this.x = Math.random() * width; this.y = Math.random() * height * 0.6; this.size = Math.random() * 2 + 0.7; this.speed = Math.random() * 2 + 0.9; this.opacity = Math.random() * 0.7 + 0.5; this.twinkle = Math.random() * 0.05 + 0.02; this.trail = []; } update() { this.trail.push({x: this.x, y: this.y}); if (this.trail.length > 14) this.trail.shift(); this.y += this.speed; this.opacity = 0.5 + Math.sin(Date.now() * this.twinkle) * 0.5; if (this.y > height + 50) this.reset(); } draw() { ctx.strokeStyle = 'rgba(120, 240, 255, 0.25)'; ctx.lineWidth = this.size * 0.8; ctx.lineCap = 'round'; ctx.shadowBlur = 10; ctx.shadowColor = '#66e0e0'; ctx.beginPath(); for (let i = 0; i < this.trail.length; i++) { const p = this.trail[i]; ctx.globalAlpha = (i / this.trail.length) * 0.4; if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); } ctx.stroke(); ctx.globalAlpha = 1; ctx.fillStyle = `rgba(200,255,255,${this.opacity})`; ctx.shadowBlur = 15; ctx.shadowColor = '#00ffff'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }}
-const stars = []; const starCount = window.innerWidth < 768 ? 110 : 180; for (let i = 0; i < starCount; i++) stars.push(new Star());
-function animate() { ctx.fillStyle = 'rgba(0,0,0,0.09)'; ctx.fillRect(0, 0, width, height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animate); } animate();
 
-// Music locked
-const music = document.getElementById('bg-music');
-const toggleBtn = document.getElementById('music-toggle');
-
-function unlockAndPlay() {
-  music.volume = 0.55;
-  music.play().catch(() => {});
-  document.removeEventListener('touchstart', unlockAndPlay);
-  document.removeEventListener('click', unlockAndPlay);
+class Star {
+  constructor() { this.init(); }
+  init() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.r = Math.random() * 1.6 + 0.4;
+    this.vy = Math.random() * 1.4 + 0.5;
+    this.alpha = Math.random() * 0.6 + 0.3;
+    this.phase = Math.random() * Math.PI * 2;
+    this.trail = [];
+  }
+  update() {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > 12) this.trail.shift();
+    this.y += this.vy;
+    this.alpha = 0.4 + Math.sin(Date.now() * 0.002 + this.phase) * 0.3;
+    if (this.y > H + 30) this.init();
+  }
+  draw() {
+    ctx.lineCap = 'round';
+    for (let i = 1; i < this.trail.length; i++) {
+      const t = i / this.trail.length;
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(100,230,230,${t * 0.18})`;
+      ctx.lineWidth = this.r * t;
+      ctx.moveTo(this.trail[i-1].x, this.trail[i-1].y);
+      ctx.lineTo(this.trail[i].x, this.trail[i].y);
+      ctx.stroke();
+    }
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(210,255,255,${this.alpha})`;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = '#00e5e5';
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  }
 }
 
-function toggleMusic() {
-  if (music.paused) { music.play(); toggleBtn.textContent = '❚❚'; }
-  else { music.pause(); toggleBtn.textContent = '▶'; }
-}
+const NUM = window.innerWidth < 768 ? 90 : 160;
+const stars = Array.from({ length: NUM }, () => new Star());
 
-document.addEventListener('touchstart', unlockAndPlay, { once: true });
-document.addEventListener('click', unlockAndPlay, { once: true });
+(function loop() {
+  ctx.fillStyle = 'rgba(0,0,0,0.08)';
+  ctx.fillRect(0, 0, W, H);
+  stars.forEach(s => { s.update(); s.draw(); });
+  requestAnimationFrame(loop);
+})();
+
+/* ── Music ── */
+const music  = document.getElementById('bg-music');
+const toggle = document.getElementById('music-toggle');
+music.volume = 0.55;
+
+function syncIcon() { toggle.textContent = music.paused ? '▶' : '❚❚'; }
+music.addEventListener('play',  syncIcon);
+music.addEventListener('pause', syncIcon);
+music.addEventListener('ended', syncIcon);
+
+toggle.addEventListener('click', e => {
+  e.stopPropagation();
+  music.paused ? music.play().catch(() => {}) : music.pause();
+});
+
+function tryAutoplay() {
+  if (music.paused) music.play().catch(() => {});
+  document.removeEventListener('click',      tryAutoplay);
+  document.removeEventListener('touchstart', tryAutoplay);
+  document.removeEventListener('keydown',    tryAutoplay);
+}
+document.addEventListener('click',      tryAutoplay);
+document.addEventListener('touchstart', tryAutoplay, { passive: true });
+document.addEventListener('keydown',    tryAutoplay);
 music.play().catch(() => {});
 
-document.querySelectorAll(".faq-question").forEach(btn => {
-  btn.addEventListener("click", () => { btn.parentElement.classList.toggle("active"); });
+/* ── FAQ ── */
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => btn.parentElement.classList.toggle('active'));
 });
 </script>
 </body>
